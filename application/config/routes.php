@@ -56,6 +56,7 @@ $route['404_override'] = 'home/error_404';
 $route['translate_uri_dashes'] = FALSE;
 $route['index'] = 'home/index';
 $route['error-404'] = 'home/error_404';
+$route['blank'] = 'blank/index';
 
 
 
