@@ -57,42 +57,6 @@ $route['translate_uri_dashes'] = FALSE;
 $route['index'] = 'home/index';
 $route['error-404'] = 'home/error_404';
 
-
-
-$route['posts'] = 'home/posts';
-$route['post/(:any)'] = 'home/post/$1';
-$route['video/(:any)'] = 'home/video/$1';
-$route['videos'] = 'home/videos';
-$route['video/(:any)/(:num)'] = 'home/video/$1/$2';
-$route['profile/(:any)'] = 'home/profile/$1';
-$route['gallery'] = 'home/gallery';
-$route['contact'] = 'home/contact';
-$route['category/(:any)'] = 'home/category/$1';
-$route['tag/(:any)'] = 'home/tag/$1';
-$route['reading-list'] = 'home/reading_list';
-$route['reading-history'] = 'home/reading_history';
-$route['leaderboard'] = 'home/leaderboard';
-$route['search'] = 'home/search';
-$route['download-audio']['post'] = 'home/download_audio';
-$route['termsofuse'] = 'home/term_of_use';
-$route['termofuse'] = 'home/term_of_use';
-$route['aboutus'] = 'home/aboutus';
-$route['en/aboutus'] = 'home/aboutus';
-$route['en/termsofuse'] = 'home/term_of_use';
-$route['privacy_policy'] = 'home/privacy_policy';
-$route['about-ajar'] = 'home/aboutus';
-$route['kita-bisa'] = 'home/kita_bisa';
-$route['post/$1'] = '$1';
-
-
-//rss routes
-$route['rss-feeds'] = 'home/rss_feeds';
-$route['rss/posts'] = 'rss/rss_all_posts';
-$route['rss/popular-posts'] = 'rss/rss_popular_posts';
-$route['rss/latest-posts'] = 'rss/rss_latest_posts';
-$route['rss/category/(:any)'] = 'rss/rss_by_category/$1';
-$route['rss/videos'] = 'rss/rss_videos';
-
 //auth routes
 $route['login'] = 'auth/login';
 $route['register'] = 'auth/register';
@@ -105,12 +69,10 @@ $route['admin'] = 'admin/index';
 $route['admin/login'] = 'auth/admin_login';
 
 
-$route['resultquiz'] = 'home/result_quiz';
-
 //Api Regsiter
 $route['api/register'] = 'ApiController/registrasi';
 //Api Login Parameter Body : email & password | method POST 
-$route['api/login'] = 'ApiController/postLogin';
+$route['api/login'] = 'ApiController/login';
 //Api Profile Access Header Parameter : token & userid | method GET
 $route['api/profile'] = 'ApiController/getProfile';
 //API Profile Update Access Header Parameter : token & userid | Method POST

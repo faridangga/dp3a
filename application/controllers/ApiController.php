@@ -59,9 +59,33 @@ class ApiController extends CI_Controller
 		return $res;
 
 	}
-	private function login($id)
+	private function login()
 	{
-		
+		error_reporting(1);
+		$arr = array();
+		 $nomor = $this->input->post('nomor_telp');
+		 $password = $this->input->post('password');
+
+		  	$sql = $this->Api_model->LoginCheck($nomor,$password);
+		 	if($sql->status == '1')
+		 	{
+				$arr = array(
+		 			'status' => '0',
+                     'message'=>'sukses',
+					'data'=>Array('id' => $sql->id_user
+					)
+		 		);
+		 	}
+		 	elseif($sql->status == '0')
+		 	{
+		 		$arr = array('status' => '1','message' => 'Akun Anda Tidak Aktif');	
+		 	}
+		 	else
+		 	{
+		 		$arr = array('status' => false,'message' => 'Kombinasi nomor telepon dan password tidak sesuai');
+		 	}
+		 
+		 echo json_encode($arr);
 	}
 	public function getProfile()
 	{

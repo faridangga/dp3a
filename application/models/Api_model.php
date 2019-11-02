@@ -7,16 +7,12 @@ class Api_model extends CI_Model {
 		$this->load->model('Auth_model');
 		$this->load->library('bcrypt');
 	}
-	public function LoginCheck($email,$password)
+	public function LoginCheck($nomor,$password)
 	{
-		$user = $this->Auth_model->get_user_by_email($email);
-		if (!$this->bcrypt->check_password($password, $user->password)) {
-            return false;
-        }
-        else
-        {
-        	return $user;
-        }
+		$this->db->where('nomor_telp', $nomor);
+        $this->db->where('password', md5($password));
+        $query = $this->db->get('users');
+        return $query->row();
 		
 	}
 	public function register($data){
