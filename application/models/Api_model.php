@@ -7,25 +7,6 @@ class Api_model extends CI_Model {
 		$this->load->model('Auth_model');
 		$this->load->library('bcrypt');
 	}
-	public function set_filter_query()
-    {
-        $this->db->join('users', 'posts.user_id = users.id');
-        $this->db->join('categories', 'posts.category_id = categories.id');
-        $this->db->select('posts.*, categories.name as category_name, categories.color as category_color, users.username as username, users.slug as user_slug');
-        $this->db->where('posts.created_at <= CURRENT_TIMESTAMP()');
-        $this->db->where('posts.visibility', 1);
-        $this->db->where('posts.status', 1);
-        //$this->db->where('posts.lang_id', $this->selected_lang->id);
-	}
-	public function checkOTP($email,$otp)
-	{
-		$sql = $this->db->select("*")
-							->from("users")
-							->where("email",$email)
-							->where("otp", $otp)
-							->get();
-		return $sql;
-	}
 	public function LoginCheck($email,$password)
 	{
 		$user = $this->Auth_model->get_user_by_email($email);
@@ -48,10 +29,19 @@ class Api_model extends CI_Model {
 	}
 	public function get_user($id)
     {
-        $this->db->where('id', $id);
+        $this->db->where('id_user', $id);
         $query = $this->db->get('users');
         return $query->row();
-    }
+	}
+	public function cekNomor($nomor)
+	{
+		$sql = $this->db->select("*")
+							->from("users")
+							->where("nomor_telp",$nomor)
+							->where("status",1)
+							->get();
+		return $sql;
+	}
 	public function checkToken($id)
 	{
 		$sql = $this->db->select("*")

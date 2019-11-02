@@ -107,7 +107,8 @@ $route['admin/login'] = 'auth/admin_login';
 
 $route['resultquiz'] = 'home/result_quiz';
 
-
+//Api Regsiter
+$route['api/register'] = 'ApiController/registrasi';
 //Api Login Parameter Body : email & password | method POST 
 $route['api/login'] = 'ApiController/postLogin';
 //Api Profile Access Header Parameter : token & userid | method GET

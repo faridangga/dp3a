@@ -35,5 +35,14 @@ class Home extends CI_Controller
         echo 'home';
         $this->load->view('home');
     }
+    public function error_404()
+    {
+        $data['title'] = "Error 404";
+        $data['description'] = "Error 404";
+        $data['keywords'] = "error,404";
+
+        $this->load->view('errors/error_404');
+        
+    }
 
 }
