@@ -59,7 +59,7 @@ class ApiController extends CI_Controller
 		return $res;
 
 	}
-	private function login()
+	public function login()
 	{
 		error_reporting(1);
 		$arr = array();
@@ -71,7 +71,7 @@ class ApiController extends CI_Controller
 		 	{
 				$arr = array(
 		 			'status' => '0',
-                     'message'=>'sukses',
+                    'message'=>'sukses',
 					'data'=>Array('id' => $sql->id_user
 					)
 		 		);
@@ -82,7 +82,7 @@ class ApiController extends CI_Controller
 		 	}
 		 	else
 		 	{
-		 		$arr = array('status' => false,'message' => 'Kombinasi nomor telepon dan password tidak sesuai');
+		 		$arr = array('status' => '1','message' => 'Kombinasi nomor telepon dan password tidak sesuai');
 		 	}
 		 
 		 echo json_encode($arr);
