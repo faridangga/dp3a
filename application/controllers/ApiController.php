@@ -63,8 +63,8 @@ class ApiController extends CI_Controller
 	{
 		error_reporting(1);
 		$arr = array();
-		 $nomor = $this->input->post('nomor_telp');
-		 $password = $this->input->post('password');
+		$nomor = $this->input->post('nomor_telp');
+		$password = $this->input->post('password');
 
 		  	$sql = $this->Api_model->LoginCheck($nomor,$password);
 		 	if($sql->status == '1')
@@ -89,7 +89,31 @@ class ApiController extends CI_Controller
 	}
 	public function getProfile()
 	{
-		
+		$arr = array();
+		$id=$this->input->post('id');
+		//$id = $total = $this->uri->segment(3);
+		$token=$this->input->post('token');
+		$sql = $this->Api_model->get_user($id);
+		if($sql->num_rows() > 0)
+		{
+			$bio[] = array(
+					'nama' => $sql->row()->nama,
+					'nomor_telp' => $sql->row()->nomor_telp,
+					'alamat'=>$sql->row()->alamat,
+					'tanggal_lahir' => $sql->row()->tanggal_lahir
+			);
+				$arr = array(
+					'status' => '0',
+                    'message'=> 'sukses',
+                    'data' => $bio
+				);
+		}
+			else
+			{
+				$arr = array('status' => '1','message' => 'Your Access Is Not Authorized.');
+			}
+		//}
+		echo json_encode($arr);
 	}
 	public function UpdateProfile()
 	{

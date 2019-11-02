@@ -27,7 +27,7 @@ class Api_model extends CI_Model {
     {
         $this->db->where('id_user', $id);
         $query = $this->db->get('users');
-        return $query->row();
+        return $query;
 	}
 	public function cekNomor($nomor)
 	{

@@ -176,7 +176,7 @@ class ApiApps extends CI_Controller
 		echo json_encode($arr);
 	}
 	public function activityReport(){
-		$id = $total = $this->uri->segment(3);;
+		$id = $total = $this->uri->segment(3);
 		$arr = array();
 		$sql = $this->Api_model->rank();
 		foreach($sql->result() as $user){
