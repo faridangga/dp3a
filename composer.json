@@ -1,0 +1,6 @@
+{
+    "name": "vive/ajar-article",
+    "require": {
+        "ipinfo/ipinfo": "^1.1"
+    }
+}

@@ -1,0 +1,5 @@
+config.php
+- enable_hook = false
+
+hook.php
+dikosongi
