@@ -1,0 +1,10 @@
+RewriteEngine on
+
+RewriteCond $1 !^(index.php|assets|images|js|css|uploads|favicon.png|install|sitemap.xml|robots.txt|update.php|update)
+RewriteCond %(REQUEST_FILENAME) !-f
+RewriteCond %(REQUEST_FILENAME) !-d
+#RewriteCond %{HTTPS} !=on
+
+RewriteRule ^(.*)$ index.php?/$1 [L]
+#RewriteRule ^(.*)$ https://%{SERVER_NAME}/index.php?/$1 [R,L]
+
