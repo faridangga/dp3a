@@ -27,7 +27,7 @@ class ApiController extends CI_Controller
         $data['status'] = 1;
 		//$data['token'] = $this->generateToken(32);
 		$cekNomor = $this->cekNomor($data['nomor_telp']);
-		if($cekNomor!=true){
+		if($cekNomor==true){
 		$register = $this->Api_model->register($data);
 		if($register!=false){
 			$arr = array(
