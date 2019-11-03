@@ -1,10 +1,16 @@
 <section class="content-header">
-	<h1>
-		<?php echo $title ?>
-	</h1>
-	<ol class="breadcrumb">
-		<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-		<!-- <li><a href="#"><?php echo explode('/', $cname)[0] ?></a></li> -->
-		<li class="active"><?php echo $cname ?></li>
-	</ol>
+	<div class="container-fluid">
+		<div class="row mb-2">
+			<div class="col-sm-6">
+				<h1><?php echo $title ?></h1>
+			</div>
+			<div class="col-sm-6">
+				<ol class="breadcrumb float-sm-right">
+					<li class="breadcrumb-item"><a href="#">Home</a></li>
+					<!-- <li class="breadcrumb-item"><?php echo explode('/', $cname)[0] ?></li> -->
+					<li class="breadcrumb-item active"><?php echo $cname ?></li>
+				</ol>
+			</div>
+		</div>
+	</div><!-- /.container-fluid -->
 </section>
