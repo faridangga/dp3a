@@ -49,14 +49,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-
-
-$route['default_controller'] = 'home';
-$route['404_override'] = 'home/error_404';
+$route['default_controller'] = 'Dashboard';
+$route['404_override'] = 'error_page/error404';
 $route['translate_uri_dashes'] = FALSE;
 $route['index'] = 'home/index';
-$route['error-404'] = 'home/error_404';
-$route['blank'] = 'blank/index';
+$route['error-404'] = 'error_page/error404';
+
+// $route['blank'] = 'blank/index';
+$route['golongan'] = 'admin/golongan';
+$route['jabatan'] = 'admin/jabatan';
+$route['kategori'] = 'admin/kategori';
 
 //auth routes
 $route['login'] = 'auth/login';
@@ -130,3 +132,4 @@ require APPPATH . 'config/routes_lang.php';
 
 
 $route['(:any)'] = 'home/post/$1';
+

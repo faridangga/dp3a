@@ -9,8 +9,17 @@
   <link rel="stylesheet" href="<?php echo base_url('assets/plugins/fontawesome-free/css/all.min.css') ?>">
   <!-- Theme style -->
   <link rel="stylesheet" href="<?php echo base_url('assets/css/adminlte.min.css') ?>">
+  <!-- Datatables -->
+  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') ?>">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/select2/css/select2.min.css') ?>">
+  <!-- SweetAlert2 -->
+  <!-- <link rel="stylesheet" href="<?php echo base_url('assets/plugins/sweetalert2/sweetalert2.min.css') ?>"> -->
+  <!-- sweetalert -->
+  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/sweetalert/sweetalert.css') ?>">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  
 
   <!-- jQuery -->
   <script src="<?php echo base_url('assets/plugins/jquery/jquery.min.js') ?>"></script>
