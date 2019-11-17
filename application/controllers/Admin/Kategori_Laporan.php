@@ -15,9 +15,9 @@ class Kategori_Laporan extends CI_Controller {
 	public function index()
 	{
 		$data = [
-			'title' => "Kategori",
+			'title' => "Kategori Laporan",
 			'cname' => $this->cname,
-			'pages' => "admin/kategori_laporan/index",
+			'pages' => "admin/Kategori_Laporan/index",
 			'data' => array(),
 		];
 		$this->load->view('layouts/dashboard',$data);
@@ -38,24 +38,51 @@ class Kategori_Laporan extends CI_Controller {
 
 	public function insert()
 	{
+		$id = $this->input->post('id_kategori');
 		$data = [
-			'id_kategori' => $this->input->post('id_kategori'),
 			'nama_kategori' => $this->input->post('nama_kategori'),
 			'status' => $this->input->post('status'),
 		];
-		// echo var_dump($data);
-		$this->Kategori_Laporan_model->insert($data);
-		// $this->load->view('layouts/dashboard');
+
+		if ($id == "") {
+			$insert = $this->Kategori_Laporan_model->insert($data);
+			if($insert){
+				$ret = [
+					'title' => "Insert",
+					'text' => "Insert success",
+					'icon' => "success",
+				];
+			}else{
+				$ret = [
+					'title' => "Insert",
+					'text' => "Insert failed",
+					'icon' => "warning",
+				];
+			}   
+		}else {
+			$update = $this->Kategori_Laporan_model->update($id, $data);
+			if($update){
+				$ret = [
+					'title' => "Update",
+					'text' => "Update success",
+					'icon' => "success",
+				];
+			}else{
+				$ret = [
+					'title' => "Update",
+					'text' => "Update failed",
+					'icon' => "warning",
+				];
+			}
+		}
+		echo json_encode($ret);
 	}
 
 	public function delete_kategori()
 	{
-		$id_kategori = $this->input->post('id_kategori');
+		$id = $this->input->post('id_kategori');
 
-		$delete = $this->db
-		->where('id_kategori')
-		->delete('kategori');
-		// echo var_dump($id_kategori);
+		$delete = $this->Kategori_Laporan_model->delete($id);
 		if($delete){
 			$ret = [
 				'text' => "Delete success",
@@ -70,8 +97,6 @@ class Kategori_Laporan extends CI_Controller {
 			];
 		}
 		echo json_encode($ret);
-
-		$this->Golongan_model->delete($id);
 	}
 
 }

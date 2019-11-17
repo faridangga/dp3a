@@ -9,6 +9,7 @@ class Kategori_Laporan_model extends CI_Model {
 	{
 		$this->db->select('*');
 		$this->db->from($this->table);
+		$this->db->order_by('id_kategori','desc');
 		$query = $this->db->get();
 		return $query->result();
 	}
@@ -25,12 +26,19 @@ class Kategori_Laporan_model extends CI_Model {
 	public function insert($data)
 	{
 		$insert = $this->db->insert($this->table,$data);
-		// return $insert;
-		redirect('admin/kategori_laporan/index','refresh');
+		return $insert;
+	}
+
+	public function update($id, $data)
+	{
+        $this->db->where('id_kategori', $id);
+		$update = $this->db->update($this->table,$data);
+		return $update;
 	}
 	
 	public function delete($id)
 	{
+		$this->db->where('id_kategori',$id);
 		$delete = $this->db->delete($this->table);
 		return $delete;
 	}

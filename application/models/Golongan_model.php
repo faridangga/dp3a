@@ -3,13 +3,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Golongan_model extends CI_Model {
 
-
 	var $table = "golongan";
 
 	public function get_data()
 	{
 		$this->db->select('*');
 		$this->db->from($this->table);
+		$this->db->order_by('id_golongan','desc');
 		$query = $this->db->get();
 		return $query->result();
 	}
@@ -26,12 +26,19 @@ class Golongan_model extends CI_Model {
 	public function insert($data)
 	{
 		$insert = $this->db->insert($this->table,$data);
-		// return $insert;
-		redirect('admin/golongan/index','refresh');
+		return $insert;
+	}
+
+	public function update($id, $data)
+	{
+        $this->db->where('id_golongan', $id);
+		$update = $this->db->update($this->table,$data);
+		return $update;
 	}
 	
 	public function delete($id)
 	{
+		$this->db->where('id_golongan',$id);
 		$delete = $this->db->delete($this->table);
 		return $delete;
 	}

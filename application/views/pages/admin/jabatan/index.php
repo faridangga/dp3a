@@ -1,13 +1,13 @@
 <div class="container-fluid">
   <div class="row">
+
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
           <h3 class="card-title">Title</h3>
-
         </div>
         <div class="card-body">
-          <?php echo form_open($cname.'/insert',['id'=>'form-crud']); ?>
+          <?php echo form_open($cname.'/insert',['id'=>'form-jabatan']); ?>
           <input type="hidden" class="form-control" name="id_jabatan" placeholder="">
           <div class="form-group">
             <label>Nama jabatan</label>
@@ -16,19 +16,17 @@
           <div class="form-group">
             <label>Status</label>
             <select class="form-control" name="status">
-              <option value="1">1</option>
-              <option value="2">2</option>
+              <option value="1">Aktif</option>
+              <option value="0">Tidak Aktif</option>
             </select>
           </div>
-
           <button type="submit" class="btn btn-primary">Submit</button>
           <button type="reset" class="btn btn-secondary">Reset</button>
           <?php echo form_close(); ?>
         </div>
-        <!-- /.card-body -->
-
       </div>
     </div>
+
     <div class="col-md-12">
       <div class="card">
         <div class="card-body">
@@ -48,11 +46,15 @@
         </div>
       </div>
     </div>
+
   </div>
 </div>
 
 <script>
   var url_fill_form = '<?php echo base_url($cname.'/get_data_by_id') ?>';
+  var url_insert_jabatan = '<?php echo base_url($cname.'/insert') ?>';
+  var base_cname = "<?php echo base_url($cname) ?>";
+
   var table = "";
   $(document).ready(function() {
     var table_url = $('#table-data').data('url');
@@ -87,7 +89,18 @@
       },
       { 
         "title" : "Status",
-        "data": "status" 
+        data : (data, type, row, meta) => {
+          ret = "";
+          if(data.status == '1'){
+            ret += '<span class="badge bg-success">Aktif</span>';
+          }else 
+          if(data.status == '0'){
+            ret += '<span class="badge bg-danger">Tidak Aktif</span>';
+          }else{
+            ret += '<span class="badge bg-secondary">loss</span>';
+          }
+          return ret;
+        }  
       },
       {
         "title": "Actions",
@@ -104,7 +117,23 @@
       ]
     });
 
+    $('form#form-jabatan').submit(function(e){
+      var form = $(this);
+      e.preventDefault();
 
+      $.ajax({
+        url: url_insert_jabatan,
+        type: 'POST',
+        data: form.serialize(),
+        dataType : "JSON",
+        success: function (data) {
+          // let json = $.parseJSON(data);
+          swal(data.title,data.text,data.icon);
+          scroll_smooth('table',500);
+          form_reset();
+        }
+      });
+    });
   });
 
 
@@ -117,7 +146,7 @@
       },
       success: function (data) {
         var json = $.parseJSON(data);
-        let form = $('#form-crud');
+        let form = $('#form-jabatan');
         form.find('[name="id_jabatan"]').val(json.id_jabatan);
         form.find('[name="nama_jabatan"]').val(json.nama_jabatan);
         form.find('[name="status"]').val(json.status);
@@ -139,16 +168,22 @@
           url : base_cname+"/delete_jabatan",
           type : 'POST',
           data : {
-            id_jabatan : $(obj).data('id_jabatan'),
+            id_jabatan : $(obj).data('id'),
           },
           dataType : "JSON",
           success : (data) => {
             swal(data.title,data.text,data.icon);
-            table.ajax.reload(null,false);
+            scroll_smooth('table',500);
+            form_reset();
           }
         });
       }
     });
+  }
+
+  var form_reset = () => {
+    table.ajax.reload(null,false);
+    $('form#form-jabatan').find('input,select').val('');
   }
 
 </script>

@@ -7,7 +7,7 @@
 
         </div>
         <div class="card-body">
-          <?php echo form_open($cname.'/insert',['id'=>'form-crud']); ?>
+          <?php echo form_open($cname.'/insert',['id'=>'form-kategori-laporan']); ?>
           <input type="hidden" class="form-control" name="id_kategori" placeholder="">
           <div class="form-group">
             <label>Nama Kategori</label>
@@ -54,6 +54,7 @@
 <script>
 
   var url_fill_form = '<?php echo base_url($cname.'/get_data_by_id') ?>';
+  var url_insert_kategori_laporan = '<?php echo base_url($cname.'/insert') ?>';
   var base_cname = "<?php echo base_url($cname) ?>";
   var table = "";
   $(document).ready(function() {
@@ -88,8 +89,19 @@
         "data": "nama_kategori" 
       },
       { 
-        "title" : "Status",
-        "data": "status" 
+        "title" : "Status", 
+        data : (data, type, row, meta) => {
+          ret = "";
+          if(data.status == '1'){
+            ret += '<span class="badge bg-success">Aktif</span>';
+          }else 
+          if(data.status == '0'){
+            ret += '<span class="badge bg-danger">Tidak Aktif</span>';
+          }else{
+            ret += '<span class="badge bg-secondary">loss</span>';
+          }
+          return ret;
+        } 
       },
       {
         "title": "Actions",
@@ -107,7 +119,23 @@
       ]
     });
 
+    $('form#form-kategori-laporan').submit(function(e){
+      var form = $(this);
+      e.preventDefault();
 
+      $.ajax({
+        url: url_insert_kategori_laporan,
+        type: 'POST',
+        data: form.serialize(),
+        dataType : "JSON",
+        success: function (data) {
+          // let json = $.parseJSON(data);
+          swal(data.title,data.text,data.icon);
+          scroll_smooth('table',500);
+          form_reset();
+        }
+      });
+    });
   });
 
 
@@ -120,7 +148,7 @@
       },
       success: function (data) {
         var json = $.parseJSON(data);
-        let form = $('#form-crud');
+        let form = $('#form-kategori-laporan');
         form.find('[name="id_kategori"]').val(json.id_kategori);
         form.find('[name="nama_kategori"]').val(json.nama_kategori);
         form.find('[name="status"]').val(json.status);
@@ -142,16 +170,22 @@
           url : base_cname+"/delete_kategori",
           type : 'POST',
           data : {
-            id_kategori : $(obj).data('id_kategori'),
+            id_kategori : $(obj).data('id'),
           },
           dataType : "JSON",
           success : (data) => {
             swal(data.title,data.text,data.icon);
-            table.ajax.reload(null,false);
+            form_reset();
           }
         });
       }
     });
+  }
+
+
+  var form_reset = () => {
+    table.ajax.reload(null,false);
+    $('form#form-kategori-laporan').find('input,select').val('');
   }
 
 </script>

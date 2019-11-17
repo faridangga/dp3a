@@ -8,7 +8,7 @@
 				<ol class="breadcrumb float-sm-right">
 					<li class="breadcrumb-item"><a href="#">Home</a></li>
 					<!-- <li class="breadcrumb-item"><?php echo explode('/', $cname)[0] ?></li> -->
-					<li class="breadcrumb-item active"><?php echo $cname ?></li>
+					<li class="breadcrumb-item active"><?php echo $title ?></li>
 				</ol>
 			</div>
 		</div>

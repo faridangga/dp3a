@@ -4,10 +4,9 @@
       <div class="card">
         <div class="card-header">
           <h3 class="card-title">Title</h3>
-
         </div>
         <div class="card-body">
-          <?php echo form_open($cname.'/insert',['id'=>'form-crud']); ?>
+          <?php echo form_open($cname.'/insert',['id' => 'form-golongan']); ?>
           <input type="hidden" class="form-control" name="id_golongan" placeholder="">
           <div class="form-group">
             <label>Nama Golongan</label>
@@ -15,21 +14,17 @@
           </div>
           <div class="form-group">
             <label>Status</label>
-            <select class="form-control" name="status">
+            <select class="form-control" id="status" name="status">
               <option value="1">1</option>
               <option value="2">2</option>
             </select>
           </div>
-
           <button type="submit" class="btn btn-primary">Submit</button>
           <button type="reset" class="btn btn-secondary">Reset</button>
           <?php echo form_close(); ?>
         </div>
-        <!-- /.card-body -->
 
       </div>
-    </div>
-    <div class="col-md-12">
       <div class="card">
         <div class="card-body">
           <div class="table-responsive">
@@ -51,9 +46,11 @@
   </div>
 </div>
 
+
 <script>
 
   var url_fill_form = '<?php echo base_url($cname.'/get_data_by_id') ?>';
+  var url_insert_golongan = '<?php echo base_url($cname.'/insert') ?>';
   var base_cname = "<?php echo base_url($cname) ?>";
   var table = "";
   $(document).ready(function() {
@@ -107,9 +104,33 @@
       ]
     });
 
+    $('form#form-golongan').submit(function(e){
+      // let form = $('#form-golongan');
+      // form.find('[name="nama_golongan"]').val();
+      // // form.find('[name="status"]').val();
+      // var nama_golongan = $('#nama_golongan').val();
+      // var status = $('#status').val();
 
+      // var val = $(this).find("input[type=submit]:focus" ).val();
+      var form = $(this);
+      e.preventDefault();
+
+      // var formData = new FormData(this);
+
+      $.ajax({
+        url: url_insert_golongan,
+        type: 'POST',
+        data: form.serialize(),
+        dataType : "JSON",
+        success: function (data) {
+          // let json = $.parseJSON(data);
+          swal(data.title,data.text,data.icon);
+          scroll_smooth('table',500);
+          form_reset();
+        }
+      });
+    });
   });
-
 
   var fill_form = (id_golongan) => {
     $.ajax({
@@ -120,7 +141,7 @@
       },
       success: function (data) {
         var json = $.parseJSON(data);
-        let form = $('#form-crud');
+        let form = $('#form-golongan');
         form.find('[name="id_golongan"]').val(json.id_golongan);
         form.find('[name="nama_golongan"]').val(json.nama_golongan);
         form.find('[name="status"]').val(json.status);
@@ -142,16 +163,22 @@
           url : base_cname+"/delete_golongan",
           type : 'POST',
           data : {
-            id_golongan : $(obj).data('id_golongan'),
+            id_golongan : $(obj).data('id'),
           },
           dataType : "JSON",
           success : (data) => {
             swal(data.title,data.text,data.icon);
-            table.ajax.reload(null,false);
+            scroll_smooth('table',500);
+            form_reset();
           }
         });
       }
     });
+  }
+
+  var form_reset = () => {
+    table.ajax.reload(null,false);
+    $('form#form-golongan').find('input,select').val('');
   }
 
 </script>
