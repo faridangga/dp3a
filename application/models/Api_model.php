@@ -90,13 +90,6 @@ class Api_model extends CI_Model {
 						->get();
 		return $sql;
 	}
-	public function getHistory($id){
-		$sql = $this->db->select("COUNT(post_id) AS total_view, SUM(user_reading_time) AS jml_detik")
-						->from("user_reading_history")
-						->where("user_id",$id)
-						->get();
-		return $sql;
-	}
 	public function postUpdateProfile($id,$update)
 	{
 		$sql = $this->db->where('id',$id)
@@ -110,172 +103,35 @@ class Api_model extends CI_Model {
 			return false;
 		}
 	}
-	public function subscribers($id)
+
+	public function getArtikel($type, $count)
 	{
+		if($type=='berita'){
+			$type=1;
+		}elseif($type=='artikel'){
+			$type=2;
+		}elseif($type=='kegiatan'){
+			$type=3;
+		}elseif($type=='video'){
+			$type=4;
+		}
 		$sql = $this->db->select("*")
-						->from("reading_lists")
-						->join("users","reading_lists.user_id = users.id")
-						->join("posts","reading_lists.post_id = posts.id")
-						->where("reading_lists.post_id",$id)
-						->get();
-		return $sql;
-	}
-	public function getPopularArticles($count)
-	{
-		$sql = $this->db->select("*, posts.id AS ids")
 						->from("posts")
-						->join('categories','posts.category_id = categories.id')
-						->where('posts.hit <=1000')
-						->order_by('hit','DESC')
+						->join('kategori_post','posts.category_id = kategori_post.id_kategori')
+						->where('kategori_post.id_kategori', $type)
+						->order_by('created_at','DESC')
 						->limit($count)
 						->get();
 		return $sql;
 	}
-	//Recommended
-	public function getEditorPickArticles($count)
-	{
-		//$start = ($page-1)*6;
-		$sql = $this->db->select("*, posts.id AS ids")
-						->from("posts")
-						->join('categories','posts.category_id = categories.id')
-						->order_by('posts.created_at', 'DESC')
-						->where('posts.lang_id','2')
-						->where('posts.is_recommended',1)
-						->limit($count)
-						->get();
-		return $sql;
-	}
-	//latest post
-	public function getArticles($count)
-	{
-		$sql = $this->db->select("*, posts.id AS ids")
-						->from("posts")
-						->join('categories','posts.category_id = categories.id')
-						->order_by('posts.id','desc')
-						->limit($count)
-						->get();
-		return $sql;
-	}
-	public function getTag($id)
-	{
-		$sql = $this->db->select("*")
-						->from("tags")
-						->order_by('tag','asc')
-						->where('post_id', $id)
-						->get();
-		return $sql;
-	}
-	//latest post
-	public function getVideo($count, $page)
-	{
-		$start = ($page-1)*$count;
-		$sql = $this->db->select("*, posts.id AS ids")
-						->from("posts")
-						->join('categories','posts.category_id = categories.id')
-						->order_by('posts.id','desc')
-						->where('post_type','video')
-						->limit($count, $start)
-						->get();
-		return $sql;
-	}
-	public function getPodcast($count, $page)
-	{
-		$start = ($page-1)*$count;
-		$sql = $this->db->select("*, posts.id AS ids")
-						->from("posts")
-						->join('categories','posts.category_id = categories.id')
-						->order_by('posts.id','desc')
-						->where('post_type','audio')
-						->limit($count, $start)
-						->get();
-		return $sql;
-	}
-	public function getInfografik($count, $page)
-	{
-		$start = ($page-1)*$count;
-		$sql = $this->db->select("*, posts.id AS ids")
-						->from("posts")
-						->join('categories','posts.category_id = categories.id')
-						->order_by('posts.id','desc')
-						->where('category_id','21')
-						->limit($count, $start)
-						->get();
-		return $sql;
-	}
-	public function getPagePopularArticles($count, $page)
-	{
-		$start = ($page-1)*$count;
-		$sql = $this->db->select("*, posts.id AS ids")
-						->from("posts")
-						->join('categories','posts.category_id = categories.id')
-						->where('posts.hit <=1000')
-						->order_by('hit','DESC')
-						->limit($count, $start)
-						->get();
-		return $sql;
-	}
-	//Recommended
-	public function getPageEditorPickArticles($count, $page)
-	{
-		$start = ($page-1)*6;
-		$sql = $this->db->select("*, posts.id AS ids")
-						->from("posts")
-						->join('categories','posts.category_id = categories.id')
-						->order_by('posts.created_at', 'DESC')
-						->where('posts.lang_id','2')
-						->where('posts.is_recommended',1)
-						->limit($count, $start)
-						->get();
-		return $sql;
-	}
-	//latest post
-	public function getPageArticles($count, $page)
-	{
-		$start = ($page-1)*$count;
-		$sql = $this->db->select("*, posts.id AS ids")
-						->from("posts")
-						->join('categories','posts.category_id = categories.id')
-						->order_by('posts.id','desc')
-						->limit($count, $start)
-						->get();
-		return $sql;
-	}
-	public function getPageFavorite($count, $page, $user)
-	{
-		$start = ($page-1)*$count;
-		$sql = $this->db->select("*, posts.id AS ids")
-						->from("posts")
-						->join('categories','posts.category_id = categories.id')
-						->join('favorite','posts.id = favorite.id_post')
-						->where('favorite.id_user', $user)
-						->order_by('posts.id','desc')
-						//->limit($count, $start)
-						->get();
-		return $sql;
-	}
-	public function getSearchResult($search, $count, $page)
-	{
-		$start = ($page-1)*$count;
-		$this->set_filter_query();
-		$this->db->select("posts.id AS ids");
-		$this->db->from("posts");
-		$this->db->order_by('posts.id','desc');
-		$this->db->group_start();
-		$this->db->like('posts.title', $search);
-		$this->db->or_like('posts.content', $search);
-		$this->db->or_like('posts.summary', $search);
-		$this->db->group_end();
-		$this->db->limit($count, $start);
-		$sql = $this->db->get();
-		return $sql;
-	}
-	
 	public function getShowArticles($id)
 	{
 		$sql = $this->db->select("*")
 						->from("posts")
-						->join('categories','posts.category_id = categories.id')
-						->where('posts.id',$id)
+						->join('kategori_post','posts.category_id = kategori_post.id_kategori')
+						->where('posts.id', $id)
+						->order_by('created_at','DESC')
+						->limit($count)
 						->get();
 		return $sql;
 	}

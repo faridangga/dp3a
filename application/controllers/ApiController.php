@@ -97,8 +97,6 @@ class ApiController extends CI_Controller
 		$arr = array();
 		$id=$this->input->post('id');
 		//$id = $total = $this->uri->segment(3);
-		$token=$this->input->post('token');
-		$sql = $this->Api_model->get_user($id);
 		if($sql->num_rows() > 0)
 		{
 			$bio[] = array(
@@ -213,22 +211,19 @@ class ApiController extends CI_Controller
 		$arr = array();
 		$type = $this->uri->segment(3);
 		$total = $this->uri->segment(4);
-		if($type == 'popular')
+		if($type == 'berita')
 		{
-			$popular = $this->Api_model->getPopularArticles($total);
+			$popular = $this->Api_model->getArtikel($type, $total);
 			if($popular->num_rows() > 0){
 				foreach($popular->result() as $pop)
 				{
 					$data[] = array(
 							'id' => $pop->id,
 							'title' => $pop->title,
-							'slug' => $pop->title_slug,
-							'summary' => $pop->summary,
 							'category_id' => $pop->category_id,
-							'category_title' => $pop->name,
-							'total_comments' => $this->Api_model->CommentCount($pop->id),
-							'image' => $pop->image_small,
-							'date' => $pop->created_at
+							'content' => substr($pop->content,0,60).'...',
+							'date' => $this->format_tanggal($pop->created_at),
+							'post_category'=>$type
 							);
 				}
 				$arr = array(
@@ -242,27 +237,25 @@ class ApiController extends CI_Controller
 				$arr = array('status' => true,'message' => 'No Articles Found..','count' => '0');	
 			}
 		}
-		elseif($type == 'editorPick')
+		elseif($type == 'artikel')
 		{
-			$sql = $this->Api_model->getEditorPickArticles($total);
-			if($sql->num_rows() > 0){
-				foreach($sql->result() as $pop)
+			$popular = $this->Api_model->getArtikel($type, $total);
+			if($popular->num_rows() > 0){
+				foreach($popular->result() as $pop)
 				{
 					$data[] = array(
 							'id' => $pop->id,
 							'title' => $pop->title,
-							'slug' => $pop->title_slug,
-							'summary' => $pop->summary,
+							'image'=>base_url().$pop->image_url,
 							'category_id' => $pop->category_id,
-							'category_title' => $pop->name,
-							'total_comments' => $this->Api_model->CommentCount($pop->id),
-							'image' => $pop->image_small,
-							'date' => $pop->created_at
+							'content' => substr($pop->content,0,60).'...',
+							'date' => $this->format_tanggal($pop->created_at),
+							'post_category'=>$type
 							);
 				}
 				$arr = array(
 					'status' => true,
-					'total' => $sql->num_rows(),
+					'total' => $popular->num_rows(),
 					'articles' => $data
 				);
 			}
@@ -270,28 +263,51 @@ class ApiController extends CI_Controller
 			{
 				$arr = array('status' => true,'message' => 'No Articles Found..','count' => '0');	
 			}
-		}
-		elseif($type == 'latest')
+		}elseif($type == 'kegiatan')
 		{
-			$sql = $this->Api_model->getArticles($total);
-			if($sql->num_rows() > 0){
-				foreach($sql->result() as $pop)
+			$popular = $this->Api_model->getArtikel($type, $total);
+			if($popular->num_rows() > 0){
+				foreach($popular->result() as $pop)
 				{
 					$data[] = array(
 							'id' => $pop->id,
 							'title' => $pop->title,
-							'slug' => $pop->title_slug,
-							'summary' => $pop->summary,
+							'image'=>base_url().$pop->image_url,
 							'category_id' => $pop->category_id,
-							'category_title' => $pop->name,
-							'total_comments' => $this->Api_model->CommentCount($pop->id),
-							'image' => $pop->image_small,
-							'date' => $pop->created_at
+							'content' => substr($pop->content,0,60).'...',
+							'date' => $this->format_tanggal($pop->created_at),
+							'post_category'=>$type
 							);
 				}
 				$arr = array(
 					'status' => true,
-					'total' => $sql->num_rows(),
+					'total' => $popular->num_rows(),
+					'articles' => $data
+				);
+			}
+			else
+			{
+				$arr = array('status' => true,'message' => 'No Articles Found..','count' => '0');	
+			}
+		}elseif($type == 'video')
+		{
+			$popular = $this->Api_model->getArtikel($type, $total);
+			if($popular->num_rows() > 0){
+				foreach($popular->result() as $pop)
+				{
+					$data[] = array(
+							'id' => $pop->id,
+							'image'=>base_url().$pop->image_url,
+							'title' => $pop->title,
+							'category_id' => $pop->category_id,
+							'content' => substr($pop->content,0,60).'...',
+							'date' => $this->format_tanggal($pop->created_at),
+							'post_category'=>$type
+							);
+				}
+				$arr = array(
+					'status' => true,
+					'total' => $popular->num_rows(),
 					'articles' => $data
 				);
 			}
@@ -305,35 +321,18 @@ class ApiController extends CI_Controller
 	public function showArticle()
 	{
 		$arr = array();
-		$token = $_SERVER['HTTP_TOKEN'];
-		$id = $_SERVER['HTTP_USERID'];
 		$postId = $this->uri->segment(3);
-		if(!isset($token) && !isset($id))
-		{
-			$arr = array('status' => false,'message' => 'Your Access Is Not Authorized.');
-		}
-		elseif($this->Api_model->checkId($token) != $id)
-		{
-			$arr = array('status' => false,'message' => 'Your Access Is Not Authorized.');	
-		}
-		else
-		{
 			$sql = $this->Api_model->getShowArticles($postId);
 			if($sql->num_rows() > 0){
 				foreach($sql->result() as $pop){
 					$data = array(
-						'id' => $pop->id,
-									'title' => $pop->title,
-									'slug' => $pop->title_slug,
-									'summary' => $pop->summary,
-									'category_id' => $pop->category_id,
-									'category_title' => $pop->name,
-									'subcategory_id' => $pop->subcategory_id,
-									'subcategory_title' => $this->Api_model->getSubcategory($pop->category_id)->name,
-									'total_comments' => $this->Api_model->CommentCount($pop->id),
-									'image' => $pop->image_default,
-									'content' => $pop->content,
-									'date' => $pop->created_at
+							'id' => $pop->id,
+							'title' => $pop->title,
+							'image'=>base_url().$pop->image_url,
+							'category_id' => $pop->category_id,
+							'content' => $pop->content,
+							'date' => $this->format_tanggal($pop->created_at),
+							'post_category'=>$pop->nama_kategori
 					);
 				}
 				$arr = array(
@@ -346,58 +345,6 @@ class ApiController extends CI_Controller
 			{
 				$arr = array('status' => true,'message' => 'No Articles Found..','count' => '0');
 			}
-		}
-		echo json_encode($arr);
-	}
-	public function articleComments()
-	{
-		$arr = array();
-		$token = $_SERVER['HTTP_TOKEN'];
-		$id = $_SERVER['HTTP_USERID'];
-		$postId = $this->uri->segment(3);
-		if(!isset($token) && !isset($id))
-		{
-			$arr = array('status' => false,'message' => 'Your Access Is Not Authorized.');
-		}
-		elseif($this->Api_model->checkId($token) != $id)
-		{
-			$arr = array('status' => false,'message' => 'Your Access Is Not Authorized.');	
-		}
-		else
-		{
-			$sql = $this->Api_model->getArticleComments($postId);
-			if($sql->num_rows() > 0){
-				foreach($sql->result() as $pop){
-					$sql_comment = $this->Api_model->getComments($pop->id);
-					foreach($sql_comment->result() as $sc){
-						$comments[] = array(
-							'id' => $sc->id,
-										'username' => $sc->username,
-										'comment' => $sc->comment,
-										'likes_total' => $this->Api_model->getLikesComment($sc->id),
-										'date' => $sc->date,
-						);
-					}
-					$data = array(
-						'id' => $pop->id,
-									'username' => $pop->username,
-									'comment' => $pop->comment,
-									'likes_total' => $this->Api_model->getLikesComment($pop->id),
-									'date' => $pop->created_at,
-									'comments' => $comments
-					);
-				}
-				$arr = array(
-						'status' => true,
-						'total' => $sql->num_rows(),
-						'comments' => $data
-				);
-			}
-			else
-			{
-				$arr = array('status' => true,'message' => 'No Article Comments Found..','count' => '0');
-			}
-		}
 		echo json_encode($arr);
 	}
 	public function logout()
