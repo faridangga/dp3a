@@ -144,7 +144,7 @@ class ApiController extends CI_Controller
 			}
 			else
 			{
-				$arr = array('status' => true,'message' => 'No Country Found..','count' => '0');
+				$arr = array('status' => true,'message' => 'Tidak ada riwayat pengaduan','count' => '0');
 			}
 			echo json_encode($arr);
 	}
