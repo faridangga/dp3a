@@ -73,27 +73,20 @@ class Api_model extends CI_Model {
 			return false;
 		}
 	}
-	public function checkId($token)
-	{
-		$sql = $this->db->select("*")
-						->from("users")
-						->where('token',$token)
-						->get();
-		return $sql->row();
+	public function insPengaduan($data){
+		if ($this->db->insert('pengaduan', $data)) {
+            return true;
+        } else {
+            return false;
+        }
 	}
-	public function getProfile($id,$token)
-	{
+	public function getHistPengaduan($id){
 		$sql = $this->db->select("*")
-						->from("users")
-						->where("id",$id)
-						->where("token",$token)
-						->get();
-		return $sql;
-	}
-	public function getBadges(){
-		$sql = $this->db->select("*")
-						->from("badges")
-						->order_by("min_point","DESC")
+						->from("pengaduan")
+						->join("kategori_laporan","pengaduan.id_kategori = kategori_laporan.id_kategori")
+						->join("status_pengaduan","pengaduan.status = status_pengaduan.id_status")
+						->order_by("waktu_lapor","DESC")
+						->where("id_user",$id)
 						->get();
 		return $sql;
 	}
@@ -366,11 +359,11 @@ class Api_model extends CI_Model {
 			return false;
 		}
 	}
-	public function getCountry(){
+	public function getKategori(){
 		$sql = $this->db->select("*")
-						->from("country")
-						->order_by('country_name','asc')
-						->where('is_active',1)
+						->from("kategori_laporan")
+						->order_by('id_kategori','asc')
+						->where('status',1)
 						->get();
 		return $sql;
 	}

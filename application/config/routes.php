@@ -81,7 +81,9 @@ $route['api/profile'] = 'ApiController/getProfile';
 //API Profile Update Access Header Parameter : token & userid | Method POST
 $route['api/profile/update'] = 'ApiController/postUpdateProfile';
 //API Profile Update Access Header Parameter : token & userid | Body Parameter post_id | Method POST
-$route['api/subscribers'] = 'ApiController/subscribersList';
+$route['api/pengaduan'] = 'ApiController/postPengaduan';
+$route['api/master/(:any)'] = 'ApiController/masterData';
+$route['api/history/(:any)'] = 'ApiController/history';
 //API Profile Update Access Header Parameter : token & userid | Type Parameter URI (3) editorPick / latest / popular , URI (4) ID POST | Method GET
 $route['api/posts/(:any)/(:num)'] = 'ApiController/feed';
 //API Profile Update Access Header Parameter : token & userid | Type Parameter URI (3) ID POST | Method GET
@@ -118,7 +120,6 @@ $route['apiapp/preference/(:num)/(:num)'] = 'ApiApps/preference';
 $route['apiapp/favorite/(:num)/(:num)/(:num)'] = 'ApiApps/listFavorite';
 //API Destroy Token | Access Header Parameter : token & userid | No BODY INPUT
 $route['apiapp/logout'] = 'ApiApps/logout';
-$route['apiapp/master/(:any)'] = 'ApiApps/masterData';
 $route['apiapp/activityReport/(:any)'] = 'ApiApps/activityReport';
 
 

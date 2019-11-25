@@ -960,57 +960,7 @@ class ApiApps extends CI_Controller
 		}
 		echo json_encode($arr);
 	}
-	public function articleComments()
-	{
-		$arr = array();
-		$token = $_SERVER['HTTP_TOKEN'];
-		$id = $_SERVER['HTTP_USERID'];
-		$postId = $this->uri->segment(3);
-		if(!isset($token) && !isset($id))
-		{
-			$arr = array('status' => false,'message' => 'Your Access Is Not Authorized.');
-		}
-		elseif($this->Api_model->checkId($token) != $id)
-		{
-			$arr = array('status' => false,'message' => 'Your Access Is Not Authorized.');	
-		}
-		else
-		{
-			$sql = $this->Api_model->getArticleComments($postId);
-			if($sql->num_rows() > 0){
-				foreach($sql->result() as $pop){
-					$sql_comment = $this->Api_model->getComments($pop->id);
-					foreach($sql_comment->result() as $sc){
-						$comments[] = array(
-							'id' => $sc->id,
-										'username' => $sc->username,
-										'comment' => $sc->comment,
-										'likes_total' => $this->Api_model->getLikesComment($sc->id),
-										'date' => $sc->date,
-						);
-					}
-					$data = array(
-						'id' => $pop->id,
-									'username' => $pop->username,
-									'comment' => $pop->comment,
-									'likes_total' => $this->Api_model->getLikesComment($pop->id),
-									'date' => $pop->created_at,
-									'comments' => $comments
-					);
-				}
-				$arr = array(
-						'status' => true,
-						'total' => $sql->num_rows(),
-						'comments' => $data
-				);
-			}
-			else
-			{
-				$arr = array('status' => true,'message' => 'No Article Comments Found..','count' => '0');
-			}
-		}
-		echo json_encode($arr);
-	}
+	
 	public function logout()
 	{
 		$arr = array();

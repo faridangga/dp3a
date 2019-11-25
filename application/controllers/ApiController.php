@@ -10,6 +10,11 @@ class ApiController extends CI_Controller
 		$this->load->model('Api_model');
 		$this->load->library('bcrypt');
 	}
+	public function format_tanggal($date){
+		$date = date_create($date);
+		$dates = date_format($date, 'M j, Y');
+		return $dates;
+	}
 	public function registrasi()
 	{
 		$arr = array();
@@ -121,9 +126,86 @@ class ApiController extends CI_Controller
 	}
 	public function history()
 	{
-
+		$id_user = $this->uri->segment(3);
+		$sql = $this->Api_model->getHistPengaduan($id_user);
+			if($sql->num_rows() > 0){
+				foreach($sql->result() as $history){
+					$datas[] = array(
+						'id_pengaduan'=>$history->id_pengaduan,
+						'kategori'=>$history->nama_kategori,
+						'waktu_lapor'=>$this->format_tanggal($history->waktu_lapor),
+						'status'=>$history->nama_status
+					);
+				}
+				$arr = array(
+						'status' => "0",
+						'message' => "sukses",
+						'total' => $sql->num_rows(),
+						'data' => $datas
+				);
+			}
+			else
+			{
+				$arr = array('status' => true,'message' => 'No Country Found..','count' => '0');
+			}
+			echo json_encode($arr);
+	}
+	public function masterData(){
+		$arr = array();
+		$code = $this->uri->segment(3);
+		//echo "data post".$id.$token;
+			if($code=='kategori'){
+			$sql = $this->Api_model->getKategori();
+			if($sql->num_rows() > 0){
+				foreach($sql->result() as $category){
+					$datas[] = array(
+						'id_kategori'=>$category->id_kategori,
+						'nama_kategori'=>$category->nama_kategori
+					);
+				}
+				$arr = array(
+						'status' => "0",
+						'message' => "sukses",
+						'total' => $sql->num_rows(),
+						'data' => $datas
+				);
+			}
+			else
+			{
+				$arr = array('status' => true,'message' => 'No Country Found..','count' => '0');
+			}
+		}
+		//$arr = array('data'=>'saya');
+		
+		echo json_encode($arr);
 	}
 	public function postPengaduan(){
+		$arr = array();
+		date_default_timezone_set("Asia/Jakarta");
+		$data = array(
+            'id_user' => $this->input->post('id_user', true),
+			'id_kategori' => $this->input->post('id_kategori', true),
+			'isi_laporan' => $this->input->post('isi_laporan', true),
+			'waktu_lapor' => date('Y-m-d H:i:s'),
+			'status' => 0,
+			'lat' => $this->input->post('lat', true),
+			'long' => $this->input->post('long', true)		
+        );
+		$pengaduan = $this->Api_model->insPengaduan($data);
+		//print_r($data);
+		//$pengaduan;
+		if($pengaduan!=false){
+			$arr = array(
+				'status' => '0',
+				'message'=>'sukses mengirim pengaduan'
+			);
+		}else{
+			$arr = array(
+				'status' => '1',
+                'message'=>'gagal mengirim pengaduan'
+			);
+		}
+		echo json_encode($arr);
 
 	}
 	public function feed()
