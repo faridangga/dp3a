@@ -9,6 +9,7 @@ class ApiController extends CI_Controller
 		$this->load->library('form_validation');
 		$this->load->model('Api_model');
 		$this->load->library('bcrypt');
+		//$this->load->library('pusher');
 	}
 	public function format_tanggal($date){
 		$date = date_create($date);
@@ -146,6 +147,21 @@ class ApiController extends CI_Controller
 			{
 				$arr = array('status' => true,'message' => 'Tidak ada riwayat pengaduan','count' => '0');
 			}
+  require_once APPPATH."/third_party/pusher/autoload.php";
+  $options = array(
+    'cluster' => 'ap1',
+    'useTLS' => true
+  );
+  $pusher = new Pusher\Pusher(
+    '71d114e69e897bd1d860',
+    '779e4be0553e1f1779f2',
+    '906672',
+    $options
+  );
+
+  $data['message'] = 'hello world';
+ //print_r($data); 
+  $pusher->trigger('my-channel', 'my-event', $data);
 			echo json_encode($arr);
 	}
 	public function masterData(){
