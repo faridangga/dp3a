@@ -124,6 +124,17 @@ class Api_model extends CI_Model {
 						->get();
 		return $sql;
 	}
+	public function getSlider($count)
+	{
+		$sql = $this->db->select("*")
+						->from("posts")
+						->join('kategori_post','posts.category_id = kategori_post.id_kategori')
+						->where('posts.is_slider', 1)
+						->order_by('created_at','DESC')
+						->limit($count)
+						->get();
+		return $sql;
+	}
 	public function getShowArticles($id)
 	{
 		$sql = $this->db->select("*")

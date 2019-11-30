@@ -97,6 +97,7 @@ class ApiController extends CI_Controller
 	{
 		$arr = array();
 		$id=$this->input->post('id');
+		$sql = $this->Api_model->get_user($id);
 		//$id = $total = $this->uri->segment(3);
 		if($sql->num_rows() > 0)
 		{
@@ -315,6 +316,32 @@ class ApiController extends CI_Controller
 							'id' => $pop->id,
 							'image'=>base_url().$pop->image_url,
 							'title' => $pop->title,
+							'category_id' => $pop->category_id,
+							'content' => substr($pop->content,0,60).'...',
+							'date' => $this->format_tanggal($pop->created_at),
+							'post_category'=>$type
+							);
+				}
+				$arr = array(
+					'status' => true,
+					'total' => $popular->num_rows(),
+					'articles' => $data
+				);
+			}
+			else
+			{
+				$arr = array('status' => true,'message' => 'No Articles Found..','count' => '0');	
+			}
+		}elseif($type == 'slider')
+		{
+			$popular = $this->Api_model->getSlider($total);
+			if($popular->num_rows() > 0){
+				foreach($popular->result() as $pop)
+				{
+					$data[] = array(
+							'id' => $pop->id,
+							'title' => $pop->title,
+							'image'=>base_url().$pop->image_url,
 							'category_id' => $pop->category_id,
 							'content' => substr($pop->content,0,60).'...',
 							'date' => $this->format_tanggal($pop->created_at),
