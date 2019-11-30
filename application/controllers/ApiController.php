@@ -134,6 +134,7 @@ class ApiController extends CI_Controller
 						'id_pengaduan'=>$history->id_pengaduan,
 						'kategori'=>$history->nama_kategori,
 						'waktu_lapor'=>$this->format_tanggal($history->waktu_lapor),
+						'id_status'=>$history->status,
 						'status'=>$history->nama_status
 					);
 				}
@@ -197,16 +198,20 @@ class ApiController extends CI_Controller
 	public function postPengaduan(){
 		$arr = array();
 		date_default_timezone_set("Asia/Jakarta");
+		$id_user = $this->input->post('id_user', true);
+		$isi = $this->input->post('isi_laporan', true);
 		$data = array(
-            'id_user' => $this->input->post('id_user', true),
+            'id_user' => $id_user,
 			'id_kategori' => $this->input->post('id_kategori', true),
-			'isi_laporan' => $this->input->post('isi_laporan', true),
+			'isi_laporan' => $isi,
 			'waktu_lapor' => date('Y-m-d H:i:s'),
 			'status' => 0,
 			'lat' => $this->input->post('lat', true),
 			'long' => $this->input->post('long', true)		
-        );
+		);
+		if($id_user!=null && $isi!=null){
 		$pengaduan = $this->Api_model->insPengaduan($data);
+	
 		//print_r($data);
 		//$pengaduan;
 		if($pengaduan!=false){
@@ -220,6 +225,12 @@ class ApiController extends CI_Controller
                 'message'=>'gagal mengirim pengaduan'
 			);
 		}
+	}else{
+		$arr = array(
+			'status' => '1',
+			'message'=>'gagal mengirim pengaduan'
+		);
+	}	
 		echo json_encode($arr);
 
 	}
