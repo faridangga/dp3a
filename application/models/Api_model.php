@@ -92,7 +92,7 @@ class Api_model extends CI_Model {
 	}
 	public function postUpdateProfile($id,$update)
 	{
-		$sql = $this->db->where('id',$id)
+		$sql = $this->db->where('id_user',$id)
 			->update('users',$update);
 		if($sql)
 		{

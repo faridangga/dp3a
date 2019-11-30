@@ -122,7 +122,36 @@ class ApiController extends CI_Controller
 	}
 	public function UpdateProfile()
 	{
-		
+		$arr = array();
+		$id = $this->input->post('id');
+		//$cek = $this->Api_model->checkId($token);
+		$password=$this->input->post('password');
+		if($password!=null){
+			$update['password']=md5($password);
+		}
+		$update['nama']=$this->input->post('nama');
+		$update['alamat']=$this->input->post('alamat');
+		$sql = $this->Api_model->get_user($id);
+			if($sql->num_rows() > 0)
+			{
+				$updateProfile = $this->Api_model->postUpdateProfile($id,$update);
+				if($updateProfile == true)
+				{
+					$arr = array(
+						'status' => true,
+						'message' => 'Success Update Your Profile.',
+					);
+				}
+				else
+				{
+					$arr = array('status' => false,'message' => 'Update Your Profile Was Failed.');		
+				}
+			}
+			else
+			{
+				$arr = array('status' => false,'message' => 'Profile Data Not Found..');
+			}
+		echo json_encode($arr);
 	}
 	public function history()
 	{
@@ -160,7 +189,6 @@ class ApiController extends CI_Controller
     '906672',
     $options
   );
-
   $data['message'] = 'hello world';
  //print_r($data); 
   $pusher->trigger('my-channel', 'my-event', $data);
