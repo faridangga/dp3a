@@ -443,7 +443,7 @@ class ApiController extends CI_Controller
 			'logo'=>base_url().'uploads/images/logo.jpg',
 			'alamat'=>'Jl. Nusa Barong 13 Kota Malang',
 			'no_telp'=>'0341346682',
-			'no_wa'=>'081357046700',
+			'no_wa'=>'+6281357046700',
 			'template_wa'=>'Salam, saya ingin berkonsultasi tentang perlindungan perempuan dan kekerasan anak'
 		);
 		$arr = array(
