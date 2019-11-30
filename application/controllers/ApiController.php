@@ -353,7 +353,7 @@ class ApiController extends CI_Controller
 				{
 					$data[] = array(
 							'id' => $pop->id,
-							'image'=>base_url().$pop->image_url,
+							'image'=>$pop->image_thumbnail,
 							'title' => $pop->title,
 							'category_id' => $pop->category_id,
 							'content' => substr($pop->content,0,60).'...',
@@ -407,12 +407,19 @@ class ApiController extends CI_Controller
 			$sql = $this->Api_model->getShowArticles($postId);
 			if($sql->num_rows() > 0){
 				foreach($sql->result() as $pop){
+					if($pop->category_id==4){
+						$image = $pop->image_thumbnail;
+						$content = $pop->video_embed_code;
+					}else{
+						$image = base_url().$pop->image_url;
+						$content = $pop->content;
+					}
 					$data = array(
 							'id' => $pop->id,
 							'title' => $pop->title,
-							'image'=>base_url().$pop->image_url,
+							'image'=>$image,
 							'category_id' => $pop->category_id,
-							'content' => $pop->content,
+							'content' => $content,
 							'date' => $this->format_tanggal($pop->created_at),
 							'post_category'=>$pop->nama_kategori
 					);
