@@ -134,7 +134,7 @@ class ApiController extends CI_Controller
 						'id_pengaduan'=>$history->id_pengaduan,
 						'kategori'=>$history->nama_kategori,
 						'waktu_lapor'=>$this->format_tanggal($history->waktu_lapor),
-						'id_status'=>$history->status,
+						'id_status'=>$history->id_status,
 						'status'=>$history->nama_status
 					);
 				}
