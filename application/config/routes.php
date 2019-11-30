@@ -80,6 +80,7 @@ $route['api/login'] = 'ApiController/login';
 $route['api/profile'] = 'ApiController/getProfile';
 //API Profile Update Access Header Parameter : token & userid | Method POST
 $route['api/profile/update'] = 'ApiController/updateProfile';
+$route['api/profile/dinas']= 'ApiController/profilDinas';
 //API Profile Update Access Header Parameter : token & userid | Body Parameter post_id | Method POST
 $route['api/pengaduan'] = 'ApiController/postPengaduan';
 $route['api/master/(:any)'] = 'ApiController/masterData';

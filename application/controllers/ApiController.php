@@ -429,6 +429,23 @@ class ApiController extends CI_Controller
 			}
 		echo json_encode($arr);
 	}
+	public function profilDinas(){
+		$arr = array();
+		$data = array(
+			'nama_dinas'=> 'Dinas Pemberdayaan Perempuan dan Perlindungan Anak',
+			'logo'=>base_url().'uploads/images/logo.jpg',
+			'alamat'=>'Jl. Nusa Barong 13 Kota Malang',
+			'no_telp'=>'0341346682',
+			'no_wa'=>'081357046700',
+			'template_wa'=>'Salam, saya ingin berkonsultasi tentang perlindungan perempuan dan kekerasan anak'
+		);
+		$arr = array(
+			'status' => 0,
+			'message' => 'Berhasil mengambil data profil dinas',
+			'data' => $data
+		);
+		echo json_encode($arr);
+	}
 	public function logout()
 	{
 		$arr = array();
