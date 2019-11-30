@@ -1,17 +1,17 @@
 <div class="container-fluid">
   <div class="row">
-
     <div class="col-md-12">
       <div class="card">
-        <div class="card-header">
-          <h3 class="card-title">Title</h3>
-        </div>
         <div class="card-body">
-          <?php echo form_open($cname.'/insert',['id'=>'form-jabatan']); ?>
-          <input type="hidden" class="form-control" name="id_jabatan" placeholder="">
+          <?php echo form_open($cname.'/insert',['id'=>'form-kategori-post']); ?>
+          <input type="hidden" class="form-control" name="id_kategori" placeholder="">
           <div class="form-group">
-            <label>Nama jabatan</label>
-            <input type="text" class="form-control" name="nama_jabatan" placeholder="">
+            <label>Nama Kategori</label>
+            <input type="text" class="form-control" name="nama_kategori" placeholder="">
+          </div>
+          <div class="form-group">
+            <label>Parent</label>
+            <input type="text" class="form-control" name="parent" placeholder="">
           </div>
           <div class="form-group">
             <label>Status</label>
@@ -21,13 +21,15 @@
               <option value="0">Tidak Aktif</option>
             </select>
           </div>
+
           <button type="submit" class="btn btn-primary">Submit</button>
           <button type="reset" class="btn btn-secondary">Reset</button>
           <?php echo form_close(); ?>
         </div>
+        <!-- /.card-body -->
+
       </div>
     </div>
-
     <div class="col-md-12">
       <div class="card">
         <div class="card-body">
@@ -39,6 +41,8 @@
                   <th></th>
                   <th></th>
                   <th></th>
+                  <th></th>
+
                   <th class="th-sticky-action">-</th>
                 </tr>
               </thead>
@@ -47,15 +51,14 @@
         </div>
       </div>
     </div>
-
   </div>
 </div>
 
 <script>
-  var url_fill_form = '<?php echo base_url($cname.'/get_data_by_id') ?>';
-  var url_insert_jabatan = '<?php echo base_url($cname.'/insert') ?>';
-  var base_cname = "<?php echo base_url($cname) ?>";
 
+  var url_fill_form = '<?php echo base_url($cname.'/get_data_by_id') ?>';
+  var url_insert_kategori_post = '<?php echo base_url($cname.'/insert') ?>';
+  var base_cname = "<?php echo base_url($cname) ?>";
   var table = "";
   $(document).ready(function() {
     var table_url = $('#table-data').data('url');
@@ -79,17 +82,21 @@
         }
       },
       { 
-        "title" : "Id jabatan",
+        "title" : "Id kategori",
         "class" : "text-center",
         "width" : "50px",
-        "data": "id_jabatan" 
+        "data": "id_kategori" 
       },
       { 
-        "title" : "Nama jabatan",
-        "data": "nama_jabatan" 
+        "title" : "Nama kategori",
+        "data": "nama_kategori" 
       },
       { 
-        "title" : "Status",
+        "title" : "Parent",
+        "data": "parent" 
+      },
+      { 
+        "title" : "Status", 
         data : (data, type, row, meta) => {
           ret = "";
           if(data.status == '1'){
@@ -101,7 +108,7 @@
             ret += '<span class="badge bg-secondary">loss</span>';
           }
           return ret;
-        }  
+        } 
       },
       {
         "title": "Actions",
@@ -110,20 +117,21 @@
         "class": "text-center",
         "data": (data, type, row) => {
           let ret = "";
-          ret += ' <a class="btn btn-info btn-sm" href="#" onclick="fill_form('+data.id_jabatan+'); return false;"><i class="fas fa-pencil-alt"></i> Edit</a>';
-          ret += ' <a class="btn btn-danger btn-sm" href="#" onclick="delete_jabatan(this)" data-id="'+data.id_jabatan+'"><i class="fas fa-trash-alt"></i> Delete</a>';
+          ret += ' <a class="btn btn-info btn-sm" href="#" onclick="fill_form('+data.id_kategori+'); return false;"><i class="fas fa-pencil-alt"></i> Edit</a>';
+          ret += ' <a class="btn btn-danger btn-sm" href="#" onclick="delete_kategori(this)" data-id="'+data.id_kategori+'"><i class="fas fa-trash-alt"></i> Delete</a>';
+
           return ret;
         }
       }
       ]
     });
 
-    $('form#form-jabatan').submit(function(e){
+    $('form#form-kategori-post').submit(function(e){
       var form = $(this);
       e.preventDefault();
 
       $.ajax({
-        url: url_insert_jabatan,
+        url: url_insert_kategori_post,
         type: 'POST',
         data: form.serialize(),
         dataType : "JSON",
@@ -138,25 +146,26 @@
   });
 
 
-  var fill_form = (id_jabatan) => {
+  var fill_form = (id_kategori) => {
     $.ajax({
       url: url_fill_form,
       type: 'POST',
       data: {
-        'id_jabatan' : id_jabatan
+        'id_kategori' : id_kategori
       },
       success: function (data) {
         var json = $.parseJSON(data);
-        let form = $('#form-jabatan');
-        form.find('[name="id_jabatan"]').val(json.id_jabatan);
-        form.find('[name="nama_jabatan"]').val(json.nama_jabatan);
+        let form = $('#form-kategori-post');
+        form.find('[name="id_kategori"]').val(json.id_kategori);
+        form.find('[name="nama_kategori"]').val(json.nama_kategori);
+        form.find('[name="parent"]').val(json.parent);
         form.find('[name="status"]').val(json.status);
         scroll_smooth('body',500);
       },
     });
   }
 
-  var delete_jabatan = (obj) => {
+  var delete_kategori = (obj) => {
     swal({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -166,10 +175,10 @@
     }).then((willDelete) => {
       if(willDelete){
         $.ajax({
-          url : base_cname+"/delete_jabatan",
+          url : base_cname+"/delete_kategori",
           type : 'POST',
           data : {
-            id_jabatan : $(obj).data('id'),
+            id_kategori : $(obj).data('id'),
           },
           dataType : "JSON",
           success : (data) => {
@@ -182,9 +191,10 @@
     });
   }
 
+
   var form_reset = () => {
     table.ajax.reload(null,false);
-    $('form#form-jabatan').find('input,select').val('');
+    $('form#form-kategori-post').find('input,select').val('');
   }
 
 </script>

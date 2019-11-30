@@ -13,14 +13,21 @@
   <link rel="stylesheet" href="<?php echo base_url('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') ?>">
   <!-- Select2 -->
   <link rel="stylesheet" href="<?php echo base_url('assets/plugins/select2/css/select2.min.css') ?>">
-  <!-- SweetAlert2 -->
-  <!-- <link rel="stylesheet" href="<?php echo base_url('assets/plugins/sweetalert2/sweetalert2.min.css') ?>"> -->
   <!-- sweetalert -->
   <link rel="stylesheet" href="<?php echo base_url('assets/plugins/sweetalert/sweetalert.css') ?>">
+  <!-- summernote -->
+  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/summernote/summernote-bs4.css') ?>">
+  <!-- custom CSS -->
+  <link rel="stylesheet" href="<?php echo base_url('assets/css/custom.css') ?>">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-  
+  <!-- dropify -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css">
+  <!-- datepicker -->
+  <!-- <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" /> -->
+  <link rel="stylesheet" href="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker3.min.css">
 
   <!-- jQuery -->
+  <script src="https://js.pusher.com/5.0/pusher.min.js"></script>
   <script src="<?php echo base_url('assets/plugins/jquery/jquery.min.js') ?>"></script>
 </head>

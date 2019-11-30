@@ -1,16 +1,16 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Jabatan_model extends CI_Model {
+class Kategori_Post_model extends CI_Model {
 
-	var $table = 'jabatan';
+	var $table = "kategori_post";
 
 	public function get_data()
 	{
 		$this->db->select('*');
 		$this->db->from($this->table);
-		$this->db->where('status != ', 2);
-		$this->db->order_by('id_jabatan','desc');
+		$this->db->where('status !=', 2);
+		$this->db->order_by('id_kategori','desc');
 		$query = $this->db->get();
 		return $query->result();
 	}
@@ -19,7 +19,7 @@ class Jabatan_model extends CI_Model {
 	{
 		$this->db->select('*');
 		$this->db->from($this->table);
-		$this->db->where('id_jabatan',$id);
+		$this->db->where('id_kategori',$id);
 		$query = $this->db->get();
 		return $query->row(0);
 	}
@@ -32,20 +32,21 @@ class Jabatan_model extends CI_Model {
 
 	public function update($id, $data)
 	{
-        $this->db->where('id_jabatan', $id);
+        $this->db->where('id_kategori', $id);
 		$update = $this->db->update($this->table,$data);
 		return $update;
 	}
-
+	
 	public function delete($id)
 	{
-		$this->db->where('id_jabatan',$id);
+		$this->db->where('id_kategori',$id);
 		$data = array('status' => 2);
 		$delete = $this->db->update($this->table, $data);
 		return $delete;
-
 	}
+
+
 }
 
-/* End of file Jabatan_model.php */
-/* Location: ./application/models/Jabatan_model.php */
+/* End of file Kategori_Post_model.php */
+/* Location: ./application/models/Kategori_Post_model.php */

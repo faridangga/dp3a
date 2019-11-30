@@ -1,23 +1,23 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Kategori_Laporan extends CI_Controller {
+class Kategori_Post extends CI_Controller {
 
-	var $cname = "Admin/Kategori_Laporan";
+	var $cname = "Admin/Kategori_Post";
 
 	public function __construct()
-    {
-        parent::__construct();
-        $this->load->model('Kategori_Laporan_model');
-        
-    }
+	{
+		parent::__construct();
+		$this->load->model('Kategori_Post_model');
+
+	}
 
 	public function index()
 	{
 		$data = [
-			'title' => "Kategori Laporan",
+			'title' => "Kategori Post",
 			'cname' => $this->cname,
-			'pages' => "admin/kategori_laporan/index",
+			'pages' => "admin/kategori_post/index",
 			'data' => array(),
 		];
 		$this->load->view('layouts/dashboard',$data);
@@ -25,14 +25,14 @@ class Kategori_Laporan extends CI_Controller {
 
 	public function get_data()
 	{
-		$data['data'] = $this->Kategori_Laporan_model->get_data();
+		$data['data'] = $this->Kategori_Post_model->get_data();
 		echo json_encode($data);
 	}
 
 	public function get_data_by_id()
 	{
 		$id = $this->input->post('id_kategori');
-		$data = $this->Kategori_Laporan_model->get_data_by_id($id);
+		$data = $this->Kategori_Post_model->get_data_by_id($id);
 		echo json_encode($data);
 	}
 
@@ -41,11 +41,12 @@ class Kategori_Laporan extends CI_Controller {
 		$id = $this->input->post('id_kategori');
 		$data = [
 			'nama_kategori' => $this->input->post('nama_kategori'),
+			'parent' => $this->input->post('parent'),
 			'status' => $this->input->post('status'),
 		];
 
 		if ($id == "") {
-			$insert = $this->Kategori_Laporan_model->insert($data);
+			$insert = $this->Kategori_Post_model->insert($data);
 			if($insert){
 				$ret = [
 					'title' => "Insert",
@@ -60,7 +61,7 @@ class Kategori_Laporan extends CI_Controller {
 				];
 			}   
 		}else {
-			$update = $this->Kategori_Laporan_model->update($id, $data);
+			$update = $this->Kategori_Post_model->update($id, $data);
 			if($update){
 				$ret = [
 					'title' => "Update",
@@ -83,7 +84,7 @@ class Kategori_Laporan extends CI_Controller {
 		$id = $this->input->post('id_kategori');
 
 		if ($id != "") {
-			$delete = $this->Kategori_Laporan_model->delete($id);
+			$delete = $this->Kategori_Post_model->delete($id);
 			if($delete){
 				$ret = [
 					'text' => "Delete success",
@@ -110,5 +111,5 @@ class Kategori_Laporan extends CI_Controller {
 
 }
 
-/* End of file Kategori_Laporan.php */
-/* Location: ./application/controllers/Admin/Kategori_Laporan.php */
+/* End of file Kategori_Post.php */
+/* Location: ./application/controllers/Admin/Kategori_Post.php */

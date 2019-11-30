@@ -16,6 +16,7 @@
           <div class="form-group">
             <label>Status</label>
             <select class="form-control" name="status">
+              <option value="" selected disabled>Choose</option>
               <option value="1">Aktif</option>
               <option value="0">Tidak Aktif</option>
             </select>
@@ -176,6 +177,7 @@
           success : (data) => {
             swal(data.title,data.text,data.icon);
             form_reset();
+            scroll_smooth('table',500);
           }
         });
       }

@@ -38,7 +38,7 @@ class Golongan extends CI_Controller {
 
 	public function insert()
 	{
-	    $id = $this->input->post('id_golongan');
+		$id = $this->input->post('id_golongan');
 		$data = [
 			'nama_golongan' => $this->input->post('nama_golongan'),
 			'status' => $this->input->post('status'),
@@ -133,17 +133,26 @@ class Golongan extends CI_Controller {
 	{
 		$id = $this->input->post('id_golongan');
 
-		$delete = $this->Golongan_model->delete($id);
-		if($delete){
+		if ($id != "") {
+			$delete = $this->Golongan_model->delete($id);
+			if($delete){
+				$ret = [
+					'text' => "Delete success",
+					'title' => "Delete",
+					'icon' => "success",
+				];
+			}else{
+				$ret = [
+					'text' => "Delete failed",
+					'title' => "Delete",
+					'icon' => "warning",
+				];
+			}
+			
+		} else {
 			$ret = [
-				'title' => "Delete",
-				'text' => "Delete success",
-				'icon' => "success",
-			];
-		}else{
-			$ret = [
-				'title' => "Delete",
 				'text' => "Delete failed",
+				'title' => "Delete",
 				'icon' => "warning",
 			];
 		}

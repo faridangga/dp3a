@@ -32,10 +32,26 @@
       </a>
     </li>
     <li class="nav-item">
+      <a href="<?php echo base_url('Admin/Kategori_Post') ?>" class="nav-link">
+        <i class="nav-icon fab fa-hotjar"></i>
+        <p>
+          Kategori Post
+        </p>
+      </a>
+    </li>
+    <li class="nav-item">
       <a href="<?php echo base_url('Admin/Pengaduan') ?>" class="nav-link">
         <i class="nav-icon fab fa-hotjar"></i>
         <p>
           Pengaduan
+        </p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="<?php echo base_url('Admin/Posts') ?>" class="nav-link">
+        <i class="nav-icon fab fa-hotjar"></i>
+        <p>
+          Posts
         </p>
       </a>
     </li>

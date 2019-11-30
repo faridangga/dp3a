@@ -15,8 +15,9 @@
           <div class="form-group">
             <label>Status</label>
             <select class="form-control" id="status" name="status">
-              <option value="1">1</option>
-              <option value="2">2</option>
+              <option value="" selected disabled>Choose</option>
+              <option value="1">Aktif</option>
+              <option value="0">Tidak Aktif</option>
             </select>
           </div>
           <button type="submit" class="btn btn-primary">Submit</button>
@@ -86,7 +87,18 @@
       },
       { 
         "title" : "Status",
-        "data": "status" 
+        data : (data, type, row, meta) => {
+          ret = "";
+          if(data.status == '1'){
+            ret += '<span class="badge bg-success">Aktif</span>';
+          }else 
+          if(data.status == '0'){
+            ret += '<span class="badge bg-danger">Tidak Aktif</span>';
+          }else{
+            ret += '<span class="badge bg-secondary">loss</span>';
+          }
+          return ret;
+        }
       },
       {
         "title": "Actions",

@@ -9,6 +9,7 @@ class Kategori_Laporan_model extends CI_Model {
 	{
 		$this->db->select('*');
 		$this->db->from($this->table);
+		$this->db->where('status !=', 2);
 		$this->db->order_by('id_kategori','desc');
 		$query = $this->db->get();
 		return $query->result();
@@ -39,7 +40,8 @@ class Kategori_Laporan_model extends CI_Model {
 	public function delete($id)
 	{
 		$this->db->where('id_kategori',$id);
-		$delete = $this->db->delete($this->table);
+		$data = array('status' => 2);
+		$delete = $this->db->update($this->table,$data);
 		return $delete;
 	}
 	

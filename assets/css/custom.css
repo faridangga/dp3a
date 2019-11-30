@@ -1,0 +1,6 @@
+.th-sticky-action {
+	position: sticky !important;
+	right: 0px !important;
+	background-color: #f2f4f8 !important;
+	color: #000;
+}

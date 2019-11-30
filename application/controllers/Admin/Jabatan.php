@@ -7,8 +7,8 @@ class Jabatan extends CI_Controller {
 
 	function __construct()
 	{
-        parent::__construct();
-        $this->load->model('Jabatan_model');
+		parent::__construct();
+		$this->load->model('Jabatan_model');
 	}
 
 	public function index()
@@ -82,14 +82,23 @@ class Jabatan extends CI_Controller {
 	{
 		$id = $this->input->post('id_jabatan');
 
-		$delete = $this->Jabatan_model->delete($id);
-		if($delete){
-			$ret = [
-				'text' => "Delete success",
-				'title' => "Delete",
-				'icon' => "success",
-			];
-		}else{
+		if ($id != "") {
+			$delete = $this->Jabatan_model->delete($id);
+			if($delete){
+				$ret = [
+					'text' => "Delete success",
+					'title' => "Delete",
+					'icon' => "success",
+				];
+			}else{
+				$ret = [
+					'text' => "Delete failed",
+					'title' => "Delete",
+					'icon' => "warning",
+				];
+			}
+			
+		} else {
 			$ret = [
 				'text' => "Delete failed",
 				'title' => "Delete",
