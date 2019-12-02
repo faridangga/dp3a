@@ -155,6 +155,18 @@ class ApiController extends CI_Controller
 	}
 	public function history()
 	{
+		$options = array(
+			'cluster' => 'ap1',
+			'useTLS' => true
+		  );
+		  $pusher = new Pusher\Pusher(
+			'71d114e69e897bd1d860',
+			'779e4be0553e1f1779f2',
+			'906672',
+			$options
+		  );
+		  $data['message'] = 'hello world';
+		  $pusher->trigger('my-channel', 'my-event', $data);
 		$id_user = $this->uri->segment(3);
 		$sql = $this->Api_model->getHistPengaduan($id_user);
 			if($sql->num_rows() > 0){
@@ -178,20 +190,6 @@ class ApiController extends CI_Controller
 			{
 				$arr = array('status' => true,'message' => 'Tidak ada riwayat pengaduan','count' => '0');
 			}
-  require_once APPPATH."/third_party/pusher/autoload.php";
-  $options = array(
-    'cluster' => 'ap1',
-    'useTLS' => true
-  );
-  $pusher = new Pusher\Pusher(
-    '71d114e69e897bd1d860',
-    '779e4be0553e1f1779f2',
-    '906672',
-    $options
-  );
-  $data['message'] = 'hello world';
- //print_r($data); 
-  $pusher->trigger('my-channel', 'my-event', $data);
 			echo json_encode($arr);
 	}
 	public function masterData(){
@@ -276,6 +274,7 @@ class ApiController extends CI_Controller
 					$data[] = array(
 							'id' => $pop->id,
 							'title' => $pop->title,
+							'image'=>base_url().$pop->image_url,
 							'category_id' => $pop->category_id,
 							'content' => substr($pop->content,0,60).'...',
 							'date' => $this->format_tanggal($pop->created_at),
@@ -452,6 +451,22 @@ class ApiController extends CI_Controller
 			'data' => $data
 		);
 		echo json_encode($arr);
+	}
+	public function laporanKekerasan(){
+		$tahun = $this->uri->segment(3);
+		$tipe = $this->uri->segment(4);
+		$sql = $this->Api_model->getLaporanKekerasan($tahun, $tipe);
+		foreach($sql->result() as $report)
+				{
+					$data[] = array(
+							'bulan' => $report->bulan,
+							'tahun' => $report->tahun,
+							'a'=>$report->a,
+							'b' => $report->b,
+							'c' => $report->c
+							);
+				}
+
 	}
 	public function logout()
 	{

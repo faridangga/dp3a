@@ -170,13 +170,11 @@ class Api_model extends CI_Model {
 						->get();
 		return $sql;
 	}
-	public function getArticleComments($id)
+	public function getLaporanKekerasan($tahun, $tipe)
 	{
-		$sql = $this->db->select("*")
-						->from("comments")
-						->join('users','comments.user_id = users.id')
-						->where('comments.post_id',$id)
-						->where('parent_id',null)
+		$this->db->select("bulan, tahun, `1924` AS a, `2544` AS b, `45` AS c");
+		$sql = 	$this->db->from("data_kekerasan")
+						->where('tahun',$tahun)
 						->get();
 		return $sql;
 	}
