@@ -16,4 +16,5 @@ application/config/database.php
 !application/logs/index.html
 !application/logs/.htaccess
 /vendor/
+composer.lock
 application/config/config.php
