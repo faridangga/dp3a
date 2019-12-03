@@ -155,7 +155,7 @@ class ApiController extends CI_Controller
 	}
 	public function history()
 	{
-		$options = array(
+		/*$options = array(
 			'cluster' => 'ap1',
 			'useTLS' => true
 		  );
@@ -166,7 +166,7 @@ class ApiController extends CI_Controller
 			$options
 		  );
 		  $data['message'] = 'hello world';
-		  $pusher->trigger('my-channel', 'my-event', $data);
+		  $pusher->trigger('my-channel', 'my-event', $data);*/
 		$id_user = $this->uri->segment(3);
 		$sql = $this->Api_model->getHistPengaduan($id_user);
 			if($sql->num_rows() > 0){
