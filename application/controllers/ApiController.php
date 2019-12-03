@@ -438,7 +438,7 @@ class ApiController extends CI_Controller
 	public function profilDinas(){
 		$arr = array();
 		$data = array(
-			'nama_dinas'=> 'Dinas Pemberdayaan Perempuan dan Perlindungan Anak',
+			'nama_dinas'=> 'Dinas Pemberdayaan Perempuan dan Perlindungan Anak Kabupaten Malang',
 			'logo'=>base_url().'uploads/images/logo.jpg',
 			'alamat'=>'Jl. Nusa Barong 13 Kota Malang',
 			'no_telp'=>'0341346682',
