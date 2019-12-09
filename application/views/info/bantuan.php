@@ -26,6 +26,7 @@ body{
    <li>Kirim pengaduan Anda dengan klik tombol pengaduan</li>
    </ol>
    </li>
+   <br>
    <li><b>Cek Riwayat Pengaduan</b><br>Anda dapat memeriksa status pengaduan Anda dengan cara berikut:
    <ol>
    <li>Pilih Menu Pengaduan</li>
