@@ -129,8 +129,8 @@ class ApiController extends CI_Controller
 		if($password!=null){
 			$update['password']=md5($password);
 		}
-		$update['nama']=$this->input->post('nama');
-		$update['alamat']=$this->input->post('alamat');
+		//$update['nama']=$this->input->post('nama');
+		//$update['alamat']=$this->input->post('alamat');
 		$sql = $this->Api_model->get_user($id);
 			if($sql->num_rows() > 0)
 			{
