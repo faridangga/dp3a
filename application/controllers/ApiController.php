@@ -155,20 +155,7 @@ class ApiController extends CI_Controller
 	}
 	public function history()
 	{
-		//require_once(APPPATH.'views/vendor/autoload.php');
-		$options = array(
-			'cluster' => 'ap1',
-			'useTLS' => true
-		  );
-		  $pusher = new Pusher\Pusher(
-			'71d114e69e897bd1d860',
-			'779e4be0553e1f1779f2',
-			'906672',
-			$options
-		  );
-		
-		  $data['message'] = 'hello world';
-		  $pusher->trigger('my-channel', 'my-event', $data);
+		$this->pusher("history");
 		$id_user = $this->uri->segment(3);
 		$sql = $this->Api_model->getHistPengaduan($id_user);
 			if($sql->num_rows() > 0){
@@ -191,7 +178,7 @@ class ApiController extends CI_Controller
 			}
 			else
 			{
-				$arr = array('status' => true,'message' => 'Tidak ada riwayat pengaduan','count' => '0');
+				$arr = array('status' => "1",'message' => 'Tidak ada riwayat pengaduan','count' => '0');
 			}
 			echo json_encode($arr);
 	}
@@ -248,6 +235,7 @@ class ApiController extends CI_Controller
 				'status' => '0',
 				'message'=>'sukses mengirim pengaduan'
 			);
+			$this->pusher("data Pengaduan Baru Masuk");
 		}else{
 			$arr = array(
 				'status' => '1',
@@ -537,6 +525,21 @@ class ApiController extends CI_Controller
 		}
 	}
 		echo json_encode($arr);
+	}
+	public function pusher($message){
+		$options = array(
+			'cluster' => 'ap1',
+			'useTLS' => true
+		  );
+		  $pusher = new Pusher\Pusher(
+			'71d114e69e897bd1d860',
+			'779e4be0553e1f1779f2',
+			'906672',
+			$options
+		  );
+		
+		  $data['message'] = $message;
+		  $pusher->trigger('my-channel', 'my-event', $data);
 	}
 	public function logout()
 	{
