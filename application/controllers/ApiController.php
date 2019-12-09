@@ -115,7 +115,7 @@ class ApiController extends CI_Controller
 		}
 			else
 			{
-				$arr = array('status' => '1','message' => 'Your Access Is Not Authorized.');
+				$arr = array('status' => '1','message' => 'Data Profil tidak ditemukan', 'total' => 0, 'data' => 0);
 			}
 		//}
 		echo json_encode($arr);
@@ -138,18 +138,18 @@ class ApiController extends CI_Controller
 				if($updateProfile == true)
 				{
 					$arr = array(
-						'status' => true,
-						'message' => 'Success Update Your Profile.',
+						'status' => 0,
+						'message' => 'Berhasil Merubah Data.',
 					);
 				}
 				else
 				{
-					$arr = array('status' => false,'message' => 'Update Your Profile Was Failed.');		
+					$arr = array('status' => 1,'message' => 'Ubah profil gagal.', 'total' => 0, 'data' => 0);		
 				}
 			}
 			else
 			{
-				$arr = array('status' => false,'message' => 'Profile Data Not Found..');
+				$arr = array('status' => 1,'message' => 'Profile Data Not Found..', 'total' => 0, 'data' => 0);
 			}
 		echo json_encode($arr);
 	}
@@ -178,7 +178,7 @@ class ApiController extends CI_Controller
 			}
 			else
 			{
-				$arr = array('status' => "1",'message' => 'Tidak ada riwayat pengaduan','count' => '0');
+				$arr = array('status' => "1",'message' => 'Tidak ada riwayat pengaduan','total' => 0, 'data' => 0);
 			}
 			echo json_encode($arr);
 	}
@@ -204,7 +204,7 @@ class ApiController extends CI_Controller
 			}
 			else
 			{
-				$arr = array('status' => true,'message' => 'No Country Found..','count' => '0');
+				$arr = array('status' => '1','message' => 'Data Kategori Tidak Ditemukan','total' => 0, 'data' => 0);
 			}
 		}
 		//$arr = array('data'=>'saya');
@@ -273,14 +273,14 @@ class ApiController extends CI_Controller
 							);
 				}
 				$arr = array(
-					'status' => true,
+					'status' => 0,
 					'total' => $popular->num_rows(),
 					'articles' => $data
 				);
 			}
 			else
 			{
-				$arr = array('status' => true,'message' => 'No Articles Found..','count' => '0');	
+				$arr = array('status' => 0,'message' => 'Artikel Tidak Ditemukan','total' => 0, 'articles' => 0);	
 			}
 		}
 		elseif($type == 'artikel')
@@ -300,14 +300,14 @@ class ApiController extends CI_Controller
 							);
 				}
 				$arr = array(
-					'status' => true,
+					'status' => 0,
 					'total' => $popular->num_rows(),
 					'articles' => $data
 				);
 			}
 			else
 			{
-				$arr = array('status' => true,'message' => 'No Articles Found..','count' => '0');	
+				$arr = array('status' => 0,'message' => 'Artikel Tidak Ditemukan','total' => 0, 'articles' => 0);	
 			}
 		}elseif($type == 'kegiatan')
 		{
@@ -326,14 +326,14 @@ class ApiController extends CI_Controller
 							);
 				}
 				$arr = array(
-					'status' => true,
+					'status' => 0,
 					'total' => $popular->num_rows(),
 					'articles' => $data
 				);
 			}
 			else
 			{
-				$arr = array('status' => true,'message' => 'No Articles Found..','count' => '0');	
+				$arr = array('status' => 0,'message' => 'Artikel Tidak Ditemukan', 'total' => 0, 'articles' => 0);	
 			}
 		}elseif($type == 'video')
 		{
@@ -352,14 +352,14 @@ class ApiController extends CI_Controller
 							);
 				}
 				$arr = array(
-					'status' => true,
+					'status' => 0,
 					'total' => $popular->num_rows(),
 					'articles' => $data
 				);
 			}
 			else
 			{
-				$arr = array('status' => true,'message' => 'No Articles Found..','count' => '0');	
+				$arr = array('status' => 0,'message' => 'Artikel Tidak Ditemukan','total' => 0, 'articles' => 0);	
 			}
 		}elseif($type == 'slider')
 		{
@@ -378,14 +378,14 @@ class ApiController extends CI_Controller
 							);
 				}
 				$arr = array(
-					'status' => true,
+					'status' => 0,
 					'total' => $popular->num_rows(),
 					'articles' => $data
 				);
 			}
 			else
 			{
-				$arr = array('status' => true,'message' => 'No Articles Found..','count' => '0');	
+				$arr = array('status' => 0,'message' => 'No Articles Found..','total' => 0, 'articles' => 0);	
 			}
 		}
 		echo json_encode($arr);
@@ -415,14 +415,14 @@ class ApiController extends CI_Controller
 					);
 				}
 				$arr = array(
-						'status' => true,
+						'status' => 0,
 						'total' => $sql->num_rows(),
 						'articles' => $data
 				);
 			}
 			else
 			{
-				$arr = array('status' => true,'message' => 'No Articles Found..','count' => '0');
+				$arr = array('status' => 0,'message' => 'No Articles Found..','total' => 0, 'articles' => 0);
 			}
 		echo json_encode($arr);
 	}
@@ -549,21 +549,21 @@ class ApiController extends CI_Controller
 		$postId = $this->uri->segment(3);
 		if(!isset($token) && !isset($id))
 		{
-			$arr = array('status' => false,'message' => 'Your Access Is Not Authorized.');
+			$arr = array('status' => 1,'message' => 'Your Access Is Not Authorized.');
 		}
 		elseif($this->Api_model->checkId($token) == $id)
 		{
-			$arr = array('status' => false,'message' => 'Your Access Is Not Authorized.');	
+			$arr = array('status' => 1,'message' => 'Your Access Is Not Authorized.');	
 		}
 		else
 		{
 			$sql = $this->Api_model->logout($id);
 			if($sql == true)
 			{
-				$arr = array('status' => true,'message' => 'Berhasil Logout..');
+				$arr = array('status' => 0,'message' => 'Berhasil Logout..');
 			}
 			else{
-				$arr = array('status' => false,'message' => 'Tidak Berhasil Logout..');
+				$arr = array('status' => 1,'message' => 'Tidak Berhasil Logout..');
 			}
 		}
 		echo json_encode($arr);
