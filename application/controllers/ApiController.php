@@ -455,6 +455,14 @@ class ApiController extends CI_Controller
 		);
 		echo json_encode($arr);
 	}
+	public function info(){
+		$tipe = $this->uri->segment(3);
+		if($tipe = 'bantuan'){
+			$this->load->view('info/bantuan');
+		}elseif($tipe=='lupapass'){
+			$this->load->view('info/lupa');
+		}
+	}
 	public function laporanKekerasan(){
 		$tahun = $this->uri->segment(4);
 		$tipe = $this->uri->segment(3);

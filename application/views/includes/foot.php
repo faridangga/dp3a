@@ -21,7 +21,7 @@
 <script src="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
 <!-- Custom JS-->
 <script src="<?php echo base_url('assets/js/custom.js') ?>"></script>
-<!-- <script>
+<script>
     // Enable pusher logging - don't include this in production
     Pusher.logToConsole = true;
 
@@ -37,4 +37,4 @@
 
 
 
-  </script> -->
+  </script>

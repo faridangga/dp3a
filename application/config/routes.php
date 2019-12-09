@@ -93,6 +93,7 @@ $route['api/comments/(:num)'] = 'ApiController/articleComments';
 //API Destroy Token | Access Header Parameter : token & userid | No BODY INPUT
 $route['api/logout'] = 'ApiController/logout';
 $route['api/laporan/(:any)/(:num)'] = 'ApiController/laporanKekerasan';
+$route['api/info/(:any)'] = 'ApiController/info';
 
 
 //Api Login Parameter Body : email & password | method POST 
