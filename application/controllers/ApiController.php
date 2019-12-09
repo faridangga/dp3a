@@ -457,7 +457,7 @@ class ApiController extends CI_Controller
 	}
 	public function info(){
 		$tipe = $this->uri->segment(3);
-		if($tipe = 'bantuan'){
+		if($tipe == 'bantuan'){
 			$this->load->view('info/bantuan');
 		}elseif($tipe=='lupapass'){
 			$this->load->view('info/lupa');
