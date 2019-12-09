@@ -172,9 +172,31 @@ class Api_model extends CI_Model {
 	}
 	public function getLaporanKekerasan($tahun, $tipe)
 	{
-		$this->db->select("bulan, tahun, `1924` AS a, `2544` AS b, `45` AS c");
+		if($tipe=='usia')
+		$this->db->select("bulan, tahun, usia_1, usia_2, usia_3");
+		elseif($tipe=='bentuk')
+		$this->db->select("bulan, tahun, fsk, psi, seks, eks, penelantaran, lain");
 		$sql = 	$this->db->from("data_kekerasan")
 						->where('tahun',$tahun)
+						->get();
+		return $sql;
+	}
+	public function getGrafikKekerasan($tahun, $tipe)
+	{
+		if($tipe=='usia')
+		$this->db->select("sum(usia_1) as usia_1, sum(usia_2) as usia_2, sum(usia_3) as usia_3");
+		elseif($tipe=='bentuk')
+		$this->db->select("SUM(fsk) AS fisik, SUM(psi) AS psikologi, SUM(seks) AS seksual, SUM(eks) AS eksploitasi, SUM(penelantaran) AS penelantaran, SUM(lain) AS lain ");
+		$sql = 	$this->db->from("data_kekerasan")
+						->where('tahun',$tahun)
+						->get();
+		return $sql;
+	}
+	public function getTahunLaporan(){
+		$sql = $this->db->select("tahun")
+						->from("data_kekerasan")
+						->group_by('tahun')
+						->order_by('tahun', 'asc')
 						->get();
 		return $sql;
 	}

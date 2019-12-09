@@ -155,7 +155,8 @@ class ApiController extends CI_Controller
 	}
 	public function history()
 	{
-		/*$options = array(
+		//require_once(APPPATH.'views/vendor/autoload.php');
+		$options = array(
 			'cluster' => 'ap1',
 			'useTLS' => true
 		  );
@@ -165,8 +166,9 @@ class ApiController extends CI_Controller
 			'906672',
 			$options
 		  );
+		
 		  $data['message'] = 'hello world';
-		  $pusher->trigger('my-channel', 'my-event', $data);*/
+		  $pusher->trigger('my-channel', 'my-event', $data);
 		$id_user = $this->uri->segment(3);
 		$sql = $this->Api_model->getHistPengaduan($id_user);
 			if($sql->num_rows() > 0){
@@ -182,6 +184,7 @@ class ApiController extends CI_Controller
 				$arr = array(
 						'status' => "0",
 						'message' => "sukses",
+						'push'=>$data,
 						'total' => $sql->num_rows(),
 						'data' => $datas
 				);
@@ -453,20 +456,79 @@ class ApiController extends CI_Controller
 		echo json_encode($arr);
 	}
 	public function laporanKekerasan(){
-		$tahun = $this->uri->segment(3);
-		$tipe = $this->uri->segment(4);
+		$tahun = $this->uri->segment(4);
+		$tipe = $this->uri->segment(3);
+		$bulan = array(1=>'Januari', 2=>"Februari",3=>'Maret', 4=>'April', 5=>'Mei', 6=>'Juni', 7=>'Juli', 8=>'Agustus', 9=>'September',	10=>'Oktober', 11=>'Nopember',	12=>'Desember');
+		if($tipe=='tahun'){
+			$tahun = array();
+			$sql = $this->Api_model->getTahunLaporan();
+			foreach($sql->result() as $report)
+				{
+					$tahun[]=$report->tahun;
+				}
+				$arr = array(
+					'status' => 0,
+					'total' => $sql->num_rows(),
+					'data' => $tahun
+			);
+		}else{
 		$sql = $this->Api_model->getLaporanKekerasan($tahun, $tipe);
+		$sql_grafik = $this->Api_model->getGrafikKekerasan($tahun, $tipe);
+		if($sql->num_rows() > 0){
 		foreach($sql->result() as $report)
 				{
+					if($tipe=='usia'){
 					$data[] = array(
-							'bulan' => $report->bulan,
+							'bulan' => $bulan[$report->bulan],
 							'tahun' => $report->tahun,
-							'a'=>$report->a,
-							'b' => $report->b,
-							'c' => $report->c
+							'usia_1'=>$report->usia_1,
+							'usia_2' => $report->usia_2,
+							'usia_3' => $report->usia_3
 							);
+					}elseif($tipe=='bentuk'){
+						$data[] = array(
+							'bulan' => $bulan[$report->bulan],
+							'tahun' => $report->tahun,
+							'fisik'=>$report->fsk,
+							'psikologi' => $report->psi,
+							'seksual' => $report->seks,
+							'eksploitasi' => $report->eks,
+							'penelantaran' => $report->penelantaran,
+							'lain' => $report->lain,
+							);
+					}
+				}
+				foreach($sql_grafik->result() as $report)
+				{
+					if($tipe=='usia'){
+					$grafik[] = array(
+							'usia_1'=>$report->usia_1,
+							'usia_2' => $report->usia_2,
+							'usia_3' => $report->usia_3
+							);
+					}elseif($tipe=='bentuk'){
+						$grafik[] = array(
+							'fisik'=>$report->fisik,
+							'psikologi' => $report->psikologi,
+							'seksual' => $report->seksual,
+							'eksploitasi' => $report->eksploitasi,
+							'penelantaran' => $report->penelantaran,
+							'lain' => $report->lain,
+							);
+					}
 				}
 
+				$arr = array(
+					'status' => true,
+					'total' => $sql->num_rows(),
+					'grafik'=>$grafik,
+					'data' => $data
+			);
+		}else{
+			$arr = array('status' => true,'message' => 'Data Tidak ditemukan','count' => '0');
+		}
+	}
+		echo json_encode($arr);
 	}
 	public function logout()
 	{

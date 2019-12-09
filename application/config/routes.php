@@ -66,7 +66,6 @@ $route['register'] = 'auth/register';
 $route['profile-update'] = 'auth/update_profile';
 $route['change-password'] = 'auth/change_password';
 $route['reset-password'] = 'auth/reset_password';
-
 $route['logout'] = 'auth/logout';
 $route['admin'] = 'admin/index';
 $route['admin/login'] = 'auth/admin_login';
@@ -93,6 +92,8 @@ $route['api/posts/(:num)'] = 'ApiController/showArticle';
 $route['api/comments/(:num)'] = 'ApiController/articleComments';
 //API Destroy Token | Access Header Parameter : token & userid | No BODY INPUT
 $route['api/logout'] = 'ApiController/logout';
+$route['api/laporan/(:any)/(:num)'] = 'ApiController/laporanKekerasan';
+
 
 //Api Login Parameter Body : email & password | method POST 
 $route['apiapp/login'] = 'ApiApps/postLogin';
