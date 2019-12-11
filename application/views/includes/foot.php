@@ -25,17 +25,17 @@
 <script src="<?php echo base_url('assets/js/custom.js') ?>"></script>
 <script>
     // Enable pusher logging - don't include this in production
-    // Pusher.logToConsole = true;
+    Pusher.logToConsole = true;
 
-    // var pusher = new Pusher('71d114e69e897bd1d860', {
-    //   cluster: 'ap1',
-    //   forceTLS: true
-    // });
+    var pusher = new Pusher('71d114e69e897bd1d860', {
+      cluster: 'ap1',
+      forceTLS: true
+    });
 
-    // var channel = pusher.subscribe('my-channel');
-    // channel.bind('my-event', function(data) {
-    //   alert(JSON.stringify(data));
-    // });
+    var channel = pusher.subscribe('my-channel');
+    channel.bind('my-event', function(data) {
+      alert(JSON.stringify(data));
+    });
 
 
 
