@@ -8,10 +8,10 @@
         </div>
         <div class="card-body">
           <?php echo form_open($cname.'/insert',['id'=>'form-jabatan']); ?>
-          <input type="hidden" class="form-control" name="id_jabatan" placeholder="">
+          <input type="hidden" class="form-control" name="id_jabatan">
           <div class="form-group">
             <label>Nama jabatan</label>
-            <input type="text" class="form-control" name="nama_jabatan" placeholder="">
+            <input type="text" name="nama_jabatan" class="form-control" >
           </div>
           <div class="form-group">
             <label>Status</label>
@@ -22,7 +22,7 @@
             </select>
           </div>
           <button type="submit" class="btn btn-primary">Submit</button>
-          <button type="reset" class="btn btn-secondary">Reset</button>
+          <button type="reset" class="btn btn-secondary" onclick="form_reset();">Reset</button>
           <?php echo form_close(); ?>
         </div>
       </div>
@@ -55,7 +55,6 @@
   var url_fill_form = '<?php echo base_url($cname.'/get_data_by_id') ?>';
   var url_insert_jabatan = '<?php echo base_url($cname.'/insert') ?>';
   var base_cname = "<?php echo base_url($cname) ?>";
-
   var table = "";
   $(document).ready(function() {
     var table_url = $('#table-data').data('url');
@@ -110,8 +109,8 @@
         "class": "text-center",
         "data": (data, type, row) => {
           let ret = "";
-          ret += ' <a class="btn btn-info btn-sm" href="#" onclick="fill_form('+data.id_jabatan+'); return false;"><i class="fas fa-pencil-alt"></i> Edit</a>';
-          ret += ' <a class="btn btn-danger btn-sm" href="#" onclick="delete_jabatan(this)" data-id="'+data.id_jabatan+'"><i class="fas fa-trash-alt"></i> Delete</a>';
+          ret += ' <a class="btn btn-info btn-sm text-white" onclick="fill_form('+data.id_jabatan+'); return false;"><i class="fas fa-pencil-alt"></i> Edit</a>';
+          ret += ' <a class="btn btn-danger btn-sm text-white" onclick="delete_jabatan(this)" data-id="'+data.id_jabatan+'"><i class="fas fa-trash-alt"></i> Delete</a>';
           return ret;
         }
       }
@@ -128,10 +127,19 @@
         data: form.serialize(),
         dataType : "JSON",
         success: function (data) {
-          // let json = $.parseJSON(data);
-          swal(data.title,data.text,data.icon);
-          scroll_smooth('table',500);
-          form_reset();
+          if(data.code == '2'){
+            $('.is-invalid').removeClass('is-invalid');
+            $('.invalid-feedback').remove();
+            Object.keys(data.field).forEach(function(key) {
+              $('#form-jabatan').find('[name="'+key+'"]').parent().find('input,select').addClass('is-invalid');
+              $('#form-jabatan').find('[name="'+key+'"]').parent().append('<div class="invalid-feedback">'+data.field[key]+'</div>');
+              alert(key);
+            })
+          }else{
+            swal(data.title,data.message,data.type);
+            scroll_smooth('table',500);
+            form_reset();
+          }
         }
       });
     });
@@ -174,7 +182,6 @@
           dataType : "JSON",
           success : (data) => {
             swal(data.title,data.text,data.icon);
-            scroll_smooth('table',500);
             form_reset();
           }
         });

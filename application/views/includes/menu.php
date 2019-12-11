@@ -7,7 +7,24 @@
           Dashboard
         </p>
       </a>
-    </li><li class="nav-item">
+    </li>
+    <li class="nav-item">
+      <a href="<?php echo base_url('Admin/Users') ?>" class="nav-link">
+        <i class="nav-icon fab fa-cloudsmith"></i>
+        <p>
+          Users
+        </p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="<?php echo base_url('Admin/Admins') ?>" class="nav-link">
+        <i class="nav-icon fab fa-cloudsmith"></i>
+        <p>
+          Admin
+        </p>
+      </a>
+    </li>
+    <li class="nav-item">
       <a href="<?php echo base_url('Admin/Golongan') ?>" class="nav-link">
         <i class="nav-icon fab fa-cloudsmith"></i>
         <p>
@@ -51,7 +68,7 @@
       <a href="<?php echo base_url('Admin/Posts') ?>" class="nav-link">
         <i class="nav-icon fab fa-hotjar"></i>
         <p>
-          Posts
+          Artikel
         </p>
       </a>
     </li>

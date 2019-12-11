@@ -8,7 +8,7 @@ class Pengaduan extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('Pengaduan_model');
+		$this->load->model(['Pengaduan_model','Users_model','Kategori_Laporan_model']);
 
 	}
 
@@ -84,16 +84,25 @@ class Pengaduan extends CI_Controller {
 
 	public function delete_pengaduan()
 	{
-		$id_pengaduan = $this->input->post('id_pengaduan');
+		$id = $this->input->post('id_pengaduan'); 
 
-		$delete = $this->Pengaduan_model->delete($id_pengaduan);
-		if($delete){
-			$ret = [
-				'title' => "Delete",
-				'text' => "Delete success",
-				'icon' => "success",
-			];
-		}else{
+		if ($id != "") {
+			$delete = $this->Pengaduan_model->delete($id);
+			if($delete){
+				$ret = [
+					'title' => "Update",
+					'text' => "Update success",
+					'icon' => "success",
+				];
+			}else{
+				$ret = [
+					'title' => "Update",
+					'text' => "Update failed",
+					'icon' => "warning",
+				];
+			}
+			
+		} else {
 			$ret = [
 				'title' => "Delete",
 				'text' => "Delete failed",
@@ -105,10 +114,39 @@ class Pengaduan extends CI_Controller {
 	}
 
 	public function edit_pengaduan($id)
-    {
-        $data = $this->Pengaduan_model->get_data_by_id($id);
-        echo json_encode($data);
-    }
+	{
+		$data = $this->Pengaduan_model->get_data_by_id($id);
+		echo json_encode($data);
+	}
+
+	public function update()
+	{
+		$id = $this->input->post('id_pengaduan');
+		$data = [
+			'id_pengaduan' => $this->input->post('id_pengaduan'),
+			'id_user' => $this->input->post('id_user'),
+			'id_kategori' => $this->input->post('id_kategori'),
+			'isi_laporan' => $this->input->post('isi_laporan'),
+			'waktu_respon' => date("Y-m-d H:i:s"),
+			'status' => $this->input->post('status'),
+		];
+
+		$update = $this->Pengaduan_model->update($id, $data);
+		if($update){
+			$ret = [
+				'title' => "Update",
+				'text' => "Update success",
+				'icon' => "success",
+			];
+		}else{
+			$ret = [
+				'title' => "Update",
+				'text' => "Update failed",
+				'icon' => "warning",
+			];
+		}
+		echo json_encode($ret);
+	}
 
 }
 

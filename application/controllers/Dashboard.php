@@ -22,6 +22,13 @@ class Dashboard extends CI_Controller {
 		$this->load->view('layouts/dashboard',$data);
 	}
 
+	public function get_pengaduan_1($pengaduan_category = null)
+	{
+		if($pengaduan_category == "0") $pengaduan_category = null;
+		$data = $this->Dashboard_model->get_sto_1($pengaduan_category);
+		echo json_encode($data);
+	}
+
 }
 
 /* End of file Dashboard.php */

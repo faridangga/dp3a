@@ -1,18 +1,16 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Posts_model extends CI_Model {
+class Users_model extends CI_Model {
 
-	var $table = "posts";
+	var $table = "users";
 
 	public function get_data()
 	{
-		$this->db->select('posts.*, kategori_post.nama_kategori, admins.nama');
+		$this->db->select('*');
 		$this->db->from($this->table);
-		$this->db->join('kategori_post', 'kategori_post.id_kategori = posts.category_id', 'left');
-		$this->db->join('admins', 'admins.id_admin = posts.user_id', 'left');
-		$this->db->where('posts.status !=', 2);
-		$this->db->order_by('created_at','desc');
+		$this->db->where('status !=', 2);
+		$this->db->order_by('id_user','desc');
 		$query = $this->db->get();
 		return $query->result();
 	}
@@ -21,7 +19,7 @@ class Posts_model extends CI_Model {
 	{
 		$this->db->select('*');
 		$this->db->from($this->table);
-		$this->db->where('id',$id);
+		$this->db->where('id_user',$id);
 		$query = $this->db->get();
 		return $query->row(0);
 	}
@@ -34,38 +32,39 @@ class Posts_model extends CI_Model {
 
 	public function update($id, $data)
 	{
-		$this->db->where('id', $id);
+        $this->db->where('id_user', $id);
 		$update = $this->db->update($this->table,$data);
 		return $update;
 	}
 	
 	public function delete($id)
 	{
-		$this->db->where('id',$id);
+		$this->db->where('id_user',$id);
 		$data = array('status' => 2);
 		$delete = $this->db->update($this->table,$data);
 		return $delete;
 	}
 
-	public function update_is_slider($id)
+	public function update_status($id)
 	{
-		$is_slider = 0;
-		$this->db->where('id',$id);
+		$status = 0;
+		$this->db->where('id_user',$id);
 		$query = $this->db->get($this->table)->result();
 		foreach ($query as $key => $value) {	
-			$is_slider = $value->is_slider;
+			$status = $value->status;
 		}
 		
-		if ($is_slider == 0 ) {
-			$data = array('is_slider' => 1);
+		if ($status == 0 ) {
+			$data = array('status' => 1);
 		}else {
-			$data = array('is_slider' => 0);			
+			$data = array('status' => 0);			
 		}
-		$this->db->where('id',$id);
+		$this->db->where('id_user',$id);
 		$ret = $this->db->update($this->table,$data);
 		return $ret;
 	}
+
 }
 
-/* End of file Posts_model.php */
-/* Location: ./application/models/Posts_model.php */
+/* End of file Users_model.php */
+/* Location: ./application/models/Users_model.php */

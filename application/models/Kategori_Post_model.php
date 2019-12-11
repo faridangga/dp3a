@@ -32,7 +32,7 @@ class Kategori_Post_model extends CI_Model {
 
 	public function update($id, $data)
 	{
-        $this->db->where('id_kategori', $id);
+		$this->db->where('id_kategori', $id);
 		$update = $this->db->update($this->table,$data);
 		return $update;
 	}
@@ -45,6 +45,12 @@ class Kategori_Post_model extends CI_Model {
 		return $delete;
 	}
 
+	public function get_data_status()
+	{
+		$this->db->where('status', 1);
+		$query = $this->db->get($this->table);
+		return $query->result();
+	}
 
 }
 

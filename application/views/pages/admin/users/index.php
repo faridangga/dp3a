@@ -1,31 +1,51 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-12">
+    <!-- <div class="col-md-12">
       <div class="card">
         <div class="card-header">
           <h3 class="card-title">Title</h3>
+
         </div>
         <div class="card-body">
-          <?php echo form_open($cname.'/insert',['id' => 'form-golongan']); ?>
-          <input type="hidden" class="form-control" name="id_golongan" placeholder="">
+          <?php echo form_open($cname.'/insert',['id'=>'form-user']); ?>
+          <input type="hidden" class="form-control" name="id_user" placeholder="">
           <div class="form-group">
-            <label>Nama Golongan</label>
-            <input type="text" class="form-control" name="nama_golongan" placeholder="">
+            <label>Nama user</label>
+            <input type="text" class="form-control" name="nama" placeholder="Nama">
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" class="form-control" name="password" placeholder="Password">
+          </div>
+          <div class="form-group">
+            <label>No Telp.</label>
+            <input type="text" class="form-control" name="nomor_telp" placeholder="Nomor telp">
+          </div>
+          <div class="form-group">
+            <label>Alamat</label>
+            <input type="text" class="form-control" name="alamat" placeholder="Alamat">
+          </div>
+          <div class="form-group">
+            <label>Tanggal Lahir</label>
+            <input type="text" class="form-control" name="tanggal_lahir" placeholder="Tanggal Lahir">
           </div>
           <div class="form-group">
             <label>Status</label>
-            <select class="form-control" id="status" name="status">
+            <select class="form-control" name="status">
               <option value="" selected disabled>Choose</option>
               <option value="1">Aktif</option>
               <option value="0">Tidak Aktif</option>
             </select>
           </div>
+
           <button type="submit" class="btn btn-primary">Submit</button>
           <button type="reset" class="btn btn-secondary" onclick="form_reset();">Reset</button>
           <?php echo form_close(); ?>
         </div>
-
       </div>
+    </div> -->
+
+    <div class="col-md-12">
       <div class="card">
         <div class="card-body">
           <div class="table-responsive">
@@ -34,6 +54,10 @@
                 <tr>
                   <th></th>
                   <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+
                   <th></th>
                   <th></th>
                   <th class="th-sticky-action">-</th>
@@ -47,11 +71,10 @@
   </div>
 </div>
 
-
 <script>
 
   var url_fill_form = '<?php echo base_url($cname.'/get_data_by_id') ?>';
-  var url_insert_golongan = '<?php echo base_url($cname.'/insert') ?>';
+  var url_insert_user_laporan = '<?php echo base_url($cname.'/insert') ?>';
   var base_cname = "<?php echo base_url($cname) ?>";
   var table = "";
   $(document).ready(function() {
@@ -76,17 +99,28 @@
         }
       },
       { 
-        "title" : "Id Golongan",
-        "class" : "text-center",
-        "width" : "50px",
-        "data": "id_golongan" 
+        "title" : "Nama user",
+        "data": "nama" 
       },
       { 
-        "title" : "Nama Golongan",
-        "data": "nama_golongan" 
+        "title" : "password",
+        "data": "password" 
+      },
+      { 
+        "title" : "nomor_telp",
+        "data": "nomor_telp" 
+      },
+      { 
+        "title" : "alamat",
+        "data": "alamat" 
+      },
+      { 
+        "title" : "tanggal_lahir",
+        "data": "tanggal_lahir" 
       },
       { 
         "title" : "Status",
+        "class": "text-center",
         data : (data, type, row, meta) => {
           ret = "";
           if(data.status == '1'){
@@ -98,7 +132,7 @@
             ret += '<span class="badge bg-secondary">loss</span>';
           }
           return ret;
-        }
+        } 
       },
       {
         "title": "Actions",
@@ -107,8 +141,13 @@
         "class": "text-center",
         "data": (data, type, row) => {
           let ret = "";
-          ret += ' <a class="btn btn-info btn-sm text-white" onclick="fill_form('+data.id_golongan+'); return false;"><i class="fas fa-pencil-alt"></i> Edit</a>';
-          ret += ' <a class="btn btn-danger btn-sm text-white" onclick="delete_golongan(this)" data-id="'+data.id_golongan+'"><i class="fas fa-trash-alt"></i> Delete</a>';
+          if (data.status == '0') {
+            ret += ' <a class="btn btn-success btn-sm text-white" onclick="update_status(this)" data-id="'+data.id_user+'""> Aktifkan User</a>'
+          }else if(data.status == '1'){
+            ret += ' <a class="btn btn-warning btn-sm text-white" onclick="update_status(this)" data-id="'+data.id_user+'""> Non Aktif User</a>';
+          }
+
+          ret += ' <a class="btn btn-danger btn-sm text-white" onclick="delete_user(this)" data-id="'+data.id_user+'"><i class="fas fa-trash-alt"></i> Delete</a>';
 
           return ret;
         }
@@ -116,51 +155,48 @@
       ]
     });
 
-    $('form#form-golongan').submit(function(e){
-      // let form = $('#form-golongan');
-      // form.find('[name="nama_golongan"]').val();
-      // // form.find('[name="status"]').val();
-      // var nama_golongan = $('#nama_golongan').val();
-      // var status = $('#status').val();
-
-      // var val = $(this).find("input[type=submit]:focus" ).val();
+    $('form#form-user').submit(function(e){
       var form = $(this);
       e.preventDefault();
 
-      // var formData = new FormData(this);
-
       $.ajax({
-        url: url_insert_golongan,
+        url: url_insert_user_laporan,
         type: 'POST',
         data: form.serialize(),
         dataType : "JSON",
         success: function (data) {
+          // let json = $.parseJSON(data);
           swal(data.title,data.text,data.icon);
+          scroll_smooth('table',500);
           form_reset();
         }
       });
     });
   });
 
-  var fill_form = (id_golongan) => {
+
+  var fill_form = (id_user) => {
     $.ajax({
       url: url_fill_form,
       type: 'POST',
       data: {
-        'id_golongan' : id_golongan
+        'id_user' : id_user
       },
       success: function (data) {
         var json = $.parseJSON(data);
-        let form = $('#form-golongan');
-        form.find('[name="id_golongan"]').val(json.id_golongan);
-        form.find('[name="nama_golongan"]').val(json.nama_golongan);
+        let form = $('#form-user');
+        form.find('[name="id_user"]').val(json.id_user);
+        form.find('[name="nama"]').val(json.nama);
+        form.find('[name="nomor_telp"]').val(json.nomor_telp);
+        form.find('[name="alamat"]').val(json.alamat);
+        form.find('[name="tanggal_lahir"]').val(json.tanggal_lahir);
         form.find('[name="status"]').val(json.status);
         scroll_smooth('body',500);
       },
     });
   }
 
-  var delete_golongan = (obj) => {
+  var delete_user = (obj) => {
     swal({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -170,10 +206,36 @@
     }).then((willDelete) => {
       if(willDelete){
         $.ajax({
-          url : base_cname+"/delete_golongan",
+          url : base_cname+"/delete_user",
           type : 'POST',
           data : {
-            id_golongan : $(obj).data('id'),
+            id_user : $(obj).data('id'),
+          },
+          dataType : "JSON",
+          success : (data) => {
+            swal(data.title,data.text,data.icon);
+            form_reset();
+            scroll_smooth('table',500);
+          }
+        });
+      }
+    });
+  }
+
+  var update_status = (obj) => {
+    swal({
+      title: 'Apakah yakin ?',
+      text: "Akan merubah status!",
+      icon: 'warning',
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if(willDelete){
+        $.ajax({
+          url : base_cname+"/update_status",
+          type : 'POST',
+          data : {
+            id_user : $(obj).data('id'),
           },
           dataType : "JSON",
           success : (data) => {
@@ -185,9 +247,10 @@
     });
   }
 
+
   var form_reset = () => {
     table.ajax.reload(null,false);
-    $('form#form-golongan').find('input,select').val('');
+    $('form#form-user').find('input,select').val('');
   }
 
 </script>

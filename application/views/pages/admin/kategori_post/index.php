@@ -23,7 +23,7 @@
           </div>
 
           <button type="submit" class="btn btn-primary">Submit</button>
-          <button type="reset" class="btn btn-secondary">Reset</button>
+          <button type="reset" class="btn btn-secondary" onclick="form_reset();">Reset</button>
           <?php echo form_close(); ?>
         </div>
         <!-- /.card-body -->
@@ -117,8 +117,8 @@
         "class": "text-center",
         "data": (data, type, row) => {
           let ret = "";
-          ret += ' <a class="btn btn-info btn-sm" href="#" onclick="fill_form('+data.id_kategori+'); return false;"><i class="fas fa-pencil-alt"></i> Edit</a>';
-          ret += ' <a class="btn btn-danger btn-sm" href="#" onclick="delete_kategori(this)" data-id="'+data.id_kategori+'"><i class="fas fa-trash-alt"></i> Delete</a>';
+          ret += ' <a class="btn btn-info btn-sm text-white" onclick="fill_form('+data.id_kategori+'); return false;"><i class="fas fa-pencil-alt"></i> Edit</a>';
+          ret += ' <a class="btn btn-danger btn-sm text-white" onclick="delete_kategori(this)" data-id="'+data.id_kategori+'"><i class="fas fa-trash-alt"></i> Delete</a>';
 
           return ret;
         }

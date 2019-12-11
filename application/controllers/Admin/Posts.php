@@ -8,8 +8,8 @@ class Posts extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->helper(array('form', 'url'));
 		$this->load->model(['Posts_model','Kategori_Post_model','Admins_model']);
-
 	}
 
 	public function index()
@@ -20,7 +20,7 @@ class Posts extends CI_Controller {
 			'pages' => "admin/posts/index",
 			'data' => array(),
 		];
-		$data['data']['select_kategori_post'] = $this->Kategori_Post_model->get_data();
+		$data['data']['select_kategori_post'] = $this->Kategori_Post_model->get_data_status();
 		$data['data']['select_admins'] = $this->Admins_model->get_data();
 		$this->load->view('layouts/dashboard',$data);
 	}
@@ -40,56 +40,75 @@ class Posts extends CI_Controller {
 
 	public function insert()
 	{
-		$id = $this->input->post('id');
-		$data = [
-			'title' => $this->input->post('title'),
-			'content' => $this->input->post('content'),
-			'category_id' => $this->input->post('category_id'),
-			'image_content' => $this->input->post('image_content'),
-			'hit' => $this->input->post('hit'),
-			'is_slider' => $this->input->post('is_slider'),
-			'is_recommended' => $this->input->post('is_recommended'),
-			'visibility' => $this->input->post('visibility'),
-			'post_type' => $this->input->post('post_type'),
-			'image_url' => $this->input->post('image_url'),
-			'video_embed_code' => $this->input->post('video_embed_code'),
-			'user_id' => $this->input->post('user_id'),
-			'created_at' => $this->input->post('created_at'),
-			'status' => $this->input->post('status'),
-		];
 
-		if ($id == "") {
-			$insert = $this->Posts_model->insert($data);
-			if($insert){
-				$ret = [
-					'title' => "Insert",
-					'text' => "Insert success",
-					'icon' => "success",
-				];
-			}else{
-				$ret = [
-					'title' => "Insert",
-					'text' => "Insert failed",
-					'icon' => "warning",
-				];
-			}   
-		}else {
-			$update = $this->Posts_model->update($id, $data);
-			if($update){
-				$ret = [
-					'title' => "Update",
-					'text' => "Update success",
-					'icon' => "success",
-				];
-			}else{
-				$ret = [
-					'title' => "Update",
-					'text' => "Update failed",
-					'icon' => "warning",
-				];
+		$config['upload_path']          = './uploads/images/artikel';
+		$config['allowed_types']        = 'gif|jpg|png';
+		$config['max_size']             = 10000;
+		$config['max_width']            = 102400;
+		$config['max_height']           = 76800;
+
+		$this->load->library('upload', $config);
+
+		if ( ! $this->upload->do_upload('image_url')){
+			$error = array('error' => $this->upload->display_errors());
+			// redirect('Admin/Posts/index','refresh');
+			echo json_encode($error);
+		}
+		else{
+			$id = $this->input->post('id');
+
+			$artikel = array('upload_data' => $this->upload->data('file_name'));
+			$data = [
+				'title' => $this->input->post('title'),
+				'content' => $this->input->post('content'),
+				'category_id' => $this->input->post('category_id'),
+				'hit' => $this->input->post('hit'),
+				'post_type' => $this->input->post('post_type'),
+				'image_url' => base_url().'/uploads/images/artikel/'.$artikel['upload_data'],
+				'video_embed_code' => $this->input->post('video_embed_code'),
+				'user_id' => $this->input->post('user_id'),
+				'created_at' => date("Y-m-d H:i:s"),
+				'status' => $this->input->post('status'),
+				'is_slider' => $this->input->post('is_slider'),
+			];
+				// $insert = $this->Posts_model->insert($data);
+
+			if ($id == "") {
+				$insert = $this->Posts_model->insert($data);
+				if($insert){
+					$ret = [
+						'title' => "Insert",
+						'text' => "Insert success",
+						'icon' => "success",
+					];
+				}else{
+					$ret = [
+						'title' => "Insert",
+						'text' => "Insert failed",
+						'icon' => "warning",
+					];
+				}   
+			}else {
+				$update = $this->Posts_model->update($id, $data);
+				if($update){
+					$ret = [
+						'title' => "Update",
+						'text' => "Update success",
+						'icon' => "success",
+					];
+				}else{
+					$ret = [
+						'title' => "Update",
+						'text' => "Update failed",
+						'icon' => "warning",
+					];
+				}
 			}
 		}
+
 		echo json_encode($ret);
+		
+		// echo json_encode($insert);
 	}
 
 	public function delete_posts()
@@ -107,6 +126,26 @@ class Posts extends CI_Controller {
 			$ret = [
 				'text' => "Delete failed",
 				'title' => "Delete",
+				'icon' => "warning",
+			];
+		}
+		echo json_encode($ret);
+	}
+
+	public function update_is_slider()
+	{
+		$id = $this->input->post('id');
+		$update = $this->Posts_model->update_is_slider($id);
+		if($update){
+			$ret = [
+				'text' => "Update success",
+				'title' => "Update",
+				'icon' => "success",
+			];
+		}else{
+			$ret = [
+				'text' => "Update failed",
+				'title' => "Update",
 				'icon' => "warning",
 			];
 		}

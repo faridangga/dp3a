@@ -37,43 +37,100 @@ class Jabatan extends CI_Controller {
 
 	public function insert()
 	{
-		$id = $this->input->post('id_jabatan');
-		$data = [
-			'nama_jabatan' => $this->input->post('nama_jabatan'),
-			'status' => $this->input->post('status'),
-		];
+		$this->load->helper('security');
+		$this->load->helper(array('form', 'url'));
+		$this->load->library('form_validation');
 
-		if ($id == "") {
-			$insert = $this->Jabatan_model->insert($data);
-			if($insert){
-				$ret = [
-					'title' => "Insert",
-					'text' => "Insert success",
-					'icon' => "success",
-				];
-			}else{
-				$ret = [
-					'title' => "Insert",
-					'text' => "Insert failed",
-					'icon' => "warning",
-				];
-			}   
-		}else {
-			$update = $this->Jabatan_model->update($id, $data);
-			if($update){
-				$ret = [
-					'title' => "Update",
-					'text' => "Update success",
-					'icon' => "success",
-				];
-			}else{
-				$ret = [
-					'title' => "Update",
-					'text' => "Update failed",
-					'icon' => "warning",
-				];
+		$this->form_validation->set_rules('nama_jabatan','nama_jabatan','trim|required');
+		$this->form_validation->set_rules('status','status','trim|required');
+
+		$this->form_validation->set_error_delimiters('','');
+		
+		if ($this->form_validation->run() == TRUE) {
+			$id = $this->input->post('id_jabatan');
+
+			$data = [
+				'nama_jabatan' => $this->input->post('nama_jabatan'),
+				'status' => $this->input->post('status'),
+			];
+
+			if ($id == "") {
+				$insert = $this->Jabatan_model->insert($data);
+				if($insert){
+					$ret = [
+						'title' => "Insert",
+						'message' => "Insert success",
+						'type' => "success",
+					];
+				}else{
+					$ret = [
+						'title' => "Insert",
+						'message' => "Insert failed",
+						'type' => "warning",
+					];
+				}   
+			}else {
+				$update = $this->Jabatan_model->update($id, $data);
+				if($update){
+					$ret = [
+						'title' => "Update",
+						'message' => "Update success",
+						'type' => "success",
+					];
+				}else{
+					$ret = [
+						'title' => "Update",
+						'message' => "Update failed",
+						'type' => "warning",
+					];
+				}
 			}
+		} else {
+			$ret = [
+				'code' => 2,
+				'title' => 'Warning',
+				'message' => ''.validation_errors('',''),
+				'field' => $this->form_validation->error_array(),
+				'type' => 'warning'
+			];
 		}
+		// $id = $this->input->post('id_jabatan');		
+		// $data = [
+		// 	'nama_jabatan' => $this->input->post('nama_jabatan'),
+		// 	'status' => $this->input->post('status'),
+		// ];
+
+		// if ($id == "") {
+		// 	$insert = $this->Jabatan_model->insert($data);
+		// 	if($insert){
+		// 		$ret = [
+		// 			'title' => "Insert",
+		// 			'text' => "Insert success",
+		// 			'icon' => "success",
+		// 		];
+		// 	}else{
+		// 		$ret = [
+		// 			'title' => "Insert",
+		// 			'text' => "Insert failed",
+		// 			'icon' => "warning",
+		// 		];
+		// 	}   
+		// }else {
+		// 	$update = $this->Jabatan_model->update($id, $data);
+		// 	if($update){
+		// 		$ret = [
+		// 			'title' => "Update",
+		// 			'text' => "Update success",
+		// 			'icon' => "success",
+		// 		];
+		// 	}else{
+		// 		$ret = [
+		// 			'title' => "Update",
+		// 			'text' => "Update failed",
+		// 			'icon' => "warning",
+		// 		];
+		// 	}
+		// }
 		echo json_encode($ret);
 
 	}

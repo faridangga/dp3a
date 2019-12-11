@@ -1,9 +1,8 @@
-<head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-  <title>AdminLTE 3 | Starter</title>
+  <title>Dinas Pemberdayaan Perempuan & Perlindungan Anak</title>
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="<?php echo base_url('assets/plugins/fontawesome-free/css/all.min.css') ?>">
@@ -17,6 +16,8 @@
   <link rel="stylesheet" href="<?php echo base_url('assets/plugins/sweetalert/sweetalert.css') ?>">
   <!-- summernote -->
   <link rel="stylesheet" href="<?php echo base_url('assets/plugins/summernote/summernote-bs4.css') ?>">
+  <script src="<?php echo base_url('assets/plugins/chart.js/chart.min.js') ?>"></script>
+
   <!-- custom CSS -->
   <link rel="stylesheet" href="<?php echo base_url('assets/css/custom.css') ?>">
   <!-- Google Font: Source Sans Pro -->
@@ -30,4 +31,3 @@
   <!-- jQuery -->
   <script src="https://js.pusher.com/5.0/pusher.min.js"></script>
   <script src="<?php echo base_url('assets/plugins/jquery/jquery.min.js') ?>"></script>
-</head>

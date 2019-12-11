@@ -1,59 +1,55 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Admins extends CI_Controller {
+class Users extends CI_Controller {
 
-	var $cname = "Admin/Admins";
+	var $cname = "Admin/Users";
 
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model(['Admins_model','Golongan_model','Jabatan_model']);
+		$this->load->model('Users_model');
 
 	}
 
 	public function index()
 	{
 		$data = [
-			'title' => "Admins",
+			'title' => "Users",
 			'cname' => $this->cname,
-			'pages' => "admin/admins/index",
+			'pages' => "admin/users/index",
 			'data' => array(),
 		];
-		$data['data']['select_golongan'] = $this->Golongan_model->get_data();
-		$data['data']['select_jabatan'] = $this->Jabatan_model->get_data();
 		$this->load->view('layouts/dashboard',$data);
 	}
 
 	public function get_data()
 	{
-		$data['data'] = $this->Admins_model->get_data();
+		$data['data'] = $this->Users_model->get_data();
 		echo json_encode($data);
 	}
 
 	public function get_data_by_id()
 	{
-		$id = $this->input->post('id_admin');
-		$data = $this->Admins_model->get_data_by_id($id);
+		$id = $this->input->post('id_user');
+		$data = $this->Users_model->get_data_by_id($id);
 		echo json_encode($data);
 	}
 
 	public function insert()
 	{
-		$id = $this->input->post('id_admin');
+		$id = $this->input->post('id_user');
 		$data = [
 			'nama' => $this->input->post('nama'),
-			'nomor_identitas' => $this->input->post('nomor_identitas'),
 			'password' => md5($this->input->post('password')),
-			'no_telp' => $this->input->post('no_telp'),
-			'jabatan' => $this->input->post('jabatan'),
-			'golongan' => $this->input->post('golongan'),
-			'level_user' => $this->input->post('level_user'),
-			'is_active' => $this->input->post('is_active'),
+			'nomor_telp' => $this->input->post('nomor_telp'),
+			'alamat' => $this->input->post('alamat'),
+			'tanggal_lahir' => $this->input->post('tanggal_lahir'),
+			'status' => $this->input->post('status'),
 		];
 
 		if ($id == "") {
-			$insert = $this->Admins_model->insert($data);
+			$insert = $this->Users_model->insert($data);
 			if($insert){
 				$ret = [
 					'title' => "Insert",
@@ -68,7 +64,7 @@ class Admins extends CI_Controller {
 				];
 			}   
 		}else {
-			$update = $this->Admins_model->update($id, $data);
+			$update = $this->Users_model->update($id, $data);
 			if($update){
 				$ret = [
 					'title' => "Update",
@@ -86,12 +82,12 @@ class Admins extends CI_Controller {
 		echo json_encode($ret);
 	}
 
-	public function delete_admin()
+	public function delete_user()
 	{
-		$id = $this->input->post('id_admin');
+		$id = $this->input->post('id_user');
 
 		if ($id != "") {
-			$delete = $this->Admins_model->delete($id);
+			$delete = $this->Users_model->delete($id);
 			if($delete){
 				$ret = [
 					'text' => "Delete success",
@@ -116,7 +112,26 @@ class Admins extends CI_Controller {
 		echo json_encode($ret);
 	}
 
+	public function update_status()
+	{
+		$id = $this->input->post('id_user');
+		$update = $this->Users_model->update_status($id);
+		if($update){
+			$ret = [
+				'text' => "Update success",
+				'title' => "Update",
+				'icon' => "success",
+			];
+		}else{
+			$ret = [
+				'text' => "Update failed",
+				'title' => "Update",
+				'icon' => "warning",
+			];
+		}
+		echo json_encode($ret);
+	}
 }
 
-/* End of file Admins.php */
-/* Location: ./application/controllers/Admin/Admins.php */
+/* End of file Users.php */
+/* Location: ./application/controllers/Admin/Users.php */
