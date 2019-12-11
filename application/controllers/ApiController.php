@@ -155,7 +155,7 @@ class ApiController extends CI_Controller
 	}
 	public function history()
 	{
-		$this->pusher("history");
+		//$this->pusher("history");
 		$id_user = $this->uri->segment(3);
 		$sql = $this->Api_model->getHistPengaduan($id_user);
 			if($sql->num_rows() > 0){
