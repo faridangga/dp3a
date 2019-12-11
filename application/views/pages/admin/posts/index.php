@@ -176,7 +176,7 @@
         "data" : "image_url",
         "class" : "text-center",
         "render": function (data) {
-          return '<img src="' + data + '" style="height:150px; width:150px"/>';
+          return '<img src="<?=base_url()?>'+ data + '" style="height:150px; width:150px"/>';
         }
       },
       {

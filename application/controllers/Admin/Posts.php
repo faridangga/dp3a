@@ -64,7 +64,7 @@ class Posts extends CI_Controller {
 				'category_id' => $this->input->post('category_id'),
 				'hit' => $this->input->post('hit'),
 				'post_type' => $this->input->post('post_type'),
-				'image_url' => base_url().'/uploads/images/artikel/'.$artikel['upload_data'],
+				'image_url' => base_url().'uploads/images/artikel/'.$artikel['upload_data'],
 				'video_embed_code' => $this->input->post('video_embed_code'),
 				'user_id' => $this->input->post('user_id'),
 				'created_at' => date("Y-m-d H:i:s"),
