@@ -135,5 +135,5 @@ $route['trainer'] = 'home/kita_bisa';
 require APPPATH . 'config/routes_lang.php';
 
 
-$route['(:any)'] = 'home/post/$1';
+//$route['(:any)'] = 'home/post/$1';
 
