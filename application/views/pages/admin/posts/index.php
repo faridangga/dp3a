@@ -266,16 +266,14 @@
         form.find('[name="category_id"]').val(json.category_id);
         form.find('[name="hit"]').val(json.hit);
         form.find('[name="post_type"]').val(json.post_type);
-        // form.find('.dropify').html(json.image_url);
+        // form.find('.dropify').html(base_cname+json.image_url);
         form.find('[name="video_embed_code"]').val(json.video_embed_code);
         form.find('[name="user_id"]').val(json.user_id);
         form.find('[name="status"]').val(json.status);
         form.find('[name="is_slider"]').val(json.is_slider);
         // $("#input-file-now").removeClass('dropify').addClass('dropify');
-        // $("#input-file-now").addClass('dropify');
-        // $("#input-file-now").attr("data-height", 300);
-        $("#input-file-now").attr("data-default-file", json.image_url);
-        $('.dropify').dropify();
+        $("#input-file-now").attr("data-default-file", base_cname+json.image_url);
+        // $('.dropify').dropify();
         scroll_smooth('body',500);
       },
     });

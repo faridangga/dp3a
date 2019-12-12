@@ -8,7 +8,7 @@ class Jabatan extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->model('Jabatan_model');
+		$this->load->model(['Jabatan_model','Pengaduan_model']);
 	}
 
 	public function index()
@@ -17,6 +17,7 @@ class Jabatan extends CI_Controller {
 			'title' => "Jabatan",
 			'cname'=> $this->cname,
 			'pages' => "admin/jabatan/index",
+			'count_pengaduan' => $this->Pengaduan_model->count_pengaduan(),
 			'data' => array(),
 		];
 		$this->load->view('layouts/dashboard', $data);

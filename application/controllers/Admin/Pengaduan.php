@@ -18,6 +18,7 @@ class Pengaduan extends CI_Controller {
 			'title' => "Pengaduan",
 			'cname' => $this->cname,
 			'pages' => "admin/pengaduan/index",
+			'count_pengaduan' => $this->Pengaduan_model->count_pengaduan(),
 			'data' => array(),
 		];
 		$this->load->view('layouts/dashboard',$data);

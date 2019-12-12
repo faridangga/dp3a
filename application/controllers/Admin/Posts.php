@@ -9,7 +9,7 @@ class Posts extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->helper(array('form', 'url'));
-		$this->load->model(['Posts_model','Kategori_Post_model','Admins_model']);
+		$this->load->model(['Posts_model','Kategori_Post_model','Admins_model','Pengaduan_model']);
 	}
 
 	public function index()
@@ -18,6 +18,7 @@ class Posts extends CI_Controller {
 			'title' => "Posts",
 			'cname' => $this->cname,
 			'pages' => "admin/posts/index",
+			'count_pengaduan' => $this->Pengaduan_model->count_pengaduan(),
 			'data' => array(),
 		];
 		$data['data']['select_kategori_post'] = $this->Kategori_Post_model->get_data_status();
@@ -55,8 +56,6 @@ class Posts extends CI_Controller {
 			echo json_encode($error);
 		}
 		else{
-
-
 			$id = $this->input->post('id');
 
 			$artikel = array('upload_data' => $this->upload->data('file_name'));

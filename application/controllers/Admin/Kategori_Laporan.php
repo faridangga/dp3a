@@ -8,7 +8,7 @@ class Kategori_Laporan extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('Kategori_Laporan_model');  
+		$this->load->model(['Kategori_Laporan_model','Pengaduan_model']);  
 	}
 
 	public function index()
@@ -17,6 +17,7 @@ class Kategori_Laporan extends CI_Controller {
 			'title' => "Kategori Laporan",
 			'cname' => $this->cname,
 			'pages' => "admin/kategori_laporan/index",
+			'count_pengaduan' => $this->Pengaduan_model->count_pengaduan(),
 			'data' => array(),
 		];
 		$this->load->view('layouts/dashboard',$data);

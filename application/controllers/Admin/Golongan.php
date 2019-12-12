@@ -8,7 +8,7 @@ class Golongan extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('Golongan_model');
+		$this->load->model(['Pengaduan_model','Golongan_model']);
 
 	}
 
@@ -18,6 +18,7 @@ class Golongan extends CI_Controller {
 			'title' => "Golongan",
 			'cname' => $this->cname,
 			'pages' => "admin/golongan/index",
+			'count_pengaduan' => $this->Pengaduan_model->count_pengaduan(),
 			'data' => array(),
 		];
 		$this->load->view('layouts/dashboard',$data);

@@ -22,18 +22,23 @@ class Dashboard extends CI_Controller {
 			'data' => array(),
 		];
 		$data['data']['select_kategori'] = $this->Pengaduan_model->get_data();
-		$data['count_pengaduan'] = $this->Pengaduan_model->count_pengaduan();
+		// $data['data']['count_pengaduan'] = $this->Pengaduan_model->count_pengaduan();
 		// echo json_encode($data['data']['count_pengaduan']);
 		$this->load->view('layouts/dashboard',$data);
 	}
 
-
-	public function get_pengaduan_1($pengaduan_category = null)
+	public function count_pengaduan()
 	{
-		if($pengaduan_category == "0") $pengaduan_category = null;
-		$data = $this->Dashboard_model->get_sto_1($pengaduan_category);
+		$data = $this->Pengaduan_model->count_pengaduan();
 		echo json_encode($data);
 	}
+
+	// public function get_pengaduan_1($pengaduan_category = null)
+	// {
+	// 	if($pengaduan_category == "0") $pengaduan_category = null;
+	// 	$data = $this->Dashboard_model->get_sto_1($pengaduan_category);
+	// 	echo json_encode($data);
+	// }
 
 }
 

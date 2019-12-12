@@ -8,7 +8,7 @@ class Users extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('Users_model');
+		$this->load->model(['Users_model','Pengaduan_model']);
 
 	}
 
@@ -18,6 +18,7 @@ class Users extends CI_Controller {
 			'title' => "Users",
 			'cname' => $this->cname,
 			'pages' => "admin/users/index",
+			'count_pengaduan' => $this->Pengaduan_model->count_pengaduan(),
 			'data' => array(),
 		];
 		$this->load->view('layouts/dashboard',$data);

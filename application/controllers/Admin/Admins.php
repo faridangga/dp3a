@@ -8,7 +8,7 @@ class Admins extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model(['Admins_model','Golongan_model','Jabatan_model']);
+		$this->load->model(['Admins_model','Golongan_model','Jabatan_model','Pengaduan_model']);
 
 	}
 
@@ -18,6 +18,7 @@ class Admins extends CI_Controller {
 			'title' => "Admins",
 			'cname' => $this->cname,
 			'pages' => "admin/admins/index",
+			'count_pengaduan' => $this->Pengaduan_model->count_pengaduan(),
 			'data' => array(),
 		];
 		$data['data']['select_golongan'] = $this->Golongan_model->get_data();
