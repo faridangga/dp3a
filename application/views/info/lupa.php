@@ -17,22 +17,13 @@ body{
 </style>
 <body>
    <h3>Jika Anda Lupa Akan Kata Sandi Anda, Maka ikuti petunjuk dibawah ini:</h3>
-   <ul><li><b>Kirim Pengaduan</b>
+   <ul><li><b>Hubungi Admin</b>
    <ol>
-   <li>Pilih Menu Pengaduan</li>
-   <li>Setelah itu akan muncul halaman pengaduan</li>
-   <li>Pilih kategori pengaduan</li>
-   <li>Isi pengaduan</li>
-   <li>Kirim pengaduan Anda dengan klik tombol pengaduan</li>
-   </ol>
-   </li>
-   <li><b>Cek Riwayat Pengaduan</b><br>Anda dapat memeriksa status pengaduan Anda dengan cara berikut:
-   <ol>
-   <li>Pilih Menu Pengaduan</li>
-   <li>Setelah itu akan muncul halaman pengaduan</li>
-   <li>Pilih kategori pengaduan</li>
-   <li>Isi pengaduan</li>
-   <li>Kirim pengaduan Anda dengan klik tombol pengaduan</li>
+   <li>Kirim permintaan ubah password kepada admin DP3A via WhatsApp dengan nomor 08132222222 dengan format: "Lupa(spasi)Password(spasi)(nomor telepon)"</li>
+   <li>contoh: Lupa Password 0812345xxxx</li>
+   <li>Admin akan memeriksa apakah nomor tersebut terdaftar di aplikasi, jika Iya maka admin akan mereset password anda dan akan mengirimkan password anda melalui nomor tersebut</li>
+   <li>Setelah menerima password, Anda bisa menggunakannya di aplikasi</li>
+   <li><b>catatan: Pastikan nomor yang Anda kirimkan benar</b></li>
    </ol>
    </li>
    </ul> 
