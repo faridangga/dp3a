@@ -16,6 +16,7 @@ class Dashboard_model extends CI_Model {
 	}
 
 	public function getKategori(){
+		$this->db->order_by('id_kategori','ASC');
 		$query = $this->db->get('kategori_laporan');
 		return $query->result();
 	}

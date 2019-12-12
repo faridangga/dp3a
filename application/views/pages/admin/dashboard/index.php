@@ -50,7 +50,7 @@
         <label class="col-sm-2 col-md-2 col-form-label">Kategori</label>
         <div class="col-sm-10 col-md-10">
           <select name="select_kategori" class="form-control select2" id="select-kategori" style="width: 100%;">
-            <option value="" selected disabled>Choose</option>
+            <option value="" selected disabled>Pilih Kategori</option>
             <?php foreach ($data['select_kategori'] as $key => $value): ?>
               <option value="<?php echo $value->id_kategori ?>"><?php echo $value->nama_kategori ?></option>
             <?php endforeach ?>
@@ -63,7 +63,7 @@
         <label class="col-sm-2 col-md-2 col-form-label">Tahun</label>
         <div class="col-sm-10 col-md-10">
           <select name="select_tahun" class="form-control select2" id="select-tahun" style="width: 100%;">
-            <option value="" selected disabled>Choose</option>
+            <option value="" selected disabled>Pilih Tahun</option>
             <?php foreach ($data['tahun'] as $key => $value): ?>
               <option value="<?php echo $value->tahun; ?>"><?php echo $value->tahun;?></option>
             <?php endforeach ?>

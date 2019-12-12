@@ -10,7 +10,7 @@ class Kategori_Laporan_model extends CI_Model {
 		$this->db->select('*');
 		$this->db->from($this->table);
 		$this->db->where('status !=', 2);
-		$this->db->order_by('id_kategori','desc');
+		$this->db->order_by('id_kategori','asc');
 		$query = $this->db->get();
 		return $query->result();
 	}
