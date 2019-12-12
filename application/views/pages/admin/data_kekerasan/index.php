@@ -18,39 +18,39 @@
             <input type="text" class="form-control" name="tahun" placeholder="">
           </div>
           <div class="form-group">
-            <label>Usia 1</label>
+            <label>Usia 19-24</label>
             <input type="text" class="form-control" name="usia_1" placeholder="">
           </div>
           <div class="form-group">
-            <label>Usia 2</label>
+            <label>Usia 25-44</label>
             <input type="text" class="form-control" name="usia_2" placeholder="">
           </div>
           <div class="form-group">
-            <label>Usia 3</label>
+            <label>Usia 45+</label>
             <input type="text" class="form-control" name="usia_3" placeholder="">
           </div>
           <div class="form-group">
-            <label>Fsk</label>
+            <label>Fisik</label>
             <input type="text" class="form-control" name="fsk" placeholder="">
           </div>
           <div class="form-group">
-            <label>Psi</label>
+            <label>Psikologi</label>
             <input type="text" class="form-control" name="psi" placeholder="">
           </div>
           <div class="form-group">
-            <label>Seks</label>
+            <label>Seksual</label>
             <input type="text" class="form-control" name="seks" placeholder="">
           </div>
           <div class="form-group">
-            <label>Eks</label>
+            <label>Eksploitasi</label>
             <input type="text" class="form-control" name="eks" placeholder="">
           </div>
           <div class="form-group">
-            <label>penelantaran</label>
+            <label>Penelantaran</label>
             <input type="text" class="form-control" name="penelantaran" placeholder="">
           </div>
           <div class="form-group">
-            <label>lain</label>
+            <label>Lain-lain</label>
             <input type="text" class="form-control" name="lain" placeholder="">
           </div>
 
