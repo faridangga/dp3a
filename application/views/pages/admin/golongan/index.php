@@ -2,9 +2,6 @@
   <div class="row">
     <div class="col-md-12">
       <div class="card">
-        <div class="card-header">
-          <h3 class="card-title">Title</h3>
-        </div>
         <div class="card-body">
           <?php echo form_open($cname.'/insert',['id' => 'form-golongan']); ?>
           <input type="hidden" class="form-control" name="id_golongan" placeholder="">
@@ -104,7 +101,7 @@
         "title": "Actions",
         "width" : "120px",
         "visible":true,
-        "class": "text-center",
+        "class": "text-center th-sticky-action",
         "data": (data, type, row) => {
           let ret = "";
           ret += ' <a class="btn btn-info btn-sm text-white" onclick="fill_form('+data.id_golongan+'); return false;"><i class="fas fa-pencil-alt"></i> Edit</a>';

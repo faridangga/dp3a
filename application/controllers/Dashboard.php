@@ -8,6 +8,7 @@ class Dashboard extends CI_Controller {
 	public function __construct()
     {
         parent::__construct();
+        $this->load->model('Pengaduan_model');
         
     }
 
@@ -17,10 +18,15 @@ class Dashboard extends CI_Controller {
 			'title' => "dashboard",
 			'cname' => $this->cname,
 			'pages' => "admin/dashboard/index",
+			'count_pengaduan' => $this->Pengaduan_model->count_pengaduan(),
 			'data' => array(),
 		];
+		$data['data']['select_kategori'] = $this->Pengaduan_model->get_data();
+		$data['count_pengaduan'] = $this->Pengaduan_model->count_pengaduan();
+		// echo json_encode($data['data']['count_pengaduan']);
 		$this->load->view('layouts/dashboard',$data);
 	}
+
 
 	public function get_pengaduan_1($pengaduan_category = null)
 	{

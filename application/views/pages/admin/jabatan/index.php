@@ -3,15 +3,12 @@
 
     <div class="col-md-12">
       <div class="card">
-        <div class="card-header">
-          <h3 class="card-title">Title</h3>
-        </div>
         <div class="card-body">
           <?php echo form_open($cname.'/insert',['id'=>'form-jabatan']); ?>
           <input type="hidden" class="form-control" name="id_jabatan">
           <div class="form-group">
             <label>Nama jabatan</label>
-            <input type="text" name="nama_jabatan" class="form-control" >
+            <input type="text" name="nama_jabatan" class="form-control" placeholder="Nama Jabatan">
           </div>
           <div class="form-group">
             <label>Status</label>
@@ -106,7 +103,7 @@
         "title": "Actions",
         "width" : "120px",
         "visible":true,
-        "class": "text-center",
+        "class": "text-center th-sticky-action",
         "data": (data, type, row) => {
           let ret = "";
           ret += ' <a class="btn btn-info btn-sm text-white" onclick="fill_form('+data.id_jabatan+'); return false;"><i class="fas fa-pencil-alt"></i> Edit</a>';
@@ -136,9 +133,8 @@
               alert(key);
             })
           }else{
-            swal(data.title,data.message,data.type);
-            scroll_smooth('table',500);
             form_reset();
+            swal(data.title,data.message,data.type);
           }
         }
       });

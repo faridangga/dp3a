@@ -103,19 +103,19 @@
         "data": "nama" 
       },
       { 
-        "title" : "password",
+        "title" : "Password",
         "data": "password" 
       },
       { 
-        "title" : "nomor_telp",
+        "title" : "Nomor Telp",
         "data": "nomor_telp" 
       },
       { 
-        "title" : "alamat",
+        "title" : "Alamat",
         "data": "alamat" 
       },
       { 
-        "title" : "tanggal_lahir",
+        "title" : "Tanggal Lahir",
         "data": "tanggal_lahir" 
       },
       { 
@@ -138,7 +138,7 @@
         "title": "Actions",
         "width" : "120px",
         "visible":true,
-        "class": "text-center",
+        "class": "text-center th-sticky-action",
         "data": (data, type, row) => {
           let ret = "";
           if (data.status == '0') {

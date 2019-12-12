@@ -14,7 +14,7 @@
 <!-- Summernote -->
 <script src="<?php echo base_url('assets/plugins/summernote/summernote-bs4.min.js') ?>"></script>
 <!-- chartjs -->
-<!-- <script src="<?php echo base_url('assets/plugins/chart.js/chart.min.js') ?>"></script> -->
+<!-- <script src="https://www.chartjs.org/dist/2.9.3/Chart.min.js"></script> -->
 <!-- pusher -->
 <!-- <script src="<?php echo base_url('assets/plugins/pusher/pusher.min.js') ?>"></script> -->
 <!-- dropify -->
@@ -34,9 +34,15 @@
 
     var channel = pusher.subscribe('my-channel');
     channel.bind('my-event', function(data) {
-      alert(JSON.stringify(data));
+      // alert(JSON.stringify(data)); 
+      $(document).Toasts('create', {
+        class: 'bg-warning',
+        body: 'Data Pengaduan Masuk',
+        title: 'PENGADUAN',
+        position: 'topLeft',
+        subtitle: 'Subtitle',
+        icon: 'fas fa-envelope fa-lg',
+      })
     });
-
-
 
   </script>

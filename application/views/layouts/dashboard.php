@@ -20,10 +20,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		<!-- Main Sidebar Container -->
 		<aside class="main-sidebar sidebar-dark-primary elevation-4">
 			<!-- Brand Logo -->
-			<a href="index3.html" class="brand-link">
-				<img src="<?php echo base_url('assets/img/AdminLTELogo.png') ?>" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+			<a href="#" class="brand-link">
+				<img src="<?php echo base_url('assets/img/logo.png') ?>" alt="DP3A Logo" class="brand-image"
 				style="opacity: .8">
-				<span class="brand-text font-weight-light">AdminLTE 3</span>
+				<span class="brand-text font-weight-light">DP3A</span>
 			</a>
 
 			<!-- Sidebar -->
@@ -31,10 +31,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				<!-- Sidebar user panel (optional) -->
 				<div class="user-panel mt-3 pb-3 mb-3 d-flex">
 					<div class="image">
-						<img src="<?php echo base_url('assets/img/user2-160x160.jpg') ?>" class="img-circle elevation-2" alt="User Image">
+						<img src="<?php echo base_url('assets/img/placeholder-user.png') ?>" class="img-circle elevation-2" alt="User Image">
 					</div>
 					<div class="info">
-						<a href="#" class="d-block">Alexander Pierce</a>
+						<a href="#" class="d-block">Farid</a>
 					</div>
 				</div>
 

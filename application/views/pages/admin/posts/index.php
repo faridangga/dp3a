@@ -176,7 +176,7 @@
         "data" : "image_url",
         "class" : "text-center",
         "render": function (data) {
-          return '<img src="<?=base_url()?>'+ data + '" style="height:150px; width:150px"/>';
+          return '<img src="<?php echo base_url() ?>'+ data + '" style="height:150px; width:150px"/>';
         }
       },
       {
@@ -277,9 +277,6 @@
         // $("#input-file-now").attr("data-height", 300);
         // $("#input-file-now").attr("data-default-file", json.image_url);
         // $('.dropify').dropify();
-        $('.dropify').dropify({
-                       defaultFile: json.image_url ,
-                  });
         scroll_smooth('body',500);
       },
     });

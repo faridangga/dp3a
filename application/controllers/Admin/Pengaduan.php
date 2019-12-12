@@ -148,6 +148,12 @@ class Pengaduan extends CI_Controller {
 		echo json_encode($ret);
 	}
 
+	public function count_pengaduan()
+	{
+		$data['data'] = $this->Pengaduan_model->count_pengaduan();
+		echo json_encode($data);
+	}
+
 }
 
 /* End of file Pengaduan.php */

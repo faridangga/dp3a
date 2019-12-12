@@ -2,10 +2,6 @@
   <div class="row">
     <div class="col-md-12">
       <div class="card">
-        <div class="card-header">
-          <h3 class="card-title">Title</h3>
-
-        </div>
         <div class="card-body">
           <?php echo form_open($cname.'/insert',['id'=>'form-kategori-laporan']); ?>
           <input type="hidden" class="form-control" name="id_kategori" placeholder="">

@@ -1,59 +1,5 @@
 <div class="container-fluid">
   <div class="row">
-    <!-- <div class="col-md-12">
-      <div class="card">
-        <div class="card-header">
-          <h3 class="card-title">Title</h3>
-
-        </div>
-        <div class="card-body">
-          <?php echo form_open($cname.'/insert',['id'=>'form-pengaduan']); ?>
-          <input type="hidden" class="form-control" name="id_pengaduan" placeholder="">
-          <div class="form-group">
-            <label>Nama User</label>
-            <input type="text" class="form-control" name="id_user" placeholder="">
-          </div>
-          <div class="form-group">
-            <label>Kategori</label>
-            <input type="text" class="form-control" name="id_kategori" placeholder="">
-          </div>
-          <div class="form-group">
-            <label>Laporan</label>
-            <input type="text" class="form-control" name="isi_laporan" placeholder="">
-          </div>
-          <div class="form-group">
-            <label>Waktu Laporan</label>
-            <input type="text" class="form-control" name="waktu_lapor" placeholder="">
-          </div>
-          <div class="form-group">
-            <label>Waktu Respon</label>
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text">
-                  <i class="far fa-calendar-alt"></i>
-                </span>
-              </div>
-              <input type="text" class="form-control float-right" id="datepicker" name="waktu">
-            </div>
-          </div>
-          <div class="form-group">
-            <label>Status</label>
-            <select class="form-control" name="status">
-              <option value="" selected disabled>Choose</option>
-              <option value="1">Aktif</option>
-              <option value="0">Tidak Aktif</option>
-            </select>
-          </div>
-
-          <button type="submit" class="btn btn-primary">Submit</button>
-          <button type="reset" class="btn btn-secondary" onclick="form_reset();">Reset</button>
-          <?php echo form_close(); ?>
-        </div>
-
-        
-
-      </div>
-    </div> -->
     <div class="col-md-12">
       <div class="card">
         <div class="card-body">
@@ -94,13 +40,15 @@
         <div class="form-body">
           <?php echo form_open($cname.'/update',['id'=>'form-pengaduan']); ?>
           <input type="hidden" class="form-control" name="id_pengaduan" placeholder="" readonly>
+          <input type="hidden" class="form-control" name="id_user" placeholder="" readonly>
+          <input type="hidden" class="form-control" name="id_kategori" placeholder="" readonly>
           <div class="form-group">
             <label>Nama User</label>
-            <input type="text" class="form-control" name="id_user" placeholder="" readonly>
+            <input type="text" class="form-control" name="id_user1" placeholder="" readonly>
           </div>
           <div class="form-group">
             <label>Kategori</label>
-            <input type="text" class="form-control" name="id_kategori" placeholder="" readonly>
+            <input type="text" class="form-control" name="id_kategori1" placeholder="" readonly>
           </div>
           <div class="form-group">
             <label>Laporan</label>
@@ -198,10 +146,10 @@
             ret += '<span class="badge bg-success">Sudah Teratasi</span>';
           }else
           if(data.id_status == '2'){
-            ret += '<span class="badge bg-info">Tidak Teratasi</span>';
+            ret += '<span class="badge bg-danger">Tidak Teratasi</span>';
           }else
           if(data.id_status == '3'){
-            ret += '<span class="badge bg-danger">Tidak Bisa dihubungi</span>';
+            ret += '<span class="badge bg-info">Tidak Bisa dihubungi</span>';
           }else{
             ret += '<span class="badge bg-secondary">loss</span>';
           }
@@ -212,7 +160,7 @@
         "title": "Actions",
         "width" : "120px",
         "visible":true,
-        "class": "text-center",
+        "class": "text-center th-sticky-action",
         "data": (data, type, row) => {
           let ret = "";
           ret += ' <a class="btn btn-info btn-sm text-white" onclick="edit_pengaduan('+data.id_pengaduan+')"><i class="fas fa-pencil-alt"></i> Edit</a>';
@@ -284,13 +232,13 @@
        $('[name="id_pengaduan"]').val(data.id_pengaduan);
        $('[name="id_user"]').val(data.id_user);
        $('[name="id_kategori"]').val(data.id_kategori);
+       $('[name="id_user1"]').val(data.nama);
+       $('[name="id_kategori1"]').val(data.nama_kategori);
        $('[name="isi_laporan"]').val(data.isi_laporan);
        $('[name="waktu_lapor"]').val(data.waktu_lapor);
        $('[name="status"]').val(data.status);
             $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
             $('.modal-title').text('Edit pengaduan'); // Set title to Bootstrap modal title
-
-
           },
           error: function (jqXHR, textStatus, errorThrown)
           {

@@ -9,18 +9,18 @@
       </a>
     </li>
     <li class="nav-item">
-      <a href="<?php echo base_url('Admin/Users') ?>" class="nav-link">
-        <i class="nav-icon fab fa-cloudsmith"></i>
+      <a href="<?php echo base_url('Admin/Admins') ?>" class="nav-link">
+        <i class="nav-icon fas fa-user-tie"></i>
         <p>
-          Users
+          Admin
         </p>
       </a>
     </li>
     <li class="nav-item">
-      <a href="<?php echo base_url('Admin/Admins') ?>" class="nav-link">
-        <i class="nav-icon fab fa-cloudsmith"></i>
+      <a href="<?php echo base_url('Admin/Users') ?>" class="nav-link">
+        <i class="nav-icon fas fa-user-tie"></i>
         <p>
-          Admin
+          Users
         </p>
       </a>
     </li>
@@ -34,7 +34,7 @@
     </li>
     <li class="nav-item">
       <a href="<?php echo base_url('Admin/Jabatan') ?>" class="nav-link">
-        <i class="nav-icon fas fa-certificate"></i>
+        <i class="nav-icon fas fa-hat-cowboy-side"></i>
         <p>
           Jabatan
         </p>
@@ -58,7 +58,7 @@
     </li>
     <li class="nav-item">
       <a href="<?php echo base_url('Admin/Pengaduan') ?>" class="nav-link">
-        <i class="nav-icon fab fa-hotjar"></i>
+        <i class="nav-icon fas fa-hand-holding-heart"></i>
         <p>
           Pengaduan
         </p>
@@ -66,9 +66,17 @@
     </li>
     <li class="nav-item">
       <a href="<?php echo base_url('Admin/Posts') ?>" class="nav-link">
-        <i class="nav-icon fab fa-hotjar"></i>
+        <i class="nav-icon far fa-newspaper"></i>
         <p>
           Artikel
+        </p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="<?php echo base_url('Admin/Data_Kekerasan') ?>" class="nav-link">
+        <i class="nav-icon fas fa-clipboard-list"></i>
+        <p>
+          Data Kekerasan
         </p>
       </a>
     </li>

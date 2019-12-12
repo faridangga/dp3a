@@ -37,13 +37,13 @@ class Jabatan extends CI_Controller {
 
 	public function insert()
 	{
-		$this->load->helper('security');
-		$this->load->helper(array('form', 'url'));
+		// $this->load->helper('security');
+		// $this->load->helper(array('form', 'url'));
 		$this->load->library('form_validation');
 
-		$this->form_validation->set_rules('nama_jabatan','nama_jabatan','trim|required');
-		$this->form_validation->set_rules('status','status','trim|required');
-
+		$this->form_validation->set_rules('nama_jabatan','Nama Jabatan','trim|required');
+		$this->form_validation->set_rules('status','Status','trim|required');
+		$this->form_validation->set_message('required',"{field} harus diisi");
 		$this->form_validation->set_error_delimiters('','');
 		
 		if ($this->form_validation->run() == TRUE) {
@@ -60,13 +60,13 @@ class Jabatan extends CI_Controller {
 					$ret = [
 						'title' => "Insert",
 						'message' => "Insert success",
-						'type' => "success",
+						'type 	' => "success",
 					];
 				}else{
 					$ret = [
 						'title' => "Insert",
 						'message' => "Insert failed",
-						'type' => "warning",
+						'type 	' => "warning",
 					];
 				}   
 			}else {
@@ -75,13 +75,13 @@ class Jabatan extends CI_Controller {
 					$ret = [
 						'title' => "Update",
 						'message' => "Update success",
-						'type' => "success",
+						'type 	' => "success",
 					];
 				}else{
 					$ret = [
 						'title' => "Update",
 						'message' => "Update failed",
-						'type' => "warning",
+						'type 	' => "warning",
 					];
 				}
 			}

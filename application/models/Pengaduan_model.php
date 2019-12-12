@@ -21,8 +21,13 @@ class Pengaduan_model extends CI_Model {
 
 	public function get_data_by_id($id)
 	{
-		$this->db->select('*');
+		$this->db->select('pengaduan.*, users.nama, kategori_laporan.nama_kategori, status_pengaduan.id_status');
+		// $this->db->select('*');
 		$this->db->from($this->table);
+		$this->db->join('users', 'pengaduan.id_user = users.id_user','left');
+		$this->db->join('kategori_laporan', 'pengaduan.id_kategori = kategori_laporan.id_kategori','left');
+		$this->db->join('status_pengaduan', 'pengaduan.status = status_pengaduan.id_status','left');
+		$this->db->where('pengaduan.status !=', 4);
 		$this->db->where('id_pengaduan',$id);
 		$query = $this->db->get();
 		return $query->row(0);
@@ -60,6 +65,22 @@ class Pengaduan_model extends CI_Model {
 		$this->db->where('users.id_user',$id);
 		$query = $this->db->get();
 		return $query->result();
+	}
+
+	public function count_pengaduan()
+	{
+		$jumlah = 0;
+		$status = 0;
+		$this->db->where('status =', 0);
+		$query = $this->db->get($this->table)->result();
+		foreach ($query as $key => $value) {	
+			if ($value->status == 0) {
+				$jumlah++;
+			}
+		}
+		// echo json_encode($status);
+		return $jumlah;
+
 	}
 
 }
