@@ -33,11 +33,12 @@ body{
    <li>Setelah itu akan muncul halaman riwayat</li>
    <li>Jika Anda pernah mengirimkan pengaduan, akan muncul riwayat pengaduan yang berisi kategori, waktu dan status pengaduan</li>
    <li>Terdapat 4 status Pengaduan antara lain:
-        <li><b>Belum Direspon</b><br>Admin dari aplikasi Sambat DP3A Kabupaten Malang belum melihat pengaduan yang dilakukan</li>
-        <li><b>Sudah Teratasi</b> Keluhan/ pengaduan dari pengguna sudah ditanggapi dan diselesaikan oleh petugas DP3A Kabupaten Malang</li>
-        <li><b>Tidak Teratasi</b>Keluhan / pengaduan dari pengguna telah direspon/ditindak lanjuti namun tidak dapat diselesaikan</li>
-        <li><b>Tidak Respon</b>Keluhan / pengaduan yang dilaporkan akan ditindak lanjuti, tetapi ketika petugas memberikan feedback bantuan, pengguna tidak bisa dihubungi dan dapat dianggap sebagai laporan palsu</li>
    <ul>
+        <li><b>Belum Direspon</b><br>Admin dari aplikasi Sambat DP3A Kabupaten Malang belum melihat pengaduan yang dilakukan</li>
+        <li><b>Sudah Teratasi</b><br> Keluhan/ pengaduan dari pengguna sudah ditanggapi dan diselesaikan oleh petugas DP3A Kabupaten Malang</li>
+        <li><b>Tidak Teratasi</b><br> Keluhan / pengaduan dari pengguna telah direspon/ditindak lanjuti namun tidak dapat diselesaikan</li>
+        <li><b>Tidak Respon</b><br> Keluhan / pengaduan yang dilaporkan akan ditindak lanjuti, tetapi ketika petugas memberikan feedback bantuan, pengguna tidak bisa dihubungi dan dapat dianggap sebagai laporan palsu</li>
+   
    </ul>
    </li>
    <li>Pantau perkembangan laporan melalu menu Riwayat</li>
