@@ -30,16 +30,6 @@ class Login extends CI_Controller {
 				redirect('Home','refresh');
 			}
 		}
-
-		if ($this->form_validation->run() == false) {
-			$this->load->view('login');
-		}else{
-			if ($this->session->userdata('logged_in')['level'] == '1') {
-				redirect('Admin/Home');
-			}else{
-				redirect('Home','refresh');
-			}
-		}
 	}
 
 	public function logout()
