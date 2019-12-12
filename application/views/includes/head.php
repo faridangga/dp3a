@@ -3,7 +3,7 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
 
   <title>Dinas Pemberdayaan Perempuan & Perlindungan Anak</title>
-
+<link rel="shortcut icon" href="<?php echo base_url('assets/img/logo.png') ?>">
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="<?php echo base_url('assets/plugins/fontawesome-free/css/all.min.css') ?>">
   <!-- Theme style -->

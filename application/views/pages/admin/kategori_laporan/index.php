@@ -6,7 +6,9 @@
           <?php echo form_open($cname.'/insert',['id'=>'form-kategori-laporan']); ?>
           <input type="hidden" class="form-control" name="id_kategori" placeholder="">
           <div class="form-group">
-            <label>Nama Kategori</label>
+            <label>Nama Kategori Laporan
+    $('.is-invalid').removeClass('is-invalid');
+    $('.invalid-feedback').remove();</label>
             <input type="text" class="form-control" name="nama_kategori" placeholder="">
           </div>
           <div class="form-group">
@@ -126,9 +128,17 @@
         data: form.serialize(),
         dataType : "JSON",
         success: function (data) {
-          // let json = $.parseJSON(data);
-          swal(data.title,data.text,data.icon);
-          form_reset();
+          if(data.code == '2'){
+            $('.is-invalid').removeClass('is-invalid');
+            $('.invalid-feedback').remove();
+            Object.keys(data.field).forEach(function(key) {
+              $('#form-kategori-laporan').find('[name="'+key+'"]').parent().find('input,select').addClass('is-invalid');
+              $('#form-kategori-laporan').find('[name="'+key+'"]').parent().append('<div class="invalid-feedback">'+data.field[key]+'</div>');
+            })
+          }else{
+            form_reset();
+            swal(data.title,data.text,data.icon);
+          }
         }
       });
     });
@@ -145,6 +155,7 @@
       success: function (data) {
         var json = $.parseJSON(data);
         let form = $('#form-kategori-laporan');
+        form_reset();
         form.find('[name="id_kategori"]').val(json.id_kategori);
         form.find('[name="nama_kategori"]').val(json.nama_kategori);
         form.find('[name="status"]').val(json.status);
@@ -182,6 +193,8 @@
   var form_reset = () => {
     table.ajax.reload(null,false);
     $('form#form-kategori-laporan').find('input,select').val('');
+    $('.is-invalid').removeClass('is-invalid');
+    $('.invalid-feedback').remove();
   }
 
 </script>

@@ -6,12 +6,8 @@
           <?php echo form_open($cname.'/insert',['id'=>'form-kategori-post']); ?>
           <input type="hidden" class="form-control" name="id_kategori" placeholder="">
           <div class="form-group">
-            <label>Nama Kategori</label>
+            <label>Nama Kategori Post</label>
             <input type="text" class="form-control" name="nama_kategori" placeholder="">
-          </div>
-          <div class="form-group">
-            <label>Parent</label>
-            <input type="text" class="form-control" name="parent" placeholder="">
           </div>
           <div class="form-group">
             <label>Status</label>
@@ -37,7 +33,6 @@
             <table id="table-data" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%" role="grid" aria-describedby="example23_info" style="width: 100%;" data-url="<?php echo base_url($cname.'/get_data') ?>">
               <thead>
                 <tr>
-                  <th></th>
                   <th></th>
                   <th></th>
                   <th></th>
@@ -80,12 +75,6 @@
         render: (data, type, row, meta) => {
           return meta.row + meta.settings._iDisplayStart + 1;
         }
-      },
-      { 
-        "title" : "Id kategori",
-        "class" : "text-center",
-        "width" : "50px",
-        "data": "id_kategori" 
       },
       { 
         "title" : "Nama kategori",
@@ -136,10 +125,17 @@
         data: form.serialize(),
         dataType : "JSON",
         success: function (data) {
-          // let json = $.parseJSON(data);
-          swal(data.title,data.text,data.icon);
-          scroll_smooth('table',500);
-          form_reset();
+          if(data.code == '2'){
+            $('.is-invalid').removeClass('is-invalid');
+            $('.invalid-feedback').remove();
+            Object.keys(data.field).forEach(function(key) {
+              $('#form-kategori-post').find('[name="'+key+'"]').parent().find('input,select').addClass('is-invalid');
+              $('#form-kategori-post').find('[name="'+key+'"]').parent().append('<div class="invalid-feedback">'+data.field[key]+'</div>');
+            })
+          }else{
+            form_reset();
+            swal(data.title,data.text,data.icon);
+          }
         }
       });
     });
@@ -156,6 +152,7 @@
       success: function (data) {
         var json = $.parseJSON(data);
         let form = $('#form-kategori-post');
+        form_reset();
         form.find('[name="id_kategori"]').val(json.id_kategori);
         form.find('[name="nama_kategori"]').val(json.nama_kategori);
         form.find('[name="parent"]').val(json.parent);
@@ -195,6 +192,8 @@
   var form_reset = () => {
     table.ajax.reload(null,false);
     $('form#form-kategori-post').find('input,select').val('');
+    $('.is-invalid').removeClass('is-invalid');
+    $('.invalid-feedback').remove();
   }
 
 </script>

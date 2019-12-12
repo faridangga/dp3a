@@ -6,11 +6,10 @@ class Kategori_Laporan extends CI_Controller {
 	var $cname = "Admin/Kategori_Laporan";
 
 	public function __construct()
-    {
-        parent::__construct();
-        $this->load->model('Kategori_Laporan_model');
-        
-    }
+	{
+		parent::__construct();
+		$this->load->model('Kategori_Laporan_model');  
+	}
 
 	public function index()
 	{
@@ -38,43 +37,60 @@ class Kategori_Laporan extends CI_Controller {
 
 	public function insert()
 	{
-		$id = $this->input->post('id_kategori');
-		$data = [
-			'nama_kategori' => $this->input->post('nama_kategori'),
-			'status' => $this->input->post('status'),
-		];
 
-		if ($id == "") {
-			$insert = $this->Kategori_Laporan_model->insert($data);
-			if($insert){
-				$ret = [
-					'title' => "Insert",
-					'text' => "Insert success",
-					'icon' => "success",
-				];
-			}else{
-				$ret = [
-					'title' => "Insert",
-					'text' => "Insert failed",
-					'icon' => "warning",
-				];
-			}   
-		}else {
-			$update = $this->Kategori_Laporan_model->update($id, $data);
-			if($update){
-				$ret = [
-					'title' => "Update",
-					'text' => "Update success",
-					'icon' => "success",
-				];
-			}else{
-				$ret = [
-					'title' => "Update",
-					'text' => "Update failed",
-					'icon' => "warning",
-				];
+		$this->form_validation->set_rules('nama_kategori','Nama Kategori Laporan','trim|required');
+		$this->form_validation->set_rules('status','Status','trim|required');
+		$this->form_validation->set_message('required',"{field} harus diisi");
+		$this->form_validation->set_error_delimiters('','');
+
+		if ($this->form_validation->run() == TRUE) {
+			$id = $this->input->post('id_kategori');
+			$data = [
+				'nama_kategori' => $this->input->post('nama_kategori'),
+				'status' => $this->input->post('status'),
+			];
+
+			if ($id == "") {
+				$insert = $this->Kategori_Laporan_model->insert($data);
+				if($insert){
+					$ret = [
+						'title' => "Insert",
+						'text' => "Insert success",
+						'icon' => "success",
+					];
+				}else{
+					$ret = [
+						'title' => "Insert",
+						'text' => "Insert failed",
+						'icon' => "warning",
+					];
+				}   
+			}else {
+				$update = $this->Kategori_Laporan_model->update($id, $data);
+				if($update){
+					$ret = [
+						'title' => "Update",
+						'text' => "Update success",
+						'icon' => "success",
+					];
+				}else{
+					$ret = [
+						'title' => "Update",
+						'text' => "Update failed",
+						'icon' => "warning",
+					];
+				}
 			}
+		} else {
+			$ret = [
+				'code' => 2,
+				'title' => 'Warning',
+				'text' => ''.validation_errors('',''),
+				'field' => $this->form_validation->error_array(),
+				'icon' => 'warning'
+			];
 		}
+		
 		echo json_encode($ret);
 	}
 

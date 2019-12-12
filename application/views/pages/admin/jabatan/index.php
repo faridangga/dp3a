@@ -35,7 +35,6 @@
                   <th></th>
                   <th></th>
                   <th></th>
-                  <th></th>
                   <th class="th-sticky-action">-</th>
                 </tr>
               </thead>
@@ -73,12 +72,6 @@
         render: (data, type, row, meta) => {
           return meta.row + meta.settings._iDisplayStart + 1;
         }
-      },
-      { 
-        "title" : "Id jabatan",
-        "class" : "text-center",
-        "width" : "50px",
-        "data": "id_jabatan" 
       },
       { 
         "title" : "Nama jabatan",
@@ -130,11 +123,10 @@
             Object.keys(data.field).forEach(function(key) {
               $('#form-jabatan').find('[name="'+key+'"]').parent().find('input,select').addClass('is-invalid');
               $('#form-jabatan').find('[name="'+key+'"]').parent().append('<div class="invalid-feedback">'+data.field[key]+'</div>');
-              alert(key);
             })
           }else{
             form_reset();
-            swal(data.title,data.message,data.type);
+            swal(data.title,data.text,data.icon);
           }
         }
       });
@@ -152,6 +144,7 @@
       success: function (data) {
         var json = $.parseJSON(data);
         let form = $('#form-jabatan');
+        form_reset();
         form.find('[name="id_jabatan"]').val(json.id_jabatan);
         form.find('[name="nama_jabatan"]').val(json.nama_jabatan);
         form.find('[name="status"]').val(json.status);
@@ -188,6 +181,8 @@
   var form_reset = () => {
     table.ajax.reload(null,false);
     $('form#form-jabatan').find('input,select').val('');
+    $('.is-invalid').removeClass('is-invalid');
+    $('.invalid-feedback').remove();
   }
 
 </script>

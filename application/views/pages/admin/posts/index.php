@@ -145,7 +145,6 @@
       },
       {
         "title" : "Content",
-        "width" : "10%",
         "data": "content",
       },
       {
@@ -275,8 +274,8 @@
         // $("#input-file-now").removeClass('dropify').addClass('dropify');
         // $("#input-file-now").addClass('dropify');
         // $("#input-file-now").attr("data-height", 300);
-        // $("#input-file-now").attr("data-default-file", json.image_url);
-        // $('.dropify').dropify();
+        $("#input-file-now").attr("data-default-file", json.image_url);
+        $('.dropify').dropify();
         scroll_smooth('body',500);
       },
     });

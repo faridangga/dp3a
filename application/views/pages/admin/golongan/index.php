@@ -114,26 +114,25 @@
     });
 
     $('form#form-golongan').submit(function(e){
-      // let form = $('#form-golongan');
-      // form.find('[name="nama_golongan"]').val();
-      // // form.find('[name="status"]').val();
-      // var nama_golongan = $('#nama_golongan').val();
-      // var status = $('#status').val();
-
-      // var val = $(this).find("input[type=submit]:focus" ).val();
       var form = $(this);
       e.preventDefault();
-
-      // var formData = new FormData(this);
-
       $.ajax({
         url: url_insert_golongan,
         type: 'POST',
         data: form.serialize(),
         dataType : "JSON",
         success: function (data) {
-          swal(data.title,data.text,data.icon);
-          form_reset();
+          if(data.code == '2'){
+            $('.is-invalid').removeClass('is-invalid');
+            $('.invalid-feedback').remove();
+            Object.keys(data.field).forEach(function(key) {
+              $('#form-golongan').find('[name="'+key+'"]').parent().find('input,select').addClass('is-invalid');
+              $('#form-golongan').find('[name="'+key+'"]').parent().append('<div class="invalid-feedback">'+data.field[key]+'</div>');
+            })
+          }else{
+            form_reset();
+            swal(data.title,data.text,data.icon);
+          }
         }
       });
     });
@@ -149,6 +148,7 @@
       success: function (data) {
         var json = $.parseJSON(data);
         let form = $('#form-golongan');
+        form_reset();
         form.find('[name="id_golongan"]').val(json.id_golongan);
         form.find('[name="nama_golongan"]').val(json.nama_golongan);
         form.find('[name="status"]').val(json.status);
@@ -185,6 +185,8 @@
   var form_reset = () => {
     table.ajax.reload(null,false);
     $('form#form-golongan').find('input,select').val('');
+    $('.is-invalid').removeClass('is-invalid');
+    $('.invalid-feedback').remove();
   }
 
 </script>

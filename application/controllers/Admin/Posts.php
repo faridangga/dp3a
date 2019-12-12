@@ -55,6 +55,8 @@ class Posts extends CI_Controller {
 			echo json_encode($error);
 		}
 		else{
+
+
 			$id = $this->input->post('id');
 
 			$artikel = array('upload_data' => $this->upload->data('file_name'));
@@ -106,9 +108,9 @@ class Posts extends CI_Controller {
 			}
 		}
 
-		echo json_encode($ret);
-		
-		// echo json_encode($insert);
+		// echo json_encode($ret);
+		redirect($this->cname);
+
 	}
 
 	public function delete_posts()

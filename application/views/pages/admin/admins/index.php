@@ -78,7 +78,6 @@
                   <th></th>
                   <th></th>
                   <th></th>
-                  <th></th>
 
                   <th></th>
                   <th></th>
@@ -129,10 +128,6 @@
       { 
         "title" : "Nomor Identitas",
         "data": "nomor_identitas" 
-      },
-      { 
-        "title" : "Password",
-        "data": "password" 
       },
       { 
         "title" : "No Telp",
@@ -202,8 +197,17 @@
         data: form.serialize(),
         dataType : "JSON",
         success: function (data) {
-          swal(data.title,data.text,data.icon);
-          form_reset();
+          if(data.code == '2'){
+            $('.is-invalid').removeClass('is-invalid');
+            $('.invalid-feedback').remove();
+            Object.keys(data.field).forEach(function(key) {
+              $('#form-admin').find('[name="'+key+'"]').parent().find('input,select').addClass('is-invalid');
+              $('#form-admin').find('[name="'+key+'"]').parent().append('<div class="invalid-feedback">'+data.field[key]+'</div>');
+            })
+          }else{
+            form_reset();
+            swal(data.title,data.text,data.icon);
+          }
         }
       });
     });
@@ -220,6 +224,7 @@
       success: function (data) {
         var json = $.parseJSON(data);
         let form = $('#form-admin');
+        form_reset();
         form.find('[name="id_admin"]').val(json.id_admin);
         form.find('[name="nama"]').val(json.nama);
         form.find('[name="nomor_identitas"]').val(json.nomor_identitas);
@@ -262,6 +267,8 @@
   var form_reset = () => {
     table.ajax.reload(null,false);
     $('form#form-admin').find('input,select').val('');
+    $('.is-invalid').removeClass('is-invalid');
+    $('.invalid-feedback').remove();
   }
 
 </script>

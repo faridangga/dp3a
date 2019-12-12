@@ -38,93 +38,60 @@ class Golongan extends CI_Controller {
 
 	public function insert()
 	{
-		$id = $this->input->post('id_golongan');
-		$data = [
-			'nama_golongan' => $this->input->post('nama_golongan'),
-			'status' => $this->input->post('status'),
-		];
 
-		if ($id == "") {
-			$insert = $this->Golongan_model->insert($data);
-			if($insert){
-				$ret = [
-					'title' => "Insert",
-					'text' => "Insert success",
-					'icon' => "success",
-				];
-			}else{
-				$ret = [
-					'title' => "Insert",
-					'text' => "Insert failed",
-					'icon' => "warning",
-				];
-			}   
-		}else {
-			$update = $this->Golongan_model->update($id, $data);
-			if($update){
-				$ret = [
-					'title' => "Update",
-					'text' => "Update success",
-					'icon' => "success",
-				];
-			}else{
-				$ret = [
-					'title' => "Update",
-					'text' => "Update failed",
-					'icon' => "warning",
-				];
+		$this->form_validation->set_rules('nama_golongan','Nama Golongan','trim|required');
+		$this->form_validation->set_rules('status','Status','trim|required');
+		$this->form_validation->set_message('required',"{field} harus diisi");
+		$this->form_validation->set_error_delimiters('','');
+
+		if ($this->form_validation->run() == TRUE) {
+			$id = $this->input->post('id_golongan');
+			$data = [
+				'nama_golongan' => $this->input->post('nama_golongan'),
+				'status' => $this->input->post('status'),
+			];
+
+			if ($id == "") {
+				$insert = $this->Golongan_model->insert($data);
+				if($insert){
+					$ret = [
+						'title' => "Insert",
+						'text' => "Insert success",
+						'icon' => "success",
+					];
+				}else{
+					$ret = [
+						'title' => "Insert",
+						'text' => "Insert failed",
+						'icon' => "warning",
+					];
+				}   
+			}else {
+				$update = $this->Golongan_model->update($id, $data);
+				if($update){
+					$ret = [
+						'title' => "Update",
+						'text' => "Update success",
+						'icon' => "success",
+					];
+				}else{
+					$ret = [
+						'title' => "Update",
+						'text' => "Update failed",
+						'icon' => "warning",
+					];
+				}
 			}
+		} else {
+			$ret = [
+				'code' => 2,
+				'title' => 'Warning',
+				'text' => ''.validation_errors('',''),
+				'field' => $this->form_validation->error_array(),
+				'icon' => 'warning'
+			];
 		}
 
-			// echo var_dump($data);
-		// $this->form_validation->set_rules('nama_golongan', 'Nama Golongan', 'trim|required');
-		// $this->form_validation->set_rules('status', 'Status', 'trim|required');
-
-		// $this->load->helper('security');
-		// $this->form_validation->set_error_delimiters('','');
-
-		// $ret_data = [
-		// 	'code' => 0,
-		// 	'text' => '',
-		// 	'result' => array(),
-		// ];
-
-		// if ($this->form_validation->run() == TRUE) {
-		// 	$data = [
-		// 		'nama_golongan' => $this->input->post('nama_golongan'),
-		// 		'status' => $this->input->post('status'),
-		// 	];
-
-		// 	$ret_data = [
-		// 		'code' => 0,
-		// 		'text' => '',
-		// 		'result' => array(),
-		// 	];
-
-		// 	$insert = $this->Golongan_model->insert($data);
-		// 	if($insert){
-		// 		$ret = [
-		// 			'code' => 1,
-		// 			'title' => "Insert",
-		// 			'text' => "Insert success",
-		// 			'icon' => "success",
-		// 		];
-		// 	}else{
-		// 		$ret = [
-		// 			'code' => 2,
-		// 			'title' => "Insert",
-		// 			'text' => "Insert failed",
-		// 			'icon' => "warning",
-		// 		];
-		// 	}
-		// } else {
-		// 	$ret = [
-		// 		'title' => 'Warning',
-		// 		'text' => ''.validation_errors('',''),
-		// 		'field' => $this->form_validation->error_array(),
-		// 		'icon' => 'warning'
-		// 	];
-		// }
 
 		echo json_encode($ret);
 	}

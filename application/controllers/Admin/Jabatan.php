@@ -37,10 +37,6 @@ class Jabatan extends CI_Controller {
 
 	public function insert()
 	{
-		// $this->load->helper('security');
-		// $this->load->helper(array('form', 'url'));
-		$this->load->library('form_validation');
-
 		$this->form_validation->set_rules('nama_jabatan','Nama Jabatan','trim|required');
 		$this->form_validation->set_rules('status','Status','trim|required');
 		$this->form_validation->set_message('required',"{field} harus diisi");
@@ -59,14 +55,14 @@ class Jabatan extends CI_Controller {
 				if($insert){
 					$ret = [
 						'title' => "Insert",
-						'message' => "Insert success",
-						'type 	' => "success",
+						'text' => "Insert success",
+						'icon' => "success",
 					];
 				}else{
 					$ret = [
 						'title' => "Insert",
-						'message' => "Insert failed",
-						'type 	' => "warning",
+						'text' => "Insert failed",
+						'icon' => "warning",
 					];
 				}   
 			}else {
@@ -74,14 +70,14 @@ class Jabatan extends CI_Controller {
 				if($update){
 					$ret = [
 						'title' => "Update",
-						'message' => "Update success",
-						'type 	' => "success",
+						'text' => "Update success",
+						'icon' => "success",
 					];
 				}else{
 					$ret = [
 						'title' => "Update",
-						'message' => "Update failed",
-						'type 	' => "warning",
+						'text' => "Update failed",
+						'icon' => "warning",
 					];
 				}
 			}
@@ -89,48 +85,11 @@ class Jabatan extends CI_Controller {
 			$ret = [
 				'code' => 2,
 				'title' => 'Warning',
-				'message' => ''.validation_errors('',''),
+				'text' => ''.validation_errors('',''),
 				'field' => $this->form_validation->error_array(),
-				'type' => 'warning'
+				'icon' => 'warning'
 			];
 		}
-		// $id = $this->input->post('id_jabatan');		
-		// $data = [
-		// 	'nama_jabatan' => $this->input->post('nama_jabatan'),
-		// 	'status' => $this->input->post('status'),
-		// ];
-
-		// if ($id == "") {
-		// 	$insert = $this->Jabatan_model->insert($data);
-		// 	if($insert){
-		// 		$ret = [
-		// 			'title' => "Insert",
-		// 			'text' => "Insert success",
-		// 			'icon' => "success",
-		// 		];
-		// 	}else{
-		// 		$ret = [
-		// 			'title' => "Insert",
-		// 			'text' => "Insert failed",
-		// 			'icon' => "warning",
-		// 		];
-		// 	}   
-		// }else {
-		// 	$update = $this->Jabatan_model->update($id, $data);
-		// 	if($update){
-		// 		$ret = [
-		// 			'title' => "Update",
-		// 			'text' => "Update success",
-		// 			'icon' => "success",
-		// 		];
-		// 	}else{
-		// 		$ret = [
-		// 			'title' => "Update",
-		// 			'text' => "Update failed",
-		// 			'icon' => "warning",
-		// 		];
-		// 	}
-		// }
 		echo json_encode($ret);
 
 	}
