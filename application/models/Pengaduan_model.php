@@ -19,6 +19,13 @@ class Pengaduan_model extends CI_Model {
 		return $query->result();
 	}
 
+	public function get_data_date(){
+		$this->db->select('DISTINCT(YEAR(waktu_lapor)) as tahun');  
+		$this->db->from('pengaduan');  
+		$query=$this->db->get()->result();  
+		return $query;
+	}
+
 	public function get_data_by_id($id)
 	{
 		$this->db->select('pengaduan.*, users.nama, kategori_laporan.nama_kategori, status_pengaduan.id_status');
@@ -41,7 +48,7 @@ class Pengaduan_model extends CI_Model {
 
 	public function update($id, $data)
 	{
-        $this->db->where('id_pengaduan', $id);
+		$this->db->where('id_pengaduan', $id);
 		$update = $this->db->update($this->table,$data);
 		return $update;
 	}
@@ -79,6 +86,18 @@ class Pengaduan_model extends CI_Model {
 			}
 		}
 		// echo json_encode($status);
+		return $jumlah;
+
+	}
+
+	public function count_pengaduan_all()
+	{
+		$jumlah = 0;
+		$query = $this->db->get($this->table)->result();
+		foreach ($query as $key => $value) {	
+			$jumlah++;
+		}
+		// echo json_encode($status);	
 		return $jumlah;
 
 	}

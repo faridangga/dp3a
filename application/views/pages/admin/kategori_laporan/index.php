@@ -6,9 +6,7 @@
           <?php echo form_open($cname.'/insert',['id'=>'form-kategori-laporan']); ?>
           <input type="hidden" class="form-control" name="id_kategori" placeholder="">
           <div class="form-group">
-            <label>Nama Kategori Laporan
-    $('.is-invalid').removeClass('is-invalid');
-    $('.invalid-feedback').remove();</label>
+            <label>Nama Kategori Laporan</label>
             <input type="text" class="form-control" name="nama_kategori" placeholder="">
           </div>
           <div class="form-group">

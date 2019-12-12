@@ -65,6 +65,18 @@ class Posts_model extends CI_Model {
 		$ret = $this->db->update($this->table,$data);
 		return $ret;
 	}
+
+	public function count_artikel()
+	{
+		$jumlah = 0;
+		$query = $this->db->get($this->table)->result();
+		foreach ($query as $key => $value) {	
+			$jumlah++;
+		}
+		// echo json_encode($status);
+		return $jumlah;
+
+	}
 }
 
 /* End of file Posts_model.php */

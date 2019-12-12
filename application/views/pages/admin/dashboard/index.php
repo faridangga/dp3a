@@ -4,7 +4,7 @@
       <!-- small box -->
       <div class="small-box bg-info">
         <div class="inner">
-          <h3>30</h3>
+          <h3><?php echo $count_pengaduan_all; ?></h3>
 
           <p>Pengaduan</p>
         </div>
@@ -19,7 +19,7 @@
       <!-- small box -->
       <div class="small-box bg-success">
         <div class="inner">
-          <h3>20</h3>
+          <h3><?php echo $count_artikel; ?></h3>
 
           <p>Artikel</p>
         </div>
@@ -34,7 +34,7 @@
       <!-- small box -->
       <div class="small-box bg-warning">
         <div class="inner">
-          <h3>60</h3>
+          <h3><?php echo $count_user; ?></h3>
 
           <p>User</p>
         </div>
@@ -49,7 +49,7 @@
       <div class="form-group row">
         <label class="col-sm-2 col-md-2 col-form-label">Kategori</label>
         <div class="col-sm-10 col-md-10">
-          <select name="select_kategori" class="form-control select2" style="width: 100%;">
+          <select name="select_kategori" class="form-control select2" id="select-kategori" style="width: 100%;">
             <option value="" selected disabled>Choose</option>
             <?php foreach ($data['select_kategori'] as $key => $value): ?>
               <option value="<?php echo $value->id_kategori ?>"><?php echo $value->nama_kategori ?></option>
@@ -62,14 +62,17 @@
       <div class="form-group row">
         <label class="col-sm-2 col-md-2 col-form-label">Tahun</label>
         <div class="col-sm-10 col-md-10">
-          <select name="select_tahun" class="form-control select2" style="width: 100%;">
+          <select name="select_tahun" class="form-control select2" id="select-tahun" style="width: 100%;">
             <option value="" selected disabled>Choose</option>
-            <?php foreach ($data['select_kategori'] as $key => $value): ?>
-              <option value="<?php echo $value->id_kategori ?>"><?php echo date('Y', strtotime($value->waktu_lapor));?></option>
+            <?php foreach ($data['tahun'] as $key => $value): ?>
+              <option value="<?php echo $value->tahun; ?>"><?php echo $value->tahun;?></option>
             <?php endforeach ?>
           </select>
         </div>
       </div>
+    </div>
+    <div class="col-lg-4 col-sm-4">
+      <button class="btn btn-info" onclick="get_data();">Submit</button>
     </div>
     <div class="col-lg-12 col-12">
       <div class="card card-default">
@@ -83,18 +86,121 @@
         </div>
         <div class="card-body">
           <div>
-            <canvas id="myChart" class="chartjs" height="254" width="509" style="width: 509px; height: 254px;" data> </canvas>
+            <canvas id="bar-per-kategori" class="chartjs" height="254" width="509" style="width: 509px; height: 254px;" data> </canvas>
           </div>
         </div>
       </div>
       
     </div>
   </div>
+
   
 </div>
 <script>
 
-  var ctx = document.getElementById('myChart').getContext('2d');
+  var base_url_cname = '<?php echo base_url($cname) ?>';
+  var periode_url = "";
+
+  var base_cname = "<?php echo base_url($cname) ?>";
+  $(document).ready(function(){
+    $('#select-periode').change(function(){
+      draw_chart($(this).val());
+    })
+    $('#select-periode').trigger('change');
+  });
+  
+  // var chart1;
+  // var draw_chart = (periode=null) => {
+  //   if(chart1 != null){
+  //     chart1.destroy();
+  //   }
+
+  //   if(periode != null){
+  //     periode_url = "/"+periode;
+  //   }
+
+  //   $.ajax({
+  //     url : base_url_cname+'/get_bar_pengaduan'+periode_url,
+  //     success : (data) => {
+  //       var json = $.parseJSON(data);
+
+  //       var ctx = document.getElementById('bar-per-section').getContext('2d');
+  //       $('#bar-per-section').parent().find('.fa-loading').remove();
+
+  //       var c_labels = [];
+  //       var d_data1 = [];
+  //       var d_data2 = [];
+  //       Object.keys(json.per_pic).forEach(function(key) {
+  //         c_labels.push(key);
+  //         d_data1.push(parseInt(json.per_pic[key].sto) || 0);
+  //         d_data2.push(parseInt(json.per_pic[key].not_sto) || 0);
+  //       })
+  //       chart4 = new Chart(ctx, {
+  //         type: 'bar',
+  //         data: {
+  //           labels: c_labels,
+  //           datasets: [
+  //           {
+  //             label: 'STO',
+  //             data: d_data1,
+  //             backgroundColor: 'rgba(99, 255, 132, 1)',
+  //             borderColor:  'rgba(99, 255, 132, 1)',
+  //             borderWidth: 1
+  //           },
+  //           {
+  //             label: 'NOT STO',
+  //             data: d_data2,
+  //             backgroundColor: 'rgba(255, 99, 132, 1)',
+  //             borderColor: 'rgba(255, 99, 132, 1)',
+  //             borderWidth: 1
+  //           }
+  //           ]
+  //         },
+  //         options: {
+  //           scales: {
+  //             xAxes: [{
+  //               ticks: {
+  //                 suggestedMin: 0, 
+  //                 beginAtZero: true,
+  //                 stepValue: 5,
+  //                 stepSize : 5,
+  //               }
+  //             }]
+  //           },
+  //           plugins: {
+  //             datalabels: {
+  //               anchor : 'end',
+  //               color: '#000',
+  //               font : {
+  //                 size : 15,
+  //                 weight : 'bold',
+  //               }
+  //             }
+  //           },
+  //         }
+  //       });
+  //     }
+  //   });
+
+
+  var get_data = () => {
+    var a = document.getElementById("select-kategori");
+    var id_kategori = a.options[a.selectedIndex].value;
+
+    var b = document.getElementById("select-tahun");
+    var waktu_lapor = b.options[b.selectedIndex].value;
+
+    $.ajax({
+      url: base_cname+"/get_bar_pengaduan",
+      type: 'POST',
+      data: {id_kategori:id_kategori,waktu_lapor:waktu_lapor},
+      success: function (data) {
+          alert(data);
+      },
+    });
+  }
+
+  var ctx = document.getElementById('bar-per-kategori').getContext('2d');
   var myBarChart = new Chart(ctx, {
     type: 'bar',
     data: {

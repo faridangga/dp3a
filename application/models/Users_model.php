@@ -64,6 +64,18 @@ class Users_model extends CI_Model {
 		return $ret;
 	}
 
+	public function count_user()
+	{
+		$jumlah = 0;
+		$query = $this->db->get($this->table)->result();
+		foreach ($query as $key => $value) {	
+			$jumlah++;
+		}
+		// echo json_encode($status);
+		return $jumlah;
+
+	}
+
 }
 
 /* End of file Users_model.php */
