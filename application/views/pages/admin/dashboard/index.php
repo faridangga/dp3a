@@ -92,6 +92,7 @@
       </div>
       
     </div>
+
   </div>
 
   
@@ -103,6 +104,7 @@
 
   var base_cname = "<?php echo base_url($cname) ?>";
   $(document).ready(function(){
+
     $('#select-periode').change(function(){
       draw_chart($(this).val());
     })
@@ -195,7 +197,7 @@
       type: 'POST',
       data: {id_kategori:id_kategori,waktu_lapor:waktu_lapor},
       success: function (data) {
-          alert(data);
+        alert(data);
       },
     });
   }

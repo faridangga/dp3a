@@ -13,10 +13,10 @@
 <script src="<?php echo base_url('assets/plugins/sweetalert/sweetalert.min.js') ?>"></script>
 <!-- Summernote -->
 <script src="<?php echo base_url('assets/plugins/summernote/summernote-bs4.min.js') ?>"></script>
+<!-- toast -->
+<script src="<?php echo base_url('assets/js/Toasts.js') ?>"></script>
 <!-- chartjs -->
 <!-- <script src="https://www.chartjs.org/dist/2.9.3/Chart.min.js"></script> -->
-<!-- pusher -->
-<!-- <script src="<?php echo base_url('assets/plugins/pusher/pusher.min.js') ?>"></script> -->
 <!-- dropify -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"></script>
 <!-- datepicker -->
@@ -41,10 +41,9 @@
       // alert(JSON.stringify(data)); 
       $(document).Toasts('create', {
         class: 'bg-warning',
-        body: 'Data Pengaduan Masuk',
+        body: 'Ada Data Pengaduan Masuk, silahkkan dilihat',
         title: 'PENGADUAN',
         position: 'topLeft',
-        subtitle: 'Subtitle',
         icon: 'fas fa-envelope fa-lg',
       })
     });
