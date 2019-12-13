@@ -242,6 +242,11 @@ class ApiController extends CI_Controller
 			'isi_laporan' => $isi,
 			'waktu_lapor' => date('Y-m-d H:i:s'),
 			'status' => 0,
+			'jenis_kelamin' => $this->input->post('jenis_kelamin', true),
+			'usia' => $this->input->post('usia', true),
+			'kecamatan' => $this->input->post('kecamatan', true),
+			'desa' => $this->input->post('desa', true),
+			'dusun' => $this->input->post('dusun', true),
 			'lat' => $this->input->post('lat', true),
 			'long' => $this->input->post('long', true)		
 		);
