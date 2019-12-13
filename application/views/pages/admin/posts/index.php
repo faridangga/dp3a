@@ -22,7 +22,7 @@
           <label class="col-sm-2 col-md-2 col-form-label">Category</label>
           <div class="col-sm-10 col-md-10">
             <select name="category_id" id="" class="form-control">
-              <option value="" selected disabled>Choose</option>
+              <option value="" selected disabled>Pilih</option>
               <?php foreach ($data['select_kategori_post'] as $key => $value): ?>
                 <option value="<?php echo $value->id_kategori ?>"><?php echo $value->nama_kategori ?></option>
               <?php endforeach ?>
@@ -38,7 +38,11 @@
         <div class="form-group row">
           <label class="col-sm-2 col-md-2 col-form-label">Post Type</label>
           <div class="col-sm-10 col-md-10">
-            <input type="text" class="form-control" name="post_type" placeholder="post_type">
+            <select class="form-control" name="post_type">
+              <option value="" selected disabled>Pilih</option>
+              <option value="post">Post</option>
+              <option value="video">Video</option>
+            </select>
           </div>
         </div>
         <div class="form-group row">
@@ -51,7 +55,7 @@
           <label class="col-sm-2 col-md-2 col-form-label">Status</label>
           <div class="col-sm-10 col-md-10">
             <select class="form-control" name="status">
-              <option value="" selected disabled>Choose</option>
+              <option value="" selected disabled>Pilih</option>
               <option value="1">Aktif</option>
               <option value="0">Tidak Aktif</option>
             </select>
@@ -61,7 +65,7 @@
           <label class="col-sm-2 col-md-2 col-form-label">Slider</label>
           <div class="col-sm-10 col-md-10">
             <select class="form-control" id="status" name="is_slider">
-              <option value="" selected disabled>Choose</option>
+              <option value="" selected disabled>Pilih</option>
               <option value="1">Aktif</option>
               <option value="0">Tidak Aktif</option>
             </select>

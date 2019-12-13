@@ -61,8 +61,9 @@
           <div class="form-group">
             <label>Status</label>
             <select class="form-control" name="status">
-              <option value="" selected disabled>Choose</option>
+              <option value="" selected disabled>Pilih</option>
               <option value="0">Belum Direspon</option>
+              <option value="4">Sedang Diproses</option>
               <option value="1">Sudah Teratasi</option>
               <option value="2">Tidak Teratasi</option>
               <option value="3">Tidak Bisa Dihubungi</option>
