@@ -13,8 +13,6 @@
 <script src="<?php echo base_url('assets/plugins/sweetalert/sweetalert.min.js') ?>"></script>
 <!-- Summernote -->
 <script src="<?php echo base_url('assets/plugins/summernote/summernote-bs4.min.js') ?>"></script>
-<!-- toast -->
-<script src="<?php echo base_url('assets/js/Toasts.js') ?>"></script>
 <!-- chartjs -->
 <!-- <script src="https://www.chartjs.org/dist/2.9.3/Chart.min.js"></script> -->
 <!-- dropify -->

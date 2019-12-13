@@ -29,6 +29,10 @@ class Dashboard extends CI_Controller {
 		// $data['data']['count_pengaduan'] = $this->Pengaduan_model->count_pengaduan();
 		// echo json_encode($data['data']['count_pengaduan']);
 		$this->load->view('layouts/dashboard',$data);
+
+		if ($this->session->userdata('isLogin') == FALSE) {
+			redirect('login','refresh');
+		}
 	}
 
 	public function tes(){

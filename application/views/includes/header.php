@@ -23,4 +23,26 @@
       </a>
     </div>
   </li>
+  <li class="nav-item dropdown">
+    <a class="nav-link" data-toggle="dropdown" href="#">
+      <i class="fas fa-user"></i>
+    </a>
+    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+      <a href="#" class="dropdown-item">
+        <!-- Message Start -->
+        <div class="media">
+          <img src="<?php echo base_url('assets/img/placeholder-user.png') ?>" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+          <div class="media-body">
+            <h3 class="dropdown-item-title">
+              Farid
+            </h3>
+            <p class="text-sm"> <b>Admin</b></p>
+          </div>
+        </div>
+        <!-- Message End -->
+      </a>
+      <div class="dropdown-divider"></div>
+      <a href="<?php echo site_url('login/logout') ?>" class="dropdown-item dropdown-footer">Logout</a>
+    </div>
+  </li>
 </ul>

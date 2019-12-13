@@ -5,7 +5,14 @@ class Login_model extends CI_Model {
 
 	var $table = "admins";
 	
-
+	public function getAdmin($no_identitas,$password)
+	{
+		$this->db->where('nomor_identitas', $no_identitas);
+		$this->db->where('password', $password);
+		$result = $this->db->get('admins')->result();
+		return $result;
+		
+	}
 }
 
 /* End of file Login_model.php */

@@ -19,18 +19,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			<div class="card-body login-card-body">
 				<p class="login-box-msg">Sign in to start your session</p>
 				<?php echo validation_errors('<div class="alert alert-danger">','</div>'); ?>
-				<form action="#" method="post">
+				<?php echo $this->session->flashdata('gagal'); ?>
+				<?php echo form_open('login/cekLogin') ?>
 						<div class="input-group mb-3">
-							<input type="text" class="form-control" placeholder="Username">
-							<div class="input-group-append" name="nama">
+							<input type="text" name="no_identitas" class="form-control" placeholder="Username">
+							<div class="input-group-append">
 								<div class="input-group-text ">
 									<span class="fas fa-envelope"></span>
 								</div>
 							</div>
 						</div>
 						<div class="input-group mb-3">
-							<input type="password" class="form-control" placeholder="Password">
-							<div class="input-group-append" name="password">
+							<input type="password" name="password" class="form-control" placeholder="Password">
+							<div class="input-group-append">
 								<div class="input-group-text">
 									<span class="fas fa-lock"></span>
 								</div>
@@ -43,7 +44,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 							</div>
 							<!-- /.col -->
 						</div>
-					</form>
+					<?php echo form_close(); ?>
 				</div>
 				<!-- /.login-card-body -->
 			</div>

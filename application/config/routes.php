@@ -61,7 +61,7 @@ $route['jabatan'] = 'admin/jabatan';
 $route['kategori'] = 'admin/kategori';
 
 //auth routes
-$route['login'] = 'auth/login';
+// $route['login'] = 'auth/login';
 $route['register'] = 'auth/register';
 $route['profile-update'] = 'auth/update_profile';
 $route['change-password'] = 'auth/change_password';

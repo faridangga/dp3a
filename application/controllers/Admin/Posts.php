@@ -24,6 +24,9 @@ class Posts extends CI_Controller {
 		$data['data']['select_kategori_post'] = $this->Kategori_Post_model->get_data_status();
 		$data['data']['select_admins'] = $this->Admins_model->get_data();
 		$this->load->view('layouts/dashboard',$data);
+		if ($this->session->userdata('isLogin') == FALSE) {
+			redirect('login','refresh');
+		}
 	}
 
 	public function get_data()

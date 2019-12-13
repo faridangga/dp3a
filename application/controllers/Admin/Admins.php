@@ -24,6 +24,9 @@ class Admins extends CI_Controller {
 		$data['data']['select_golongan'] = $this->Golongan_model->get_data();
 		$data['data']['select_jabatan'] = $this->Jabatan_model->get_data();
 		$this->load->view('layouts/dashboard',$data);
+		if ($this->session->userdata('isLogin') == FALSE) {
+			redirect('login','refresh');
+		}
 	}
 
 	public function get_data()

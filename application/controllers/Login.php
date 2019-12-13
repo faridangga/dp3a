@@ -6,6 +6,7 @@ class Login extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
+		$this->load->model('Login_model');
 	}
 
 	public function index()
@@ -16,7 +17,16 @@ class Login extends CI_Controller {
 			'data' => array(),
 		];
 
-		$this->form_validation->set_rules('nama',"nama","trim|required|callback_authentication");
+		$this->load->view('layouts/login',$data);
+
+		if ($this->session->userdata('isLogin') == TRUE) {
+			redirect('dashboard','refresh');
+		}
+	}
+
+	public function cekLogin(){
+
+		$this->form_validation->set_rules('no_identitas',"Nomor identitas","trim|required");
 		$this->form_validation->set_rules('password',"Password","trim|required");
 		$this->form_validation->set_message('required',"{field} harus diisi");
 		$this->form_validation->set_error_delimiters('','');
@@ -24,12 +34,28 @@ class Login extends CI_Controller {
 		if($this->form_validation->run() == false){
 			$this->load->view('layouts/login',$data);
 		}else{
-			if ($this->session->userdata('logged_in')['level'] == '1') {
-				redirect('Admin/Home');
+			$no_identitas = $this->input->post("no_identitas");
+			$password = $this->input->post("password");
+
+			$get_login = $this->Login_model->getAdmin($no_identitas,md5($password));
+			if ($get_login) {
+				foreach ($get_login as $key => $value) {
+					$data_session = array(
+						'isLogin' => TRUE,
+						'nama' => $value->nama, 
+					);
+				}
+				$this->session->set_userdata($data_session);
+				redirect('dashboard','refresh');
+				echo json_encode($data_session);
 			}else{
-				redirect('Home','refresh');
+				$this->session->set_flashdata('gagal', '<div class="alert alert-danger">User dan Password salah</div>');
+				redirect('login','refresh');
 			}
 		}
+
+		
+
 	}
 
 	public function logout()

@@ -21,6 +21,9 @@ class Data_Kekerasan extends CI_Controller {
 			'data' => array(),
 		];
 		$this->load->view('layouts/dashboard',$data);
+		if ($this->session->userdata('isLogin') == FALSE) {
+			redirect('login','refresh');
+		}
 	}
 
 	public function get_data()
