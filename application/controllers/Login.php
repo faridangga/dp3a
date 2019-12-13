@@ -42,6 +42,7 @@ class Login extends CI_Controller {
 				foreach ($get_login as $key => $value) {
 					$data_session = array(
 						'isLogin' => TRUE,
+						'user_id' => $value->id_admin,
 						'nama' => $value->nama, 
 					);
 				}

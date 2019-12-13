@@ -70,7 +70,7 @@ class Posts extends CI_Controller {
 				'post_type' => $this->input->post('post_type'),
 				'image_url' => 'uploads/images/artikel/'.$artikel['upload_data'],
 				'video_embed_code' => $this->input->post('video_embed_code'),
-				'user_id' => $this->input->post('user_id'),
+				'user_id' => $this->session->userdata('user_id'),
 				'created_at' => date("Y-m-d H:i:s"),
 				'status' => $this->input->post('status'),
 				'is_slider' => $this->input->post('is_slider'),

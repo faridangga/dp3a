@@ -19,6 +19,7 @@
       <div class="dropdown-divider"></div>
       <a href="#" class="dropdown-item">
         <i class="fas fa-envelope mr-2"></i> 
+         <a href="#" class="dropdown-item">
         <?php echo $count_pengaduan ?> New Pengaduan
       </a>
     </div>
@@ -34,7 +35,7 @@
           <img src="<?php echo base_url('assets/img/placeholder-user.png') ?>" alt="User Avatar" class="img-size-50 mr-3 img-circle">
           <div class="media-body">
             <h3 class="dropdown-item-title">
-              Farid
+              <?php echo $this->session->userdata('nama') ?>
             </h3>
             <p class="text-sm"> <b>Admin</b></p>
           </div>

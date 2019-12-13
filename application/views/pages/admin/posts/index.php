@@ -48,17 +48,6 @@
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-2 col-md-2 col-form-label">user_id</label>
-          <div class="col-sm-10 col-md-10">
-            <select name="user_id" id="" class="form-control">
-              <option value="" selected disabled>Choose</option>
-              <?php foreach ($data['select_admins'] as $key => $value): ?>
-                <option value="<?php echo $value->id_admin ?>"><?php echo $value->nama ?></option>
-              <?php endforeach ?>
-            </select>
-          </div>
-        </div>
-        <div class="form-group row">
           <label class="col-sm-2 col-md-2 col-form-label">Status</label>
           <div class="col-sm-10 col-md-10">
             <select class="form-control" name="status">
