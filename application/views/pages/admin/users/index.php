@@ -1,50 +1,5 @@
 <div class="container-fluid">
   <div class="row">
-    <!-- <div class="col-md-12">
-      <div class="card">
-        <div class="card-header">
-          <h3 class="card-title">Title</h3>
-
-        </div>
-        <div class="card-body">
-          <?php echo form_open($cname.'/insert',['id'=>'form-user']); ?>
-          <input type="hidden" class="form-control" name="id_user" placeholder="">
-          <div class="form-group">
-            <label>Nama user</label>
-            <input type="text" class="form-control" name="nama" placeholder="Nama">
-          </div>
-          <div class="form-group">
-            <label>Password</label>
-            <input type="password" class="form-control" name="password" placeholder="Password">
-          </div>
-          <div class="form-group">
-            <label>No Telp.</label>
-            <input type="text" class="form-control" name="nomor_telp" placeholder="Nomor telp">
-          </div>
-          <div class="form-group">
-            <label>Alamat</label>
-            <input type="text" class="form-control" name="alamat" placeholder="Alamat">
-          </div>
-          <div class="form-group">
-            <label>Tanggal Lahir</label>
-            <input type="text" class="form-control" name="tanggal_lahir" placeholder="Tanggal Lahir">
-          </div>
-          <div class="form-group">
-            <label>Status</label>
-            <select class="form-control" name="status">
-              <option value="" selected disabled>Choose</option>
-              <option value="1">Aktif</option>
-              <option value="0">Tidak Aktif</option>
-            </select>
-          </div>
-
-          <button type="submit" class="btn btn-primary">Submit</button>
-          <button type="reset" class="btn btn-secondary" onclick="form_reset();">Reset</button>
-          <?php echo form_close(); ?>
-        </div>
-      </div>
-    </div> -->
-
     <div class="col-md-12">
       <div class="card">
         <div class="card-body">
@@ -52,7 +7,6 @@
             <table id="table-data" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%" role="grid" aria-describedby="example23_info" style="width: 100%;" data-url="<?php echo base_url($cname.'/get_data') ?>">
               <thead>
                 <tr>
-                  <th></th>
                   <th></th>
                   <th></th>
                   <th></th>
@@ -101,10 +55,6 @@
       { 
         "title" : "Nama user",
         "data": "nama" 
-      },
-      { 
-        "title" : "Password",
-        "data": "password" 
       },
       { 
         "title" : "Nomor Telp",

@@ -17,9 +17,8 @@
     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
       <span class="dropdown-header">Notifications</span>
       <div class="dropdown-divider"></div>
-      <a href="#" class="dropdown-item">
-        <i class="fas fa-envelope mr-2"></i> 
-         <a href="#" class="dropdown-item">
+      <a href="<?php echo base_url('Admin/Pengaduan') ?>" class="dropdown-item">
+        <i class="fas fa-envelope mr-2"></i>
         <?php echo $count_pengaduan ?> New Pengaduan
       </a>
     </div>

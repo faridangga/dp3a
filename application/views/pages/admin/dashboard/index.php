@@ -11,7 +11,7 @@
         <div class="icon">
           <i class="ion ion-bag"></i>
         </div>
-        <a href="Admin/pengaduan" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        <a href="<?php echo base_url('Admin/pengaduan') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
       </div>
     </div>
     <!-- ./col -->
@@ -26,7 +26,7 @@
         <div class="icon">
           <i class="ion ion-stats-bars"></i>
         </div>
-        <a href="Admin/Posts" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        <a href="<?php echo base_url('Admin/Posts') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
       </div>
     </div>
     <!-- ./col -->
@@ -41,7 +41,7 @@
         <div class="icon">
           <i class="ion ion-person-add"></i>
         </div>
-        <a href="Admin/Users" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        <a href="<?php echo base_url('Admin/Posts') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
       </div>
     </div>
     <!-- ./col -->
