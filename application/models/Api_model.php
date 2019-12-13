@@ -254,6 +254,14 @@ class Api_model extends CI_Model {
 						->get();
 		return $sql;
 	}
+	public function getKecamatan(){
+		$sql = $this->db->select("*")
+						->from("kecamatan")
+						->order_by('id_kecamatan','asc')
+						->where('status',1)
+						->get();
+		return $sql;
+	}
 	public function getCategorys(){
 		$sql = $this->db->select("*")
 						->from("departments")

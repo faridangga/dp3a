@@ -206,6 +206,26 @@ class ApiController extends CI_Controller
 			{
 				$arr = array('status' => '1','message' => 'Data Kategori Tidak Ditemukan','total' => 0, 'data' => 0);
 			}
+		}elseif($code=='kecamatan'){
+			$sql = $this->Api_model->getKecamatan();
+			if($sql->num_rows() > 0){
+				foreach($sql->result() as $category){
+					$datas[] = array(
+						'id_kecamatan'=>$category->id_kecamatan,
+						'nama_kecamatan'=>$category->nama_kecamatan
+					);
+				}
+				$arr = array(
+						'status' => "0",
+						'message' => "sukses",
+						'total' => $sql->num_rows(),
+						'data' => $datas
+				);
+			}
+			else
+			{
+				$arr = array('status' => '1','message' => 'Data Kategori Tidak Ditemukan','total' => 0, 'data' => 0);
+			}
 		}
 		//$arr = array('data'=>'saya');
 		
