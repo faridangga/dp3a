@@ -21,6 +21,8 @@ class Pengaduan extends CI_Controller {
 			'count_pengaduan' => $this->Pengaduan_model->count_pengaduan(),
 			'data' => array(),
 		];
+		$data['data']['select_layanan'] = $this->Pengaduan_model->get_layanan();
+		$data['data']['select_status_pengaduan'] = $this->Pengaduan_model->get_status_pengaduan();
 		$this->load->view('layouts/dashboard',$data);
 		if ($this->session->userdata('isLogin') == FALSE) {
 			redirect('login','refresh');
@@ -44,12 +46,9 @@ class Pengaduan extends CI_Controller {
 	{
 		$id = $this->input->post('id_pengaduan');
 		$data = [
-			'id_pengaduan' => $this->input->post('id_pengaduan'),
-			'id_user' => $this->input->post('id_user'),
-			'id_kategori' => $this->input->post('id_kategori'),
-			'isi_laporan' => $this->input->post('isi_laporan'),
 			'waktu_respon' => date("Y-m-d H:i:s"),
 			'status' => $this->input->post('status'),
+			'nama_layanan' => $this->input->post('nama_layanan'),
 		];
 
 		if ($id == "") {
@@ -94,14 +93,14 @@ class Pengaduan extends CI_Controller {
 			$delete = $this->Pengaduan_model->delete($id);
 			if($delete){
 				$ret = [
-					'title' => "Update",
-					'text' => "Update success",
+					'title' => "Delete",
+					'text' => "Delete success",
 					'icon' => "success",
 				];
 			}else{
 				$ret = [
-					'title' => "Update",
-					'text' => "Update failed",
+					'title' => "Delete",
+					'text' => "Delete failed",
 					'icon' => "warning",
 				];
 			}
@@ -127,12 +126,9 @@ class Pengaduan extends CI_Controller {
 	{
 		$id = $this->input->post('id_pengaduan');
 		$data = [
-			'id_pengaduan' => $this->input->post('id_pengaduan'),
-			'id_user' => $this->input->post('id_user'),
-			'id_kategori' => $this->input->post('id_kategori'),
-			'isi_laporan' => $this->input->post('isi_laporan'),
 			'waktu_respon' => date("Y-m-d H:i:s"),
 			'status' => $this->input->post('status'),
+			'layanan' => $this->input->post('layanan'),
 		];
 
 		$update = $this->Pengaduan_model->update($id, $data);

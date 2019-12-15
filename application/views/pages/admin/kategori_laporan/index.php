@@ -36,7 +36,6 @@
                   <th></th>
                   <th></th>
                   <th></th>
-                  <th></th>
                   <th class="th-sticky-action">-</th>
                 </tr>
               </thead>
@@ -74,12 +73,6 @@
         render: (data, type, row, meta) => {
           return meta.row + meta.settings._iDisplayStart + 1;
         }
-      },
-      { 
-        "title" : "Id kategori",
-        "class" : "text-center",
-        "width" : "50px",
-        "data": "id_kategori" 
       },
       { 
         "title" : "Nama kategori",

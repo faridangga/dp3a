@@ -8,53 +8,64 @@
         </p>
       </a>
     </li>
-    <li class="nav-item">
-      <a href="<?php echo base_url('Admin/Admins') ?>" class="nav-link">
-        <i class="nav-icon fas fa-user-tie"></i>
+    <li class="nav-item has-treeview">
+      <a href="#" class="nav-link">
+        <i class="nav-icon fas fa-circle"></i>
         <p>
-          Admin
+          Master Data
+          <i class="fas fa-angle-left right"></i>
         </p>
       </a>
-    </li>
-    <li class="nav-item">
-      <a href="<?php echo base_url('Admin/Users') ?>" class="nav-link">
-        <i class="nav-icon fas fa-user-tie"></i>
-        <p>
-          Users
-        </p>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a href="<?php echo base_url('Admin/Golongan') ?>" class="nav-link">
-        <i class="nav-icon fab fa-cloudsmith"></i>
-        <p>
-          Golongan
-        </p>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a href="<?php echo base_url('Admin/Jabatan') ?>" class="nav-link">
-        <i class="nav-icon fas fa-hat-cowboy-side"></i>
-        <p>
-          Jabatan
-        </p>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a href="<?php echo base_url('Admin/Kategori_Laporan') ?>" class="nav-link">
-        <i class="nav-icon fab fa-hotjar"></i>
-        <p>
-          Kategori Laporan
-        </p>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a href="<?php echo base_url('Admin/Kategori_Post') ?>" class="nav-link">
-        <i class="nav-icon fab fa-hotjar"></i>
-        <p>
-          Kategori Post
-        </p>
-      </a>
+      <ul class="nav nav-treeview">
+        <li class="nav-item">
+          <a href="<?php echo base_url('Admin/Admins') ?>" class="nav-link">
+            <i class="nav-icon fas fa-user-tie"></i>
+            <p>
+              Admin
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="<?php echo base_url('Admin/Users') ?>" class="nav-link">
+            <i class="nav-icon fas fa-user-tie"></i>
+            <p>
+              Users
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="<?php echo base_url('Admin/Golongan') ?>" class="nav-link">
+            <i class="nav-icon fab fa-cloudsmith"></i>
+            <p>
+              Golongan
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="<?php echo base_url('Admin/Jabatan') ?>" class="nav-link">
+            <i class="nav-icon fas fa-hat-cowboy-side"></i>
+            <p>
+              Jabatan
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="<?php echo base_url('Admin/Kategori_Laporan') ?>" class="nav-link">
+            <i class="nav-icon fab fa-hotjar"></i>
+            <p>
+              Kategori Laporan
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="<?php echo base_url('Admin/Kategori_Post') ?>" class="nav-link">
+            <i class="nav-icon fab fa-hotjar"></i>
+            <p>
+              Kategori Post
+            </p>
+          </a>
+        </li>
+      </ul>
     </li>
     <li class="nav-item">
       <a href="<?php echo base_url('Admin/Pengaduan') ?>" class="nav-link">

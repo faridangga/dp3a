@@ -36,8 +36,6 @@
                   <th></th>
                   <th></th>
                   <th></th>
-                  <th></th>
-
                   <th class="th-sticky-action">-</th>
                 </tr>
               </thead>
@@ -79,10 +77,6 @@
       { 
         "title" : "Nama kategori",
         "data": "nama_kategori" 
-      },
-      { 
-        "title" : "Parent",
-        "data": "parent" 
       },
       { 
         "title" : "Status", 

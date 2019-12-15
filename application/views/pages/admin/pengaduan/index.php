@@ -15,6 +15,7 @@
 
                   <th></th>
                   <th></th>
+                  <th></th>
                   <th class="th-sticky-action">-</th>
                 </tr>
               </thead>
@@ -28,7 +29,7 @@
 
 <!-- Bootstrap modal -->
 <div class="modal fade" id="modal_form">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title">Edit Pengaduan</h4>
@@ -40,35 +41,70 @@
         <div class="form-body">
           <?php echo form_open($cname.'/update',['id'=>'form-pengaduan']); ?>
           <input type="hidden" class="form-control" name="id_pengaduan" placeholder="" readonly>
-          <input type="hidden" class="form-control" name="id_user" placeholder="" readonly>
-          <input type="hidden" class="form-control" name="id_kategori" placeholder="" readonly>
-          <div class="form-group">
-            <label>Nama User</label>
-            <input type="text" class="form-control" name="id_user1" placeholder="" readonly>
+          <div class="row">
+            <div class="col-6">
+              <fieldset class="border p-2">
+                <legend  class="w-auto">Data Korban</legend>
+                <div class="form-group">
+                  <label>Nama Pelapor</label>
+                  <input type="text" class="form-control" name="id_user" placeholder="" readonly>
+                </div>
+                <div class="form-group">
+                  <label>Jenis Kelamin</label>
+
+                  <input type="text" class="form-control" name="jenis_kelamin" placeholder="" readonly>
+                </div>
+                <div class="form-group">
+                  <label>No telp</label>
+                  <input type="text" class="form-control" name="nomor_telp" placeholder="" readonly>
+                </div>
+                <div class="form-group">
+                  <label>Alamat</label>
+                  <textarea class="form-control" name="alamat" rows="2" readonly></textarea>
+                </div>
+              </fieldset>
+            </div>
+            <div class="col-6">
+              <fieldset class="border p-2">
+                <legend  class="w-auto">Data Pengaduan</legend>
+                <div class="form-group">
+                  <label>Kategori</label>
+                  <input type="text" class="form-control" name="id_kategori" placeholder="" readonly>
+                </div>
+                <div class="form-group">
+                  <label>Laporan</label>
+                  <textarea class="form-control" name="isi_laporan" rows="2" readonly></textarea>
+                </div>
+                <div class="form-group">
+                  <label>Waktu Laporan</label>
+                  <input type="text" class="form-control" name="waktu_lapor" placeholder="" readonly>
+                </div>
+              </fieldset>           
+            </div>
+            <div class="col-6 mt-2">      
+              <div class="form-group">
+                <label>Status</label>
+                <select name="status" id="" class="form-control">
+                  <option value="" selected disabled>Choose</option>
+                  <?php foreach ($data['select_status_pengaduan'] as $key => $value): ?>
+                    <option value="<?php echo $value->id_status ?>"><?php echo $value->nama_status ?></option>
+                  <?php endforeach ?>
+                </select>
+              </div>
+            </div>
+            <div class="col-6 mt-2">
+              <div class="form-group">
+                <label>Layanan yang diberikan</label>
+                <select name="layanan" id="" class="form-control">
+                  <option value="" selected disabled>Choose</option>
+                  <?php foreach ($data['select_layanan'] as $key => $value): ?>
+                    <option value="<?php echo $value->id_layanan ?>"><?php echo $value->nama_layanan ?></option>
+                  <?php endforeach ?>
+                </select>
+              </div>
+            </div>
           </div>
-          <div class="form-group">
-            <label>Kategori</label>
-            <input type="text" class="form-control" name="id_kategori1" placeholder="" readonly>
-          </div>
-          <div class="form-group">
-            <label>Laporan</label>
-            <input type="text" class="form-control" name="isi_laporan" placeholder="" readonly>
-          </div>
-          <div class="form-group">
-            <label>Waktu Laporan</label>
-            <input type="text" class="form-control" name="waktu_lapor" placeholder="" readonly>
-          </div>
-          <div class="form-group">
-            <label>Status</label>
-            <select class="form-control" name="status">
-              <option value="" selected disabled>Pilih</option>
-              <option value="0">Belum Direspon</option>
-              <option value="4">Sedang Diproses</option>
-              <option value="1">Sudah Teratasi</option>
-              <option value="2">Tidak Teratasi</option>
-              <option value="3">Tidak Bisa Dihubungi</option>
-            </select>
-          </div>
+
         </div>
       </div>
       <div class="modal-footer justify-content-between">
@@ -137,11 +173,18 @@
         "data": "waktu_respon" 
       },
       { 
+        "title" : "Layanan",
+        "data": "nama_layanan" 
+      },
+      { 
         "title" : "Status",
         data : (data, type, row, meta) => {
           ret = "";
           if(data.id_status == '0'){
             ret += '<span class="badge bg-secondary">Belum Direspon</span>';
+          }else 
+          if(data.id_status == '4'){
+            ret += '<span class="badge text-white" style="background: #fd7e14">Sedang di proses</span>';
           }else 
           if(data.id_status == '1'){
             ret += '<span class="badge bg-success">Sudah Teratasi</span>';
@@ -231,21 +274,27 @@
       success: function(data)
       {
        $('[name="id_pengaduan"]').val(data.id_pengaduan);
-       $('[name="id_user"]').val(data.id_user);
-       $('[name="id_kategori"]').val(data.id_kategori);
-       $('[name="id_user1"]').val(data.nama);
-       $('[name="id_kategori1"]').val(data.nama_kategori);
+       $('[name="id_user"]').val(data.nama);
+       // $('[name="jenis_kelamin"]').val(data.jenis_kelamin);
+       $('[name="nomor_telp"]').val(data.nomor_telp);
+       $('[name="alamat"]').val(data.alamat);
+       $('[name="id_kategori"]').val(data.nama_kategori);
        $('[name="isi_laporan"]').val(data.isi_laporan);
        $('[name="waktu_lapor"]').val(data.waktu_lapor);
        $('[name="status"]').val(data.status);
-            $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
-            $('.modal-title').text('Edit pengaduan'); // Set title to Bootstrap modal title
-          },
-          error: function (jqXHR, textStatus, errorThrown)
-          {
-            alert('Error get data from ajax');
-          }
-        });
+       $('#modal_form').modal('show');
+       $('.modal-title').text('Edit pengaduan');
+       if(data.jenis_kelamin == 'P'){
+         $('[name="jenis_kelamin"]').val('Perempuan');
+       } else {
+         $('[name="jenis_kelamin"]').val('Laki-Laki');
+       }
+     },
+     error: function (jqXHR, textStatus, errorThrown)
+     {
+      alert('Error get data from ajax');
+    }
+  });
   }
 
   var form_reset = () => {
