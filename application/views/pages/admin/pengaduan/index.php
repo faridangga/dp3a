@@ -85,7 +85,7 @@
               <div class="form-group">
                 <label>Status</label>
                 <select name="status" id="" class="form-control">
-                  <option value="" selected disabled>Choose</option>
+                  <option value="" selected disabled>Pilih</option>
                   <?php foreach ($data['select_status_pengaduan'] as $key => $value): ?>
                     <option value="<?php echo $value->id_status ?>"><?php echo $value->nama_status ?></option>
                   <?php endforeach ?>
@@ -96,7 +96,7 @@
               <div class="form-group">
                 <label>Layanan yang diberikan</label>
                 <select name="layanan" id="" class="form-control">
-                  <option value="" selected disabled>Choose</option>
+                  <option value="" selected disabled>Pilih</option>
                   <?php foreach ($data['select_layanan'] as $key => $value): ?>
                     <option value="<?php echo $value->id_layanan ?>"><?php echo $value->nama_layanan ?></option>
                   <?php endforeach ?>
