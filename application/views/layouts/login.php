@@ -11,7 +11,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <body class="hold-transition login-page p-t-10" style="background: #343a40;">
 	<div class="login-box m-10">
 		<div class="login-logo">
-			<img src="<?php echo base_url('assets/img/logo.png') ?>" alt="" style="width: 75%; height: 75%;">
+			<img src="<?php echo base_url('assets/img/logo-baru.png') ?>" alt="" style="width: 75%; height: 75%;">
 		</div>
 		<br><br>
 		<!-- /.login-logo -->
