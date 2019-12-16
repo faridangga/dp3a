@@ -25,7 +25,7 @@ class Dashboard extends CI_Controller {
 			'data' => array(),
 		];
 		$data['data']['select_kategori'] = $this->Kategori_Laporan_model->get_data();
-		$data['data']['tahun'] = $this->Pengaduan_model->get_data_date();
+		$data['data']['tahun'] = $this->Pengaduan_model->get_data_date();	
 		// $data['data']['count_pengaduan'] = $this->Pengaduan_model->count_pengaduan();
 		// echo json_encode($data['data']['count_pengaduan']);
 		$this->load->view('layouts/dashboard',$data);
@@ -52,6 +52,26 @@ class Dashboard extends CI_Controller {
 	// 	$data = $this->Dashboard_model->get_sto_1($pengaduan_category);
 	// 	echo json_encode($data);
 	// }
+
+	public function get_chart_pengaduan()
+	{
+		$id_kategori = $this->input->post('id_kategori');
+		$waktu_lapor = $this->input->post('waktu_lapor');
+		$status = 
+		$arr_data = array();
+		$data= $this->Pengaduan_model->get_chart_pengaduan($id_kategori, $waktu_lapor);
+		$status_pengaduan = $this->Pengaduan_model->get_status_pengaduan();
+		
+		$i = 1;
+		foreach ($data as $key => $value) {
+			
+		}
+
+		
+
+
+		echo json_encode($arr_data);
+	}
 
 	public function get_bar_pengaduan()
 	{

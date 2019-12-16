@@ -193,7 +193,7 @@
     var waktu_lapor = b.options[b.selectedIndex].value;
 
     $.ajax({
-      url: base_cname+"/get_bar_pengaduan",
+      url: base_cname+"/get_chart_pengaduan",
       type: 'POST',
       data: {id_kategori:id_kategori,waktu_lapor:waktu_lapor},
       success: function (data) {
@@ -206,7 +206,7 @@
   var myBarChart = new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+      labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'July', 'Agustust', 'September', 'Oktober', 'November', 'Desember'],
       datasets: [{
         label: 'Tidak Teratasi',
         backgroundColor: 'rgb(255, 99, 132)',

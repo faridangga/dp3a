@@ -21,7 +21,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		<aside class="main-sidebar sidebar-dark-primary elevation-4">
 			<!-- Brand Logo -->
 			<a href="#" class="brand-link">
-				<img src="<?php echo base_url('assets/img/logo.png') ?>" alt="DP3A Logo" class="brand-image"
+				<img src="<?php echo base_url('assets/img/logo-baru.png') ?>" alt="DP3A Logo" class="brand-image"
 				style="opacity: .8">
 				<span class="brand-text font-weight-light">DP3A</span>
 			</a>
