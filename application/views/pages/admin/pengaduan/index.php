@@ -233,11 +233,6 @@
         }
       });
     });
-
-    $('#datepicker').datepicker({
-      todayHighlight:'TRUE',
-      autoclose: true,
-    });
   });
 
 

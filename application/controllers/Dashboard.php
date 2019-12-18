@@ -62,12 +62,14 @@ class Dashboard extends CI_Controller {
 		$data= $this->Pengaduan_model->get_chart_pengaduan($id_kategori, $waktu_lapor);
 		$status_pengaduan = $this->Pengaduan_model->get_status_pengaduan();
 		
-		$i = 1;
-		foreach ($data as $key => $value) {
-			
-		}
-
-		
+		// $i = 1;
+		// foreach ($data as $key => $value) {
+		// 	if ($value->bulan != $i) {
+		// 		array_push($arr_data, 0);
+		// 	}else{
+		// 		array_push($arr_data, $value->jumlah);
+		// 	}
+		// }
 
 
 		echo json_encode($arr_data);
