@@ -32,7 +32,6 @@
                   <th></th>
                   <th></th>
                   <th></th>
-                  <th></th>
                   <th class="th-sticky-action">-</th>
                 </tr>
               </thead>
@@ -71,12 +70,6 @@
         render: (data, type, row, meta) => {
           return meta.row + meta.settings._iDisplayStart + 1;
         }
-      },
-      { 
-        "title" : "Id Golongan",
-        "class" : "text-center",
-        "width" : "50px",
-        "data": "id_golongan" 
       },
       { 
         "title" : "Nama Golongan",

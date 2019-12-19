@@ -156,14 +156,6 @@ class Pengaduan extends CI_Controller {
 		echo json_encode($data);
 	}
 
-	public function get_filter_date_kekerasan()
-	{
-		$start = ($this->input->post('start') != '0' ? $this->input->post('start') : null);
-		$end = ($this->input->post('end') != '0' ? $this->input->post('end') : null);
-		// $data['data'] = $this->Report_model->get_filter_date_kekerasan($start, $end);
-		echo json_encode($start);
-	}
-
 }
 
 /* End of file Pengaduan.php */
