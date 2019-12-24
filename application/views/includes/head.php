@@ -16,8 +16,7 @@
   <link rel="stylesheet" href="<?php echo base_url('assets/plugins/sweetalert/sweetalert.css') ?>">
   <!-- summernote -->
   <link rel="stylesheet" href="<?php echo base_url('assets/plugins/summernote/summernote-bs4.css') ?>">
-  <!-- <script src="<?php echo base_url('assets/plugins/chart.js/chart.min.js') ?>"></script> -->
-  <script src="https://www.chartjs.org/dist/2.9.3/Chart.min.js"></script>
+  <script src="<?php echo base_url('assets/plugins/chart.js/chart.min.js') ?>"></script>
 
   <!-- custom CSS -->
   <link rel="stylesheet" href="<?php echo base_url('assets/css/custom.css') ?>">

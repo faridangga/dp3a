@@ -7,16 +7,6 @@ class Pengaduan_model extends CI_Model {
 
 	public function get_data($kecamatan = null, $year = null)
 	{
-		// $select_data = "";
-		// $select_data .= "(select nama from users where users.id_user = pengaduan.id_user) as nama,";
-		// $select_data .= "(select nomor_telp from users where users.id_user = pengaduan.id_user) as nomor_telp,";
-		// $select_data .= "(select alamat from users where users.id_user = pengaduan.id_user) as alamat,";
-		// $select_data .= "(select nama_kategori from kategori_laporan where kategori_laporan.id_kategori = pengaduan.id_kategori) as nama_kategori,";
-		// $select_data .= "(select id_status from status_pengaduan where status_pengaduan.id_status = pengaduan.status) as status_pengaduan,";
-		// $select_data .= "(select nama_layanan from layanan where layanan.id_layanan = pengaduan.layanan) as nama_layanan,";
-		// $select_data = "";
-		// $select_data .= "(SUM(CASE WHEN nama_kategori ='Fisik' THEN 1 ELSE 0 END) Fisik,";
-		
 		$this->db->select('pengaduan.*, YEAR(waktu_lapor) as tahun, MONTH(waktu_lapor) as bulan, users.nama, users.nomor_telp, users.alamat, kategori_laporan.nama_kategori, status_pengaduan.id_status, layanan.nama_layanan, kecamatan.nama_kecamatan,
 			SUM(CASE WHEN nama_kategori ="Fisik" THEN 1 ELSE 0 END) Fisik
 			, SUM(CASE WHEN nama_kategori ="Psikis" THEN 1 ELSE 0 END) Psikis
@@ -26,7 +16,7 @@ class Pengaduan_model extends CI_Model {
 			, SUM(CASE WHEN nama_kategori ="Penelantaran" THEN 1 ELSE 0 END) Penelantaran
 			, SUM(CASE WHEN nama_kategori ="Lainnya" THEN 1 ELSE 0 END) Lainnya
 			, SUM(CASE WHEN nama_kategori ="Fisik" THEN 1 ELSE 0 END)
-			+ SUM(CASE WHEN nama_kategori ="Psikis" THEN 1 ELSE 0 END)
+			+ SUM(CASE WHEN nama_kategori ="Psikis" THEN 1  ELSE 0 END)
 			+ SUM(CASE WHEN nama_kategori ="Seksual" THEN 1 ELSE 0 END)
 			+ SUM(CASE WHEN nama_kategori ="Eksploitasi" THEN 1 ELSE 0 END)
 			+ SUM(CASE WHEN nama_kategori ="Trafficking" THEN 1 ELSE 0 END)

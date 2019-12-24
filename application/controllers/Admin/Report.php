@@ -27,9 +27,15 @@ class Report extends CI_Controller {
 		if ($this->session->userdata('isLogin') == FALSE) {
 			redirect('login','refresh');
 		}
-		
 	}
 
+	public function get_filter_date_kekerasan()
+	{
+		$start = ($this->input->post('start') != '0' ? $this->input->post('start') : null);
+		$end = ($this->input->post('end') != '0' ? $this->input->post('end') : null);
+		$data = $this->Report_model->get_filter_date_kekerasan($start, $end);
+		echo json_encode($data);
+	}
 }
 
 /* End of file Report.php */

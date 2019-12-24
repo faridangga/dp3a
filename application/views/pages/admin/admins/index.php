@@ -15,7 +15,7 @@
           </div>
           <div class="form-group">
             <label>Nomor Identitas</label>
-            <input type="text" class="form-control" name="nomor_identitas" placeholder="Nomor telp">
+            <input type="text" class="form-control" name="nomor_identitas" placeholder="Nomor Identitas">
           </div>
           <div class="form-group">
             <label>Password</label>
