@@ -347,4 +347,8 @@ class Api_model extends CI_Model {
 		$sql = $this->db->query('select myrank, id, `name`, avatar, `point` FROM (SELECT id, avatar, `name`, `point`,  @curRank := @curRank + 1 AS myrank FROM users u, (SELECT @curRank := 0) r ORDER BY `point` DESC) rank WHERE id='.$id.';');
 		return $sql;
 	}
+	public function getLaporanBySatus($tahun, $status){
+		$sql = $this->db->query("SELECT MONTH(p.waktu_lapor), COUNT(p.id_pengaduan) AS jumlah FROM pengaduan p RIGHT JOIN status_pengaduan sp ON sp.id_status = p.status WHERE YEAR(waktu_lapor) = '$tahun' AND p.status = '$status' GROUP BY MONTH(p.waktu_lapor)");
+		return $sql;
+	}
 }

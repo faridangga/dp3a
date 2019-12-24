@@ -604,4 +604,36 @@ class ApiController extends CI_Controller
 	    }
 	    return $randomString;
 	}
+	public function report(){
+		$arr = array();
+		$kategori = $this->uri->segment(3);
+		$tahun = $this->uri->segment(4);
+		$status = $this->uri->segment(5);
+		//echo "data post".$id.$token;
+			if($kategori=='status'){
+			$sql = $this->Api_model->getLaporanBySatus($tahun.$status);
+			if($sql->num_rows() > 0){
+				foreach($sql->result() as $category){
+					$datas[] = array(
+						'id_kategori'=>$category->id_kategori,
+						'nama_kategori'=>$category->nama_kategori
+					);
+				}
+				$arr = array(
+						'status' => "0",
+						'message' => "sukses",
+						'total' => $sql->num_rows(),
+						'data' => $datas
+				);
+			}
+			else
+			{
+				$arr = array('status' => '1','message' => 'Data Kategori Tidak Ditemukan','total' => 0, 'data' => 0);
+			}
+		}
+		
+		//$arr = array('data'=>'saya');
+		
+		echo json_encode($arr);
+	}
 }
