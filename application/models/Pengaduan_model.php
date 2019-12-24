@@ -60,9 +60,69 @@ class Pengaduan_model extends CI_Model {
 	}
 
 	public function get_chart_pengaduan($id_kategori, $tahun){
-		$query = $this->db->query('SELECT status, MONTH(waktu_lapor) AS bulan, COUNT(id_pengaduan) AS jumlah FROM pengaduan WHERE id_kategori='.$id_kategori.' AND YEAR(waktu_lapor)='.$tahun.' GROUP BY MONTH(waktu_lapor)')->result(); 
+		// $query = $this->db->query('SELECT status, MONTH(waktu_lapor) AS bulan, COUNT(id_pengaduan) AS jumlah FROM pengaduan WHERE id_kategori='.$id_kategori.' AND YEAR(waktu_lapor)='.$tahun.' GROUP BY MONTH(waktu_lapor)')->result(); 
+		$this->db->select('concat(monthname(waktu_lapor)," ",year(waktu_lapor)) as date,
+			SUM(CASE WHEN status_pengaduan.nama_status = "Belum Direspon" THEN 1 ELSE 0 END) "Belum Direspon",
+			SUM(CASE WHEN status_pengaduan.nama_status = "Sudah Teratasi" THEN 1 ELSE 0 END) "Sudah Teratasi",
+			SUM(CASE WHEN status_pengaduan.nama_status = "Tidak Teratasi" THEN 1 ELSE 0 END) "Tidak Teratasi",
+			SUM(CASE WHEN status_pengaduan.nama_status = "Tidak Bisa dihubungi" THEN 1 ELSE 0 END) "Tidak Bisa Dihubungi",
+			SUM(CASE WHEN status_pengaduan.nama_status = "Sedang Diproses" THEN 1 ELSE 0 END) "Sedang Diproses"');
+		$this->db->from('pengaduan');
+		$this->db->join('status_pengaduan', 'pengaduan.status = status_pengaduan.id_status', 'left');
+		$this->db->where('id_kategori', $id_kategori);
+		$this->db->where('year(waktu_lapor)', $tahun);
+		$this->db->group_by('year(waktu_lapor),month(waktu_lapor)');
+		$result = $this->db->get()->result_array();
+
+		$labels = [];
+		foreach ($result as $key1 => $value1) {
+			array_push($labels,$value1['date']);
+		}
+
+		$ds_label = [];
+		$ds_data = [];
+
+		if(count($result) != 0){
+			foreach ($result[0] as $key => $value) {
+				if($key != 'date'){
+					array_push($ds_label,$key);	
+				}
+			}
+			for ($i=1; $i < (count($result[0])); $i++) { 
+				$row_data = [];
+				for ($j=0; $j < count($result); $j++) { 
+					array_push($row_data,$result[$j][$ds_label[$i-1]]);
+				}
+				array_push($ds_data,$row_data);
+			}
+		}
+
+		$backgroundColor = [
+			'rgb(255, 99, 132)',
+			'rgba(40, 167, 69)',
+			'rgb(108, 117, 125)',
+			'rgba(23, 162, 184)',
+			'rgb(253, 126, 20)',
+		];
+
+		$borderColor = [
+			'rgb(255, 99, 132)',
+			'rgba(40, 167, 69)',
+			'rgb(108, 117, 125)',
+			'rgba(23, 162, 184)',
+			'rgb(253, 126, 20)',
+		];
+
+		$ret = [
+			'labels' => $labels,
+			'label' => $ds_label,
+			'data' => $ds_data,
+			'backgroundColor' => $backgroundColor,
+			'borderColor' => $borderColor,
+			// 'query' => $this->db->last_query()
+		];
 		// $this->db->from('pengaduan');
-		return $query;
+		return $ret;
 	}
 
 	public function get_data_by_id($id)

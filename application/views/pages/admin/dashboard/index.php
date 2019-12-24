@@ -72,7 +72,7 @@
       </div>
     </div>
     <div class="col-lg-4 col-sm-4">
-      <button class="btn btn-info" onclick="get_data();">Submit</button>
+      <button class="btn btn-info" onclick="get_data()">Submit</button>
     </div>
     <div class="col-lg-12 col-12">
       <div class="card card-default">
@@ -111,83 +111,30 @@
     $('#select-periode').trigger('change');
   });
   
-  // var chart1;
-  // var draw_chart = (periode=null) => {
-  //   if(chart1 != null){
-  //     chart1.destroy();
-  //   }
 
-  //   if(periode != null){
-  //     periode_url = "/"+periode;
-  //   }
-
-  //   $.ajax({
-  //     url : base_url_cname+'/get_bar_pengaduan'+periode_url,
-  //     success : (data) => {
-  //       var json = $.parseJSON(data);
-
-  //       var ctx = document.getElementById('bar-per-section').getContext('2d');
-  //       $('#bar-per-section').parent().find('.fa-loading').remove();
-
-  //       var c_labels = [];
-  //       var d_data1 = [];
-  //       var d_data2 = [];
-  //       Object.keys(json.per_pic).forEach(function(key) {
-  //         c_labels.push(key);
-  //         d_data1.push(parseInt(json.per_pic[key].sto) || 0);
-  //         d_data2.push(parseInt(json.per_pic[key].not_sto) || 0);
-  //       })
-  //       chart4 = new Chart(ctx, {
-  //         type: 'bar',
-  //         data: {
-  //           labels: c_labels,
-  //           datasets: [
-  //           {
-  //             label: 'STO',
-  //             data: d_data1,
-  //             backgroundColor: 'rgba(99, 255, 132, 1)',
-  //             borderColor:  'rgba(99, 255, 132, 1)',
-  //             borderWidth: 1
-  //           },
-  //           {
-  //             label: 'NOT STO',
-  //             data: d_data2,
-  //             backgroundColor: 'rgba(255, 99, 132, 1)',
-  //             borderColor: 'rgba(255, 99, 132, 1)',
-  //             borderWidth: 1
-  //           }
-  //           ]
-  //         },
-  //         options: {
-  //           scales: {
-  //             xAxes: [{
-  //               ticks: {
-  //                 suggestedMin: 0, 
-  //                 beginAtZero: true,
-  //                 stepValue: 5,
-  //                 stepSize : 5,
-  //               }
-  //             }]
-  //           },
-  //           plugins: {
-  //             datalabels: {
-  //               anchor : 'end',
-  //               color: '#000',
-  //               font : {
-  //                 size : 15,
-  //                 weight : 'bold',
-  //               }
-  //             }
-  //           },
-  //         }
-  //       });
-  //     }
-  //   });
-
+  
 
   var get_data = () => {
+
+
     var a = document.getElementById("select-kategori");
     var id_kategori = a.options[a.selectedIndex].value;
+    var nama_kategori = "";
+    if(id_kategori == 1){
+      nama_kategori = "Fisik";
+    } else if(id_kategori == 2){
+      nama_kategori = "Psikis";
+    } else if(id_kategori == 3){
+      nama_kategori = "Seksual";
+    } else if(id_kategori == 4){
+      nama_kategori = "Eksploitasi";
+    } else if(id_kategori == 5){
+      nama_kategori = "Trafficking";
+    } else if(id_kategori == 6){
+      nama_kategori = "Penelantaran";
+    } else if(id_kategori == 7){
+      nama_kategori = "Lainnya";
+    } 
 
     var b = document.getElementById("select-tahun");
     var waktu_lapor = b.options[b.selectedIndex].value;
@@ -197,50 +144,69 @@
       type: 'POST',
       data: {id_kategori:id_kategori,waktu_lapor:waktu_lapor},
       success: function (data) {
-        alert(data);
-      },
+        var json = $.parseJSON(data);
+        var ctx = document.getElementById('bar-per-kategori').getContext('2d');
+
+        var datasets = [];
+        Object.keys(json.label).forEach(function(key) {
+          datasets.push({
+            label: json.label[key],
+            backgroundColor: json.backgroundColor[key],
+            borderColor: json.borderColor[key],
+            stack: 'Stack 0',
+            data: json.data[key],
+            borderWidth : 1,
+          });
+        })
+
+        var optionBar = {
+          plugins: {
+            borderSkipped: {
+              anchor : 'end',
+              align : 'top',
+              font : {
+                size : 15,
+                weight : 'bold',
+              }
+            }
+          },
+          title: {
+            display: true,
+            text: ['Grafik Pengaduan Kategori ' + nama_kategori,'Tahun ' + waktu_lapor ],
+            fontSize: 14,
+            lineHeight: 2,
+          },
+          tooltips: {
+            mode: 'index',
+            intersect: false
+          },
+          responsive: true,
+          scales: {
+            xAxes: [{
+              stacked: true,
+            }],
+            yAxes: [{
+              ticks: {
+                stepSize: 1
+              },
+              stacked: true
+            }]
+          }
+        }
+        var data = {
+          labels: json.labels,
+          datasets: datasets,
+        };
+        var chart = new Chart(ctx, {
+          type: 'bar',
+
+          data: data,
+
+          options: optionBar
+        });
+      }
     });
   }
 
-  var ctx = document.getElementById('bar-per-kategori').getContext('2d');
-  var myBarChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'July', 'Agustust', 'September', 'Oktober', 'November', 'Desember'],
-      datasets: [{
-        label: 'Tidak Teratasi',
-        backgroundColor: 'rgb(255, 99, 132)',
-        borderColor: 'rgb(255, 99, 132)',
-        stack: 'Stack 0',
-        data: [0, 10, 5, 2, 10, 30, 45]
-      },{
-        label: 'Sudah Teratasi',
-        backgroundColor: 'rgb(40, 167, 69)',
-        borderColor: 'rgb(40, 167, 69)',
-        stack: 'Stack 0',
-        data: [50, 10, 5, 2, 20, 10, 45]
-      },{
-        label: 'Belum Direspon',
-        backgroundColor: 'rgb(108, 117, 125)',
-        borderColor: 'rgb(108, 117, 125)',
-        stack: 'Stack 0',
-        data: [0, 10, 5, 2, 5, 30, 20]
-      },{
-        label: 'Tidak Bisa dihubungi',
-        backgroundColor: 'rgb(23, 162, 184)',
-        borderColor: 'rgb(23, 162, 184)',
-        stack: 'Stack 0',
-        data: [0, 10, 5, 2, 20, 30, 2]
-      },
-      ]
-    },
-    options: {
-      title: {
-        display: true,
-        text: ['Grafik Pengaduan Kategori Penelantaran','Tahun 2019'],
-        fontSize: 14,
-        lineHeight: 2,
-      },
-    }
-  });
+
 </script>

@@ -72,7 +72,7 @@ class Dashboard extends CI_Controller {
 		// }
 
 
-		echo json_encode($arr_data);
+		echo json_encode($data);
 	}
 
 	public function get_bar_pengaduan()
