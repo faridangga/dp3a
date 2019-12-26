@@ -4,7 +4,7 @@
       <div class="card">
         <div class="card-body">
           <div class="col-lg-6 col-md-8 col-sm-12 pb-2">
-            <?php echo form_open($cname.'/get_data',['id' => 'form-filter']) ?>
+            <?php echo form_open($cname.'/get_data_report',['id' => 'form-filter']) ?>
             <div class="form-group row mb-1 filter-input">
               <label for="" class="control-label col-form-label col-md-2">Year</label>
               <div class="col-md-9">
@@ -31,7 +31,7 @@
             <div class="form-group row mb-0 mt-2">
               <label for="" class="control-label col-form-label col-md-2 filter-input"></label>
               <div class="col-md-9">
-                <button type="submit" class="btn btn-primary filter-input" id="laporan-kekerasan-submit"><i class="fa fa-refresh fa-spin hide" id="laporan-kekerasan-loading"></i>Submit</button>
+                <button type="submit" class="btn btn-primary filter-input" id="laporan-kekerasan-submit">Submit</button>
               </div>
             </div>
             <?php echo form_close(); ?>
@@ -43,7 +43,7 @@
       <div class="card">
         <div class="card-body">
           <div class="table-responsive">
-            <table id="table-data" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%" role="grid" aria-describedby="example23_info" style="width: 100%;" data-url="<?php echo base_url($cname.'/get_data') ?>">
+            <table id="table-data" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%" role="grid" aria-describedby="example23_info" style="width: 100%;" data-url="<?php echo base_url($cname.'/get_data_report') ?>">
               <thead>
                 <tr>
                   <th></th>
@@ -241,7 +241,6 @@
 
     
     $('#laporan-kekerasan-submit').click();
-    $('#filter-date-submit-submit').click();
     $('#btn-all-year').on('click',function(){
       if(!$(this).parent().parent().find('#laporan-kekerasan-year').attr('disabled')){
         $(this).parent().parent().find('#laporan-kekerasan-year').attr('disabled',true);

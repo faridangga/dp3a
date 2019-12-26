@@ -21,7 +21,7 @@ class Report extends CI_Controller {
 			'count_pengaduan' => $this->Pengaduan_model->count_pengaduan(),
 			'data' => array(),
 		];
-		$data['data'] = $this->Pengaduan_model->get_data();
+		$data['data'] = $this->Pengaduan_model->get_data_report();
 		$data['data']['select_lokasi'] = $this->Pengaduan_model->get_lokasi();
 		$this->load->view('layouts/dashboard',$data);
 		if ($this->session->userdata('isLogin') == FALSE) {

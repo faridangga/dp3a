@@ -50,7 +50,7 @@
         <label class="col-sm-2 col-md-2 col-form-label">Kategori</label>
         <div class="col-sm-10 col-md-10">
           <select name="select_kategori" class="form-control select2" id="select-kategori" style="width: 100%;">
-            <option value="" selected disabled>Pilih Kategori</option>
+            <option value="0" selected>Semua Kategori</option>
             <?php foreach ($data['select_kategori'] as $key => $value): ?>
               <option value="<?php echo $value->id_kategori ?>"><?php echo $value->nama_kategori ?></option>
             <?php endforeach ?>
@@ -63,7 +63,7 @@
         <label class="col-sm-2 col-md-2 col-form-label">Tahun</label>
         <div class="col-sm-10 col-md-10">
           <select name="select_tahun" class="form-control select2" id="select-tahun" style="width: 100%;">
-            <option value="" selected disabled>Pilih Tahun</option>
+            <option value="<?php echo date('Y') ?>" selected disabled><?php echo date('Y') ?></option>
             <?php foreach ($data['tahun'] as $key => $value): ?>
               <option value="<?php echo $value->tahun; ?>"><?php echo $value->tahun;?></option>
             <?php endforeach ?>
@@ -72,7 +72,7 @@
       </div>
     </div>
     <div class="col-lg-4 col-sm-4">
-      <button class="btn btn-info" onclick="get_data()">Submit</button>
+      <!-- <button class="btn btn-info" onclick="draw_chart()">Submit</button> -->
     </div>
     <div class="col-lg-12 col-12">
       <div class="card card-default">
@@ -98,25 +98,24 @@
   
 </div>
 <script>
-
-  var base_url_cname = '<?php echo base_url($cname) ?>';
-  var periode_url = "";
-
   var base_cname = "<?php echo base_url($cname) ?>";
   $(document).ready(function(){
 
-    $('#select-periode').change(function(){
+    $('#select-kategori').change(function(){
       draw_chart($(this).val());
     })
-    $('#select-periode').trigger('change');
-  });
-  
+    $('#select-kategori').trigger('change');
+    $('#select-tahun').change(function(){
+      draw_chart($(this).val());
+    })
+    $('#select-tahun').trigger('change');
+  });  
 
-  
-
-  var get_data = () => {
-
-
+  var chart1; 
+  var draw_chart = () => {
+    if(chart1 != null){
+      chart1.destroy();
+    }
     var a = document.getElementById("select-kategori");
     var id_kategori = a.options[a.selectedIndex].value;
     var nama_kategori = "";
@@ -134,8 +133,9 @@
       nama_kategori = "Penelantaran";
     } else if(id_kategori == 7){
       nama_kategori = "Lainnya";
+    } else if(id_kategori == 0){
+      nama_kategori = "Semua Kategori";
     } 
-
     var b = document.getElementById("select-tahun");
     var waktu_lapor = b.options[b.selectedIndex].value;
 
@@ -144,6 +144,7 @@
       type: 'POST',
       data: {id_kategori:id_kategori,waktu_lapor:waktu_lapor},
       success: function (data) {
+
         var json = $.parseJSON(data);
         var ctx = document.getElementById('bar-per-kategori').getContext('2d');
 
@@ -153,23 +154,12 @@
             label: json.label[key],
             backgroundColor: json.backgroundColor[key],
             borderColor: json.borderColor[key],
-            stack: 'Stack 0',
             data: json.data[key],
             borderWidth : 1,
           });
         })
 
         var optionBar = {
-          plugins: {
-            borderSkipped: {
-              anchor : 'end',
-              align : 'top',
-              font : {
-                size : 15,
-                weight : 'bold',
-              }
-            }
-          },
           title: {
             display: true,
             text: ['Grafik Pengaduan Kategori ' + nama_kategori,'Tahun ' + waktu_lapor ],
@@ -197,7 +187,7 @@
           labels: json.labels,
           datasets: datasets,
         };
-        var chart = new Chart(ctx, {
+        var chart1 = new Chart(ctx, {
           type: 'bar',
 
           data: data,

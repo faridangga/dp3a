@@ -5,7 +5,24 @@ class Pengaduan_model extends CI_Model {
 
 	var $table = "pengaduan";
 
-	public function get_data($kecamatan = null, $year = null)
+	public function get_data()
+	{
+		$this->db->select('pengaduan.*, YEAR(waktu_lapor) as tahun, MONTH(waktu_lapor) as bulan, users.nama, users.nomor_telp, users.alamat, kategori_laporan.nama_kategori, status_pengaduan.id_status, layanan.nama_layanan, kecamatan.nama_kecamatan');
+		$this->db->from($this->table);
+		$this->db->join('users', 'pengaduan.id_user = users.id_user','left');
+		$this->db->join('kategori_laporan', 'pengaduan.id_kategori = kategori_laporan.id_kategori','left');
+		$this->db->join('status_pengaduan', 'pengaduan.status = status_pengaduan.id_status','left');
+		$this->db->join('layanan', 'pengaduan.layanan = layanan.id_layanan','left');
+		$this->db->join('kecamatan', 'pengaduan.kecamatan = kecamatan.id_kecamatan', 'left');
+		$this->db->where('pengaduan.status !=', 5);
+		// $this->db->group_by('bulan, nama_kategori, kecamatan');
+		$this->db->order_by('waktu_lapor','desc');
+
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	public function get_data_report($kecamatan = null, $year = null)
 	{
 		$this->db->select('pengaduan.*, YEAR(waktu_lapor) as tahun, MONTH(waktu_lapor) as bulan, users.nama, users.nomor_telp, users.alamat, kategori_laporan.nama_kategori, status_pengaduan.id_status, layanan.nama_layanan, kecamatan.nama_kecamatan,
 			SUM(CASE WHEN nama_kategori ="Fisik" THEN 1 ELSE 0 END) Fisik
@@ -22,6 +39,8 @@ class Pengaduan_model extends CI_Model {
 			+ SUM(CASE WHEN nama_kategori ="Trafficking" THEN 1 ELSE 0 END)
 			+ SUM(CASE WHEN nama_kategori ="Penelantaran" THEN 1 ELSE 0 END) 
 			+ SUM(CASE WHEN nama_kategori ="Lainnya" THEN 1 ELSE 0 END) Total');
+
+		// $this->db->select('pengaduan.*, YEAR(waktu_lapor) as tahun, MONTH(waktu_lapor) as bulan, users.nama, users.nomor_telp, users.alamat, kategori_laporan.nama_kategori, status_pengaduan.id_status, layanan.nama_layanan, kecamatan.nama_kecamatan');
 		$this->db->from($this->table);
 		$this->db->join('users', 'pengaduan.id_user = users.id_user','left');
 		$this->db->join('kategori_laporan', 'pengaduan.id_kategori = kategori_laporan.id_kategori','left');
@@ -32,7 +51,7 @@ class Pengaduan_model extends CI_Model {
 		// $this->db->select('pengaduan.*,'.$select_data);
 		// $this->db->from($this->table);
 		$this->db->where('pengaduan.status !=', 5);
-		$this->db->group_by('bulan','nama_kategori, kecamatan');
+		$this->db->group_by('bulan, nama_kategori, kecamatan');
 		// $this->db->order_by('waktu_lapor','desc');
 		$this->db->order_by('bulan','asc');
 		if($kecamatan != null){
@@ -59,7 +78,7 @@ class Pengaduan_model extends CI_Model {
 		return $result;
 	}
 
-	public function get_chart_pengaduan($id_kategori, $tahun){
+	public function get_chart_pengaduan($id_kategori=null, $tahun=null){
 		// $query = $this->db->query('SELECT status, MONTH(waktu_lapor) AS bulan, COUNT(id_pengaduan) AS jumlah FROM pengaduan WHERE id_kategori='.$id_kategori.' AND YEAR(waktu_lapor)='.$tahun.' GROUP BY MONTH(waktu_lapor)')->result(); 
 		$this->db->select('concat(monthname(waktu_lapor)," ",year(waktu_lapor)) as date,
 			SUM(CASE WHEN status_pengaduan.nama_status = "Belum Direspon" THEN 1 ELSE 0 END) "Belum Direspon",
@@ -69,8 +88,14 @@ class Pengaduan_model extends CI_Model {
 			SUM(CASE WHEN status_pengaduan.nama_status = "Sedang Diproses" THEN 1 ELSE 0 END) "Sedang Diproses"');
 		$this->db->from('pengaduan');
 		$this->db->join('status_pengaduan', 'pengaduan.status = status_pengaduan.id_status', 'left');
-		$this->db->where('id_kategori', $id_kategori);
-		$this->db->where('year(waktu_lapor)', $tahun);
+		// $this->db->where('id_kategori', $id_kategori);
+		// $this->db->where('year(waktu_lapor)', $tahun);
+		if($id_kategori != null){
+			$this->db->where('id_kategori',$id_kategori);
+		}
+		if($tahun != null){
+			$this->db->where('year(waktu_lapor)',$tahun);
+		}
 		$this->db->group_by('year(waktu_lapor),month(waktu_lapor)');
 		$result = $this->db->get()->result_array();
 

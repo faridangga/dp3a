@@ -55,7 +55,8 @@ class Dashboard extends CI_Controller {
 
 	public function get_chart_pengaduan()
 	{
-		$id_kategori = $this->input->post('id_kategori');
+		$id_kategori = ($this->input->post('id_kategori') != '0' ? $this->input->post('id_kategori') : null);
+		// $id_kategori = $this->input->post('id_kategori');
 		$waktu_lapor = $this->input->post('waktu_lapor');
 		$status = 
 		$arr_data = array();

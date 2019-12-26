@@ -31,9 +31,15 @@ class Pengaduan extends CI_Controller {
 
 	public function get_data()
 	{
+		$data['data'] = $this->Pengaduan_model->get_data();
+		echo json_encode($data);
+	}
+
+	public function get_data_report()
+	{
 		$kecamatan = ($this->input->post('nama_kecamatan') != '0' ? $this->input->post('nama_kecamatan') : null);
 		$year = $this->input->post('year');
-		$data['data'] = $this->Pengaduan_model->get_data($kecamatan,$year);
+		$data['data'] = $this->Pengaduan_model->get_data_report($kecamatan,$year);
 		echo json_encode($data);
 	}
 
