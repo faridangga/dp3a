@@ -136,7 +136,6 @@
     table = $('#table-data').DataTable({
       orderCellsTop : true,
       responsive : true,
-      dom: 'lfrtip',
       scrollY: true,
       scrollX: true,
       "ajax": {
@@ -277,6 +276,8 @@
        $('[name="isi_laporan"]').val(data.isi_laporan);
        $('[name="waktu_lapor"]').val(data.waktu_lapor);
        $('[name="status"]').val(data.status);
+       $('[name="layanan"]').val(data.layanan);
+       
        $('#modal_form').modal('show');
        $('.modal-title').text('Edit pengaduan');
        if(data.jenis_kelamin == 'P'){

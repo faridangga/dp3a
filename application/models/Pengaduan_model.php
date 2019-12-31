@@ -67,7 +67,8 @@ class Pengaduan_model extends CI_Model {
 
 	public function get_data_date(){
 		$this->db->select('DISTINCT(YEAR(waktu_lapor)) as tahun');  
-		$this->db->from('pengaduan');  
+		$this->db->from('pengaduan');
+		$this->db->order_by('tahun', 'desc');
 		$query=$this->db->get()->result();  
 		return $query;
 	}
@@ -79,17 +80,13 @@ class Pengaduan_model extends CI_Model {
 	}
 
 	public function get_chart_pengaduan($id_kategori=null, $tahun=null){
-		// $query = $this->db->query('SELECT status, MONTH(waktu_lapor) AS bulan, COUNT(id_pengaduan) AS jumlah FROM pengaduan WHERE id_kategori='.$id_kategori.' AND YEAR(waktu_lapor)='.$tahun.' GROUP BY MONTH(waktu_lapor)')->result(); 
 		$this->db->select('concat(monthname(waktu_lapor)," ",year(waktu_lapor)) as date,
-			SUM(CASE WHEN status_pengaduan.nama_status = "Belum Direspon" THEN 1 ELSE 0 END) "Belum Direspon",
-			SUM(CASE WHEN status_pengaduan.nama_status = "Sudah Teratasi" THEN 1 ELSE 0 END) "Sudah Teratasi",
-			SUM(CASE WHEN status_pengaduan.nama_status = "Tidak Teratasi" THEN 1 ELSE 0 END) "Tidak Teratasi",
-			SUM(CASE WHEN status_pengaduan.nama_status = "Tidak Bisa dihubungi" THEN 1 ELSE 0 END) "Tidak Bisa Dihubungi",
-			SUM(CASE WHEN status_pengaduan.nama_status = "Sedang Diproses" THEN 1 ELSE 0 END) "Sedang Diproses"');
+			SUM(CASE WHEN status = "0" THEN 1 ELSE 0 END) "Belum Direspon",
+			SUM(CASE WHEN status = "1" THEN 1 ELSE 0 END) "Sudah Teratasi",
+			SUM(CASE WHEN status = "2" THEN 1 ELSE 0 END) "Tidak Teratasi",
+			SUM(CASE WHEN status = "3" THEN 1 ELSE 0 END) "Tidak Bisa Dihubungi",
+			SUM(CASE WHEN status = "4" THEN 1 ELSE 0 END) "Sedang Diproses"');
 		$this->db->from('pengaduan');
-		$this->db->join('status_pengaduan', 'pengaduan.status = status_pengaduan.id_status', 'left');
-		// $this->db->where('id_kategori', $id_kategori);
-		// $this->db->where('year(waktu_lapor)', $tahun);
 		if($id_kategori != null){
 			$this->db->where('id_kategori',$id_kategori);
 		}
@@ -146,19 +143,16 @@ class Pengaduan_model extends CI_Model {
 			'borderColor' => $borderColor,
 			// 'query' => $this->db->last_query()
 		];
-		// $this->db->from('pengaduan');
 		return $ret;
 	}
 
 	public function get_data_by_id($id)
 	{
 		$this->db->select('pengaduan.*, users.nama, users.nama, users.nomor_telp, users.alamat, kategori_laporan.nama_kategori, status_pengaduan.id_status');
-		// $this->db->select('*');
 		$this->db->from($this->table);
 		$this->db->join('users', 'pengaduan.id_user = users.id_user','left');
 		$this->db->join('kategori_laporan', 'pengaduan.id_kategori = kategori_laporan.id_kategori','left');
 		$this->db->join('status_pengaduan', 'pengaduan.status = status_pengaduan.id_status','left');
-		// $this->db->join('layanan', 'pengaduan.layanan = layanan.nama_layanan','left');
 		$this->db->where('pengaduan.status !=', 5);
 		$this->db->where('id_pengaduan',$id);
 		$query = $this->db->get();
@@ -197,7 +191,6 @@ class Pengaduan_model extends CI_Model {
 				$jumlah++;
 			}
 		}
-		// echo json_encode($status);
 		return $jumlah;
 
 	}
@@ -208,8 +201,7 @@ class Pengaduan_model extends CI_Model {
 		$query = $this->db->get($this->table)->result();
 		foreach ($query as $key => $value) {	
 			$jumlah++;
-		}
-		// echo json_encode($status);	
+		}	
 		return $jumlah;
 
 	}

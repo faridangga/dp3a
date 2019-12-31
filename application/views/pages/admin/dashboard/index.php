@@ -63,7 +63,8 @@
         <label class="col-sm-2 col-md-2 col-form-label">Tahun</label>
         <div class="col-sm-10 col-md-10">
           <select name="select_tahun" class="form-control select2" id="select-tahun" style="width: 100%;">
-            <option value="<?php echo date('Y') ?>" selected disabled><?php echo date('Y') ?></option>
+            <!-- <option value="<?php echo date('Y') ?>" selected disabled><?php echo date('Y') ?></option> -->
+            <option value="0" selected>Semua Tahun</option>
             <?php foreach ($data['tahun'] as $key => $value): ?>
               <option value="<?php echo $value->tahun; ?>"><?php echo $value->tahun;?></option>
             <?php endforeach ?>
@@ -86,7 +87,7 @@
         </div>
         <div class="card-body">
           <div>
-            <canvas id="bar-per-kategori" class="chartjs" height="254" width="509" style="width: 509px; height: 254px;" data> </canvas>
+            <canvas id="bar_pengaduan" height="254" width="509" style="width: 509px; height: 254px;" data> </canvas>
           </div>
         </div>
       </div>
@@ -109,15 +110,12 @@
       draw_chart($(this).val());
     })
     $('#select-tahun').trigger('change');
-  });  
+  });
 
-  var chart1; 
   var draw_chart = () => {
-    if(chart1 != null){
-      chart1.destroy();
-    }
-    var a = document.getElementById("select-kategori");
-    var id_kategori = a.options[a.selectedIndex].value;
+
+    var kategori = document.getElementById("select-kategori");
+    var id_kategori = kategori.options[kategori.selectedIndex].value;
     var nama_kategori = "";
     if(id_kategori == 1){
       nama_kategori = "Fisik";
@@ -136,8 +134,15 @@
     } else if(id_kategori == 0){
       nama_kategori = "Semua Kategori";
     } 
-    var b = document.getElementById("select-tahun");
-    var waktu_lapor = b.options[b.selectedIndex].value;
+
+    var tahun = document.getElementById("select-tahun");
+    var waktu_lapor = tahun.options[tahun.selectedIndex].value;
+    var nama_tahun = "";
+    if(waktu_lapor != 0){
+      nama_tahun = tahun.options[tahun.selectedIndex].value;
+    } else {
+      nama_tahun = "Semua";
+    }
 
     $.ajax({
       url: base_cname+"/get_chart_pengaduan",
@@ -145,8 +150,10 @@
       data: {id_kategori:id_kategori,waktu_lapor:waktu_lapor},
       success: function (data) {
 
+
         var json = $.parseJSON(data);
-        var ctx = document.getElementById('bar-per-kategori').getContext('2d');
+
+        var ctx = document.getElementById('bar_pengaduan').getContext('2d');
 
         var datasets = [];
         Object.keys(json.label).forEach(function(key) {
@@ -162,7 +169,7 @@
         var optionBar = {
           title: {
             display: true,
-            text: ['Grafik Pengaduan Kategori ' + nama_kategori,'Tahun ' + waktu_lapor ],
+            text: ['Grafik Pengaduan Kategori ' + nama_kategori,'Tahun ' + nama_tahun ],
             fontSize: 14,
             lineHeight: 2,
           },
@@ -181,19 +188,26 @@
               },
               stacked: true
             }]
-          }
+          },
+          
         }
         var data = {
           labels: json.labels,
           datasets: datasets,
         };
-        var chart1 = new Chart(ctx, {
+
+        if(window.chart1 != undefined){
+          window.chart1.destroy(); 
+        }
+
+        window.chart1 = new Chart(ctx, {
           type: 'bar',
 
           data: data,
 
           options: optionBar
         });
+
       }
     });
   }

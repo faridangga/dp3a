@@ -1,4 +1,5 @@
 <nav class="mt-2">
+
   <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
     <li class="nav-item">
       <a href="<?php echo base_url('Dashboard/index') ?>" class="nav-link">
@@ -19,7 +20,6 @@
       <ul class="nav nav-treeview">
         <li class="nav-item">
           <a href="<?php echo base_url('Admin/Admins') ?>" class="nav-link">
-            <i class="nav-icon fas fa-user-tie"></i>
             <p>
               Admin
             </p>
@@ -27,7 +27,6 @@
         </li>
         <li class="nav-item">
           <a href="<?php echo base_url('Admin/Users') ?>" class="nav-link">
-            <i class="nav-icon fas fa-user-tie"></i>
             <p>
               Users
             </p>
@@ -35,7 +34,6 @@
         </li>
         <li class="nav-item">
           <a href="<?php echo base_url('Admin/Golongan') ?>" class="nav-link">
-            <i class="nav-icon fab fa-cloudsmith"></i>
             <p>
               Golongan
             </p>
@@ -43,7 +41,6 @@
         </li>
         <li class="nav-item">
           <a href="<?php echo base_url('Admin/Jabatan') ?>" class="nav-link">
-            <i class="nav-icon fas fa-hat-cowboy-side"></i>
             <p>
               Jabatan
             </p>
@@ -51,7 +48,6 @@
         </li>
         <li class="nav-item">
           <a href="<?php echo base_url('Admin/Kategori_Laporan') ?>" class="nav-link">
-            <i class="nav-icon fab fa-hotjar"></i>
             <p>
               Kategori Laporan
             </p>
@@ -59,7 +55,6 @@
         </li>
         <li class="nav-item">
           <a href="<?php echo base_url('Admin/Kategori_Post') ?>" class="nav-link">
-            <i class="nav-icon fab fa-hotjar"></i>
             <p>
               Kategori Post
             </p>
@@ -102,9 +97,15 @@
       <ul class="nav nav-treeview">
         <li class="nav-item">
           <a href="<?php echo base_url('Admin/Report/laporan_kekerasan') ?>" class="nav-link">
-            <i class="nav-icon fas fa-user-tie"></i>
             <p>
-              Laporan Kekerasan
+              Rekap Jumlah Kekerasan
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="<?php echo base_url('Admin/Report/report_layanan') ?>" class="nav-link">
+            <p>
+              Report Layanan
             </p>
           </a>
         </li>
@@ -112,6 +113,8 @@
     </li>
   </ul>
   <script>
-    $('[href*="<?php echo $this->uri->segment(2) ?>"]').addClass('active');
+    var url = window.location;
+    $('[href*="'+url+'"]').addClass('active');
   </script>
+
 </nav>

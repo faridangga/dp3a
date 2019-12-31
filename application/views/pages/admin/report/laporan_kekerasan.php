@@ -67,36 +67,6 @@
         </div>
       </div>
     </div>
-    <div class="col-md-12">
-      <div class="card">
-        <div class="card-body">
-          <!-- <?php echo form_open($cname.'/get_data',['id' => 'form-filter-date']) ?> -->
-          <div class="row">
-            <div class="col-md-5 mb-4">
-              <div class="form-group row mb-1 filter-input">
-                <label for="" class="control-label col-form-label col-md-3 text-center">Tanggal</label>
-                <div class="col-md-9">
-                  <div class="input-daterange input-group" id="datepicker">
-                    <input type="text" class="form-control start" name="start">
-                    <div class="input-group-append">
-                      <span class="input-group-text bg-info b-0 text-white">TO</span>
-                    </div>
-                    <input type="text" class="form-control end" name="end">
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <button type="submit" class="btn btn-info filter-input" id="filter-date-submit" onclick="get_data_filter();">Submit</button>
-            </div>
-            <div class="col-md-12">
-              <canvas id="myChart"></canvas>              
-            </div>
-          </div>
-          <!-- <?php echo form_close(); ?> -->
-        </div>
-      </div>
-    </div>
   </div>
 </div>
 
@@ -238,8 +208,7 @@
         processData: false
       });
     });
-
-    
+  
     $('#laporan-kekerasan-submit').click();
     $('#btn-all-year').on('click',function(){
       if(!$(this).parent().parent().find('#laporan-kekerasan-year').attr('disabled')){
@@ -249,89 +218,13 @@
       }
     })
 
-    $('#datepicker').datepicker({
-      todayHighlight:'TRUE',
-      autoclose: true,
-    });
+    
   });
 
   var reload_table = (data) => {
     table.clear();
     table.rows.add(data);
     table.draw();
-  }
-
-  var get_data_filter = () => {
-
-    var start = $('.start').val();
-    var end = $('.end').val();
-    // alert(start);
-
-    // alert(start + end);
-    $.ajax({
-      url: "get_filter_date_kekerasan",
-      type: 'POST',
-      data: {start:start,end:end},
-      success: function (data) {
-        var json = $.parseJSON(data);
-                // var d_data1 = [];
-
-        // Object.keys(json.count_all).forEach(function(key) {
-        //             // c_labels.push(key);
-        //             d_data1.push(parseInt(json.count_all[key]) || 0);
-        //         })
-        alert(json.count_pengaduan_ok);
-        var ctx = document.getElementById('myChart').getContext('2d');
-        
-        var myChart = new Chart(ctx, {
-          type: 'bar',
-          data: {
-            labels: ['asd'],
-            datasets: [{
-              label: 'asd',
-              data: [json.count_pengaduan_ok],
-              backgroundColor: [
-              'rgba(255, 99, 132, 0.2)',
-              'rgba(54, 162, 235, 0.2)',
-              'rgba(255, 206, 86, 0.2)',
-              'rgba(75, 192, 192, 0.2)',
-              'rgba(153, 102, 255, 0.2)',
-              'rgba(255, 159, 64, 0.2)'
-              ],
-              borderColor: [
-              'rgba(255, 99, 132, 1)',
-              'rgba(54, 162, 235, 1)',
-              'rgba(255, 206, 86, 1)',
-              'rgba(75, 192, 192, 1)',
-              'rgba(153, 102, 255, 1)',
-              'rgba(255, 159, 64, 1)'
-              ],
-              borderWidth: 1
-            }
-            ]
-          },
-          options: {
-            scales: {
-              yAxes: [{
-                ticks: {
-                  beginAtZero: true
-                }
-              }]
-            },
-            title: {
-              display: true,
-              text: ['Grafik Jumlah Laporan Berdasarkan Kecamatan'],
-              fontSize: 14,
-              lineHeight: 2,
-            },
-          }
-        });
-      },
-    });
-  }
-
-  
-
-  
+  } 
 
 </script>

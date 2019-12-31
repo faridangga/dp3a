@@ -16,7 +16,6 @@
   <link rel="stylesheet" href="<?php echo base_url('assets/plugins/sweetalert/sweetalert.css') ?>">
   <!-- summernote -->
   <link rel="stylesheet" href="<?php echo base_url('assets/plugins/summernote/summernote-bs4.css') ?>">
-  <script src="<?php echo base_url('assets/plugins/chart.js/Chart.min.js') ?>"></script>    
 
   <!-- custom CSS -->
   <link rel="stylesheet" href="<?php echo base_url('assets/css/custom.css') ?>">
@@ -28,6 +27,8 @@
   <!-- <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" /> -->
   <link rel="stylesheet" href="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker3.min.css">
 
+  <!-- chartjs -->
+  <script src="<?php echo base_url('assets/plugins/chart.js/Chart.min.js') ?>"></script>    
   <!-- jQuery -->
   <script src="https://js.pusher.com/5.0/pusher.min.js"></script>
   <script src="<?php echo base_url('assets/plugins/jquery/jquery.min.js') ?>"></script>

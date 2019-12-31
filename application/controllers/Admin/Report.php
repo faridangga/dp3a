@@ -15,7 +15,7 @@ class Report extends CI_Controller {
 	public function laporan_kekerasan()
 	{
 		$data = [
-			'title' => "Report",
+			'title' => "Rekap Jumlah Kekerasan",
 			'cname' => "Admin/Pengaduan",
 			'pages' => "admin/report/laporan_kekerasan",
 			'count_pengaduan' => $this->Pengaduan_model->count_pengaduan(),
@@ -34,6 +34,30 @@ class Report extends CI_Controller {
 		$start = ($this->input->post('start') != '0' ? $this->input->post('start') : null);
 		$end = ($this->input->post('end') != '0' ? $this->input->post('end') : null);
 		$data = $this->Report_model->get_filter_date_kekerasan($start, $end);
+		echo json_encode($data);
+	}
+
+	public function report_layanan()
+	{
+		$data = [
+			'title' => "Report Layanan",
+			'cname' => "Admin/Report",
+			'pages' => "admin/report/layanan",
+			'count_pengaduan' => $this->Pengaduan_model->count_pengaduan(),
+			'data' => array(),
+		];
+		// $data['data'] = $this->Pengaduan_model->get_data();
+		$this->load->view('layouts/dashboard',$data);
+		if ($this->session->userdata('isLogin') == FALSE) {
+			redirect('login','refresh');
+		}
+	}
+
+	public function get_report_layanan()
+	{
+		$start = ($this->input->post('start') != '0' ? $this->input->post('start') : null);
+		$end = ($this->input->post('end') != '0' ? $this->input->post('end') : null);
+		$data = $this->Report_model->get_report_layanan($start, $end);
 		echo json_encode($data);
 	}
 }
