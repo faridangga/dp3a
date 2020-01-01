@@ -10,9 +10,6 @@
               <div class="col-md-9">
                 <div class="input-group">
                   <input type="number" name="year" class="form-control" value="<?php echo date('Y') ?>" id="laporan-kekerasan-year">
-                  <div class="input-group-append">
-                    <button type="button" class="btn btn-primary" id="btn-all-year">All Year</button>
-                  </div>
                 </div>
               </div>
             </div>
@@ -58,8 +55,6 @@
                   <th></th>
                   <th></th>
 
-                  <th></th>
-                  <th></th>
                 </tr>
               </thead>
             </table>
@@ -73,8 +68,6 @@
 
 <script>
 
-  var url_fill_form = '<?php echo base_url($cname.'/get_data_by_id') ?>';
-  var url_insert_golongan = '<?php echo base_url($cname.'/insert') ?>';
   var base_cname = "<?php echo base_url($cname) ?>";
   var table = "";
   $(document).ready(function() {
@@ -106,53 +99,7 @@
         }
       },
       { 
-        "title" : "Tahun",
-        "data": "tahun" 
-      },
-      { 
-        "title" : "Bulan",
-        data : (data, type, row, meta) => {
-          ret = "";
-          if(data.bulan == '1'){
-            ret += '<span class="">Januari</span>';
-          }else 
-          if(data.bulan == '2'){
-            ret += '<span class="">Februari</span>';
-          }else 
-          if(data.bulan == '3'){
-            ret += '<span class="">Maret</span>';
-          }else
-          if(data.bulan == '4'){
-            ret += '<span class="">April</span>';
-          }else
-          if(data.bulan == '5'){
-            ret += '<span class="">Mei</span>';
-          }else
-          if(data.bulan == '6'){
-            ret += '<span class="">Juni</span>';
-          }else
-          if(data.bulan == '7'){
-            ret += '<span class="">Juli</span>';
-          }else
-          if(data.bulan == '8'){
-            ret += '<span class="">Agustus</span>';
-          }else
-          if(data.bulan == '9'){
-            ret += '<span class="">September</span>';
-          }else
-          if(data.bulan == '10'){
-            ret += '<span class="">Oktober</span>';
-          }else
-          if(data.bulan == '11'){
-            ret += '<span class="">November</span>';
-          }else{
-            ret += '<span class="">Desember</span>';
-          }
-          return ret;
-        }
-      },
-      { 
-        "title" : "lokasi",
+        "title" : "Lokasi",
         "data": "nama_kecamatan" 
       },
       { 
@@ -210,14 +157,6 @@
     });
   
     $('#laporan-kekerasan-submit').click();
-    $('#btn-all-year').on('click',function(){
-      if(!$(this).parent().parent().find('#laporan-kekerasan-year').attr('disabled')){
-        $(this).parent().parent().find('#laporan-kekerasan-year').attr('disabled',true);
-      }else{
-        $(this).parent().parent().find('#laporan-kekerasan-year').attr('disabled',false)
-      }
-    })
-
     
   });
 

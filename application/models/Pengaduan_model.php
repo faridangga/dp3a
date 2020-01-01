@@ -24,7 +24,7 @@ class Pengaduan_model extends CI_Model {
 
 	public function get_data_report($kecamatan = null, $year = null)
 	{
-		$this->db->select('pengaduan.*, YEAR(waktu_lapor) as tahun, MONTH(waktu_lapor) as bulan, users.nama, users.nomor_telp, users.alamat, kategori_laporan.nama_kategori, status_pengaduan.id_status, layanan.nama_layanan, kecamatan.nama_kecamatan,
+		$this->db->select('pengaduan.*, kecamatan.nama_kecamatan,
 			SUM(CASE WHEN nama_kategori ="Fisik" THEN 1 ELSE 0 END) Fisik
 			, SUM(CASE WHEN nama_kategori ="Psikis" THEN 1 ELSE 0 END) Psikis
 			, SUM(CASE WHEN nama_kategori ="Seksual" THEN 1 ELSE 0 END) Seksual
@@ -33,27 +33,20 @@ class Pengaduan_model extends CI_Model {
 			, SUM(CASE WHEN nama_kategori ="Penelantaran" THEN 1 ELSE 0 END) Penelantaran
 			, SUM(CASE WHEN nama_kategori ="Lainnya" THEN 1 ELSE 0 END) Lainnya
 			, SUM(CASE WHEN nama_kategori ="Fisik" THEN 1 ELSE 0 END)
-			+ SUM(CASE WHEN nama_kategori ="Psikis" THEN 1  ELSE 0 END)
+			+ SUM(CASE WHEN nama_kategori ="Psikis" THEN 1 ELSE 0 END)
 			+ SUM(CASE WHEN nama_kategori ="Seksual" THEN 1 ELSE 0 END)
 			+ SUM(CASE WHEN nama_kategori ="Eksploitasi" THEN 1 ELSE 0 END)
 			+ SUM(CASE WHEN nama_kategori ="Trafficking" THEN 1 ELSE 0 END)
 			+ SUM(CASE WHEN nama_kategori ="Penelantaran" THEN 1 ELSE 0 END) 
 			+ SUM(CASE WHEN nama_kategori ="Lainnya" THEN 1 ELSE 0 END) Total');
-
-		// $this->db->select('pengaduan.*, YEAR(waktu_lapor) as tahun, MONTH(waktu_lapor) as bulan, users.nama, users.nomor_telp, users.alamat, kategori_laporan.nama_kategori, status_pengaduan.id_status, layanan.nama_layanan, kecamatan.nama_kecamatan');
 		$this->db->from($this->table);
-		$this->db->join('users', 'pengaduan.id_user = users.id_user','left');
 		$this->db->join('kategori_laporan', 'pengaduan.id_kategori = kategori_laporan.id_kategori','left');
-		$this->db->join('status_pengaduan', 'pengaduan.status = status_pengaduan.id_status','left');
-		$this->db->join('layanan', 'pengaduan.layanan = layanan.id_layanan','left');
 		$this->db->join('kecamatan', 'pengaduan.kecamatan = kecamatan.id_kecamatan', 'left');
 
-		// $this->db->select('pengaduan.*,'.$select_data);
-		// $this->db->from($this->table);
 		$this->db->where('pengaduan.status !=', 5);
-		$this->db->group_by('bulan, nama_kategori, kecamatan');
 		// $this->db->order_by('waktu_lapor','desc');
-		$this->db->order_by('bulan','asc');
+		$this->db->group_by('kecamatan.nama_kecamatan');
+		$this->db->order_by('kecamatan.nama_kecamatan','asc');
 		if($kecamatan != null){
 			$this->db->where('pengaduan.kecamatan',$kecamatan);
 		}

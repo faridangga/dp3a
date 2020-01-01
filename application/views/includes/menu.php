@@ -109,6 +109,13 @@
             </p>
           </a>
         </li>
+        <li class="nav-item">
+          <a href="<?php echo base_url('Admin/Report/kekerasan_lokasi') ?>" class="nav-link">
+            <p>
+              Report Kekerasan Lokasi
+            </p>
+          </a>
+        </li>
       </ul>
     </li>
   </ul>

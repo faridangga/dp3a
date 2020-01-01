@@ -60,6 +60,37 @@ class Report extends CI_Controller {
 		$data = $this->Report_model->get_report_layanan($start, $end);
 		echo json_encode($data);
 	}
+
+	public function kekerasan_lokasi()
+	{
+		$data = [
+			'title' => "Report Kekerasan Lokasi",
+			'cname' => "Admin/Report",
+			'pages' => "admin/report/kekerasan_lokasi",
+			'count_pengaduan' => $this->Pengaduan_model->count_pengaduan(),
+			'data' => array(),
+		];
+		$this->load->view('layouts/dashboard',$data);
+		if ($this->session->userdata('isLogin') == FALSE) {
+			redirect('login','refresh');
+		}
+	}
+
+	public function get_report_bar_layanan_lokasi()
+	{
+		$start = ($this->input->post('start') != '0' ? $this->input->post('start') : null);
+		$end = ($this->input->post('end') != '0' ? $this->input->post('end') : null);
+		$data = $this->Report_model->get_report_bar_layanan_lokasi($start, $end);
+		echo json_encode($data);
+	}
+
+	public function get_report_layanan_lokasi()
+	{
+		$start = ($this->input->post('start') != '0' ? $this->input->post('start') : null);
+		$end = ($this->input->post('end') != '0' ? $this->input->post('end') : null);
+		$data = $this->Report_model->get_report_layanan_lokasi($start, $end);
+		echo json_encode($data);
+	}
 }
 
 /* End of file Report.php */
