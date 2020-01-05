@@ -27,7 +27,6 @@
 
 <script>
 
-  var url_fill_form = '<?php echo base_url($cname.'/get_data_by_id') ?>';
   var url_insert_user_laporan = '<?php echo base_url($cname.'/insert') ?>';
   var base_cname = "<?php echo base_url($cname) ?>";
   var table = "";
@@ -36,7 +35,7 @@
     table = $('#table-data').DataTable({
       orderCellsTop : true,
       responsive : true,
-      dom: "<'row'<'col-6'l><'col-6'f>>",
+      dom: "<'row'<'col-6'l><'col-6'f>>rtip'",
       scrollY: true,
       scrollX: true,
       "ajax": {
@@ -86,17 +85,17 @@
       },
       {
         "title": "Actions",
-        "width" : "120px",
-        "visible":true,
+        "width" : "1px",
         "class": "text-center th-sticky-action",
         "data": (data, type, row) => {
           let ret = "";
           if (data.status == '0') {
-            ret += ' <a class="btn btn-success btn-sm text-white" onclick="update_status(this)" data-id="'+data.id_user+'""> Aktifkan User</a>'
+            ret += ' <a class="btn btn-success btn-sm text-white" onclick="update_status(this)" data-id="'+data.id_user+'""> <i class="fas fa-check"></i> Aktifkan User</a>'
           }else if(data.status == '1'){
-            ret += ' <a class="btn btn-warning btn-sm text-white" onclick="update_status(this)" data-id="'+data.id_user+'""> Non Aktif User</a>';
+            ret += ' <a class="btn btn-warning btn-sm text-white" onclick="update_status(this)" data-id="'+data.id_user+'""> <i class="fas fa-ban"></i> Non Aktif User</a>';
           }
 
+          ret += ' <a class="btn btn-primary btn-sm text-white" onclick="reset_pass(this)" data-id="'+data.id_user+'"><i class="fas fa-key"></i> Reset Pass</a>';
           ret += ' <a class="btn btn-danger btn-sm text-white" onclick="delete_user(this)" data-id="'+data.id_user+'"><i class="fas fa-trash-alt"></i> Delete</a>';
 
           return ret;
@@ -125,31 +124,25 @@
   });
 
 
-  var fill_form = (id_user) => {
-    $.ajax({
-      url: url_fill_form,
-      type: 'POST',
-      data: {
-        'id_user' : id_user
-      },
-      success: function (data) {
-        var json = $.parseJSON(data);
-        let form = $('#form-user');
-        form.find('[name="id_user"]').val(json.id_user);
-        form.find('[name="nama"]').val(json.nama);
-        form.find('[name="nomor_telp"]').val(json.nomor_telp);
-        form.find('[name="alamat"]').val(json.alamat);
-        form.find('[name="tanggal_lahir"]').val(json.tanggal_lahir);
-        form.find('[name="status"]').val(json.status);
-        scroll_smooth('body',500);
-      },
-    });
-  }
+  // var reset_pass = (id_user, tanggal_lahir) => {
+  //   $.ajax({
+  //     url: base_cname+"/reset_pass",
+  //     type: 'POST',
+  //     data: {
+  //       'id_user' : id_user,
+  //       'tanggal_lahir' : tanggal_lahir
+  //     },
+  //     success: function (data) {
+  //       var json = $.parseJSON(data);
+  //       scroll_smooth('body',500);
+  //     },
+  //   });
+  // }
 
   var delete_user = (obj) => {
     swal({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
+      title: 'Apakah Anda Yakin ?',
+      text: "Anda akan menghapus user ini !!",
       icon: 'warning',
       buttons: true,
       dangerMode: true,
@@ -172,9 +165,35 @@
     });
   }
 
+  var reset_pass = (obj) => {
+    swal({
+      title: 'Apakah Anda Yakin ?',
+      text: "Anda akan mereset password!!",
+      icon: 'warning',
+      buttons: true,
+      dangerMode: true,
+    }).then((willRessetPass) => {
+      if(willRessetPass){
+        $.ajax({
+          url: base_cname+"/reset_pass",
+          type: 'POST',
+          data : {
+            id_user : $(obj).data('id'),
+          },
+          dataType : "JSON",
+          success : (data) => {
+            swal(data.title,data.text,data.icon);
+            form_reset();
+            scroll_smooth('table',500);
+          }
+        });
+      }
+    });
+  }
+
   var update_status = (obj) => {
     swal({
-      title: 'Apakah yakin ?',
+      title: 'Apakah Anda Yakin ?',
       text: "Akan merubah status!",
       icon: 'warning',
       buttons: true,

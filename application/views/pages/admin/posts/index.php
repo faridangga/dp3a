@@ -125,7 +125,8 @@
 
     var table_url = $('#table-data').data('url');
     table = $('#table-data').DataTable({
-
+      responsive : true,
+      dom: "<'row'<'col-6'l><'col-6'f>>rtip'",
       "ajax": {
         'url': table_url,
       },

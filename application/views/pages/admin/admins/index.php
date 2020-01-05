@@ -142,7 +142,7 @@
         "data": "nama_golongan" 
       },
       { 
-        "title" : "Level_user", 
+        "title" : "Level User", 
         data : (data, type, row, meta) => {
           ret = "";
           if(data.level_user == '1'){
@@ -180,7 +180,6 @@
           let ret = "";
           ret += ' <a class="btn btn-info btn-sm text-white" onclick="fill_form('+data.id_admin+'); return false;"><i class="fas fa-pencil-alt"></i> Edit</a>';
           ret += ' <a class="btn btn-danger btn-sm text-white" onclick="delete_admin(this)" data-id="'+data.id_admin+'"><i class="fas fa-trash-alt"></i> Delete</a>';
-
           return ret;
         }
       }

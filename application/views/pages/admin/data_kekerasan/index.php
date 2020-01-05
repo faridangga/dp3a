@@ -122,47 +122,47 @@
         }
       },
       { 
-        "title" : "bulan",
+        "title" : "Bulan",
         "data": "bulan" 
       },
       { 
-        "title" : "tahun",
+        "title" : "Tahun",
         "data": "tahun" 
       },
       { 
-        "title" : "usia_1",
+        "title" : "Usia 19-24",
         "data": "usia_1" 
       },
       { 
-        "title" : "usia_2",
+        "title" : "Usia 25-44",
         "data": "usia_2" 
       },
       { 
-        "title" : "usia_3",
+        "title" : "Usia 45+",
         "data": "usia_3" 
       },
       { 
-        "title" : "fsk",
+        "title" : "Fisik",
         "data": "fsk" 
       },
       { 
-        "title" : "psi",
+        "title" : "Psikologi",
         "data": "psi" 
       },
       { 
-        "title" : "seks",
+        "title" : "Seksual",
         "data": "seks" 
       },
       { 
-        "title" : "eks",
+        "title" : "Eksploitasi",
         "data": "eks" 
       },
       { 
-        "title" : "penelantaran",
+        "title" : "Penelantaran",
         "data": "penelantaran" 
       },
       { 
-        "title" : "lain",
+        "title" : "Lain-lain",
         "data": "lain" 
       },
       {

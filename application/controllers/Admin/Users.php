@@ -116,6 +116,46 @@ class Users extends CI_Controller {
 		echo json_encode($ret);
 	}
 
+	public function reset_pass()
+	{
+		// $tanggal_lahir = '';
+		$id_user = $this->input->post('id_user');
+		$data = $this->Users_model->get_data_by_id2($id_user);
+
+		foreach ($data as $key => $value) {
+			$tanggal_lahir = $value->tanggal_lahir;
+		}
+
+		$pass = str_replace('-', '', $tanggal_lahir);
+		// $update_pass = $this->Users_model->update($id);
+		// $tanggal_lahir = $this->input->post('tanggal_lahir');
+		if ($id_user != "") {
+			$update_pass = $this->Users_model->update($id_user, $pass);
+			// $update_pass = $this->Users_model->update($id_user);
+			if($update_pass){
+				$ret = [
+					'text' => "Reset Password Berhasil",
+					'title' => "Reset Password",
+					'icon' => "success",
+				];
+			}else{
+				$ret = [
+					'text' => "Reset Password Gagal",
+					'title' => "Reset Password",
+					'icon' => "warning",
+				];
+			}
+			
+		} else {
+			$ret = [
+				'text' => "Reset Password Gagal Karena ID kosong",
+				'title' => "Reset Password",
+				'icon' => "warning",
+			];
+		}
+		echo json_encode($ret);
+	}
+
 	public function update_status()
 	{
 		$id = $this->input->post('id_user');

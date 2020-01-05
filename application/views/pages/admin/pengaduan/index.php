@@ -136,6 +136,7 @@
     table = $('#table-data').DataTable({
       orderCellsTop : true,
       responsive : true,
+      dom: "<'row'<'col-6'l><'col-6'f>>rtip'",
       scrollY: true,
       scrollX: true,
       "ajax": {

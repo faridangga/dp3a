@@ -24,6 +24,15 @@ class Users_model extends CI_Model {
 		return $query->row(0);
 	}
 
+	public function get_data_by_id2($id)
+	{
+		$this->db->select('*');
+		$this->db->from($this->table);
+		$this->db->where('id_user',$id);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
 	public function insert($data)
 	{
 		$insert = $this->db->insert($this->table,$data);
@@ -33,7 +42,8 @@ class Users_model extends CI_Model {
 	public function update($id, $data)
 	{
         $this->db->where('id_user', $id);
-		$update = $this->db->update($this->table,$data);
+        $pass = array('password' => md5($data));
+		$update = $this->db->update($this->table,$pass);
 		return $update;
 	}
 	
@@ -44,6 +54,16 @@ class Users_model extends CI_Model {
 		$delete = $this->db->update($this->table,$data);
 		return $delete;
 	}
+
+	// public function reset_pass($id, $)
+	// {
+	// 	$this->db->select('tanggal_lahir');
+	// 	// $this->db->from('users');
+	// 	$this->db->where('id_user',$id);
+	// 	$data = array('password' => );
+	// 	$delete = $this->db->update($this->table,$data);
+	// 	return $delete;
+	// }
 
 	public function update_status($id)
 	{
