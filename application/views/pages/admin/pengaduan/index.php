@@ -181,7 +181,7 @@
         data : (data, type, row, meta) => {
           ret = "";
           if(data.id_status == '0'){
-            ret += '<span class="badge bg-secondary">Belum Direspon</span>';
+            ret += '<span class="badge bg-warning">Belum Direspon</span>';
           }else 
           if(data.id_status == '4'){
             ret += '<span class="badge text-white" style="background: #fd7e14">Sedang di proses</span>';
@@ -193,7 +193,7 @@
             ret += '<span class="badge bg-danger">Tidak Teratasi</span>';
           }else
           if(data.id_status == '3'){
-            ret += '<span class="badge bg-info">Tidak Bisa dihubungi</span>';
+            ret += '<span class="badge bg-secondary">Tidak Bisa dihubungi</span>';
           }else{
             ret += '<span class="badge bg-secondary">loss</span>';
           }
