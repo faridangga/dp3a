@@ -88,7 +88,7 @@ class Report extends CI_Controller {
 	{
 		$start = ($this->input->post('start') != '0' ? $this->input->post('start') : null);
 		$end = ($this->input->post('end') != '0' ? $this->input->post('end') : null);
-		$data = $this->Report_model->get_report_layanan_lokasi($start, $end);
+		$data['data'] = $this->Report_model->get_report_layanan_lokasi($start, $end);
 		echo json_encode($data);
 	}
 }

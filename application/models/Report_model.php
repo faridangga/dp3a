@@ -110,7 +110,6 @@ class Report_model extends CI_Model {
 		$this->db->join('kecamatan', 'pengaduan.kecamatan = kecamatan.id_kecamatan', 'left');
 
 		$this->db->where('pengaduan.status !=', 5);
-		// $this->db->order_by('waktu_lapor','desc');
 		$this->db->group_by('kecamatan.nama_kecamatan');
 		$this->db->order_by('kecamatan.nama_kecamatan','asc');
 		if ($start != null && $end != null) {
