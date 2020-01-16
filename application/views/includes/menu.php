@@ -46,13 +46,6 @@
             </p>
           </a>
         </li>
-        <li class="nav-item">
-          <a href="<?php echo base_url('Admin/Kategori_Laporan') ?>" class="nav-link">
-            <p>
-              Kategori Laporan
-            </p>
-          </a>
-        </li>
       </ul>
     </li>
     <li class="nav-item">
