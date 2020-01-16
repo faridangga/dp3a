@@ -43,7 +43,7 @@
       <div class="card">
         <div class="card-body">
           <div class="table-responsive">
-            <table id="table-data" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%" role="grid" aria-describedby="example23_info" style="width: 100%;" data-url="<?php echo base_url($cname.'/get_data_report') ?>">
+            <table id="table-data" class="display nowrap table table-hover table-striped table-bordered table-responsive border-collapse" cellspacing="0" width="100%" role="grid" aria-describedby="example23_info" style="width: 100%;" data-url="<?php echo base_url($cname.'/get_data_report') ?>">
               <thead>
                 <tr>
                   <th></th>
@@ -77,6 +77,7 @@
     var table_url = $('#table-data').data('url');
     table = $('#table-data').DataTable({
       orderCellsTop : true,
+      responsive : true,
       dom: "'B<'row'<'col-6'l><'col-6'f>>rtip'",
       buttons: [
       {

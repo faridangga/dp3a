@@ -57,7 +57,15 @@ class Report extends CI_Controller {
 	{
 		$start = ($this->input->post('start') != '0' ? $this->input->post('start') : null);
 		$end = ($this->input->post('end') != '0' ? $this->input->post('end') : null);
-		$data = $this->Report_model->get_report_layanan($start, $end);
+		$data['data'] = $this->Report_model->get_report_layanan($start, $end);
+		echo json_encode($data);
+	}
+
+	public function get_report_bar_layanan()
+	{
+		$start = ($this->input->post('start') != '0' ? $this->input->post('start') : null);
+		$end = ($this->input->post('end') != '0' ? $this->input->post('end') : null);
+		$data = $this->Report_model->get_report_bar_layanan($start, $end);
 		echo json_encode($data);
 	}
 

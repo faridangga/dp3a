@@ -1,9 +1,10 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-5 mb-4">
+			<?php echo form_open('Admin/Report/get_report_layanan',['id' => 'form-filter']) ?>
 			<div class="form-group row mb-1 filter-input">
 				<label for="" class="control-label col-form-label col-md-2 ml-1">Tanggal</label>
-				<div class="col-md-8">
+				<div class="col-md-7">
 					<div class="input-daterange input-group" id="datepicker">
 						<input value="<?php echo date('01/01/Y') ?>" type="text" class="form-control start" name="start">
 						<div class="input-group-append">
@@ -11,7 +12,37 @@
 						</div>
 						<input value="<?php echo date('m/d/Y') ?>" type="text" class="form-control end" name="end">
 					</div>
-					
+				</div>
+				<div class="col-md-1">
+					<button type="submit" class="btn btn-primary filter-input" id="laporan-layanan-submit">Submit</button>
+				</div>
+			</div>
+			<?php echo form_close(); ?>
+		</div>
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-body">
+					<div class="table-responsive">
+						<table id="table-data" class="display nowrap table table-hover table-striped table-bordered table-responsive border-collapse" cellspacing="0" width="100%" role="grid" aria-describedby="example23_info" style="width: 100%;" data-url="<?php echo base_url('Admin/Report/get_report_layanan') ?>">
+							<thead>
+								<tr>
+									<th></th>
+									<th></th>
+									<th></th>
+									<th></th>
+									<th></th>
+
+									<th></th>
+									<th></th>
+									<th></th>
+									<th></th>
+									<th></th>
+									<th></th>
+
+								</tr>
+							</thead>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -31,7 +62,6 @@
 					</div>
 				</div>
 			</div>
-
 		</div>
 
 	</div>
@@ -41,30 +71,127 @@
 <script>
 	var base_cname = "<?php echo base_url($cname) ?>";
 	$(document).ready(function(){
+		var table_url = $('#table-data').data('url');
+		table = $('#table-data').DataTable({
+			responsive : true,
+			dom: "'B<'row'<'col-6'l><'col-6'f>>rtip'",
+			buttons: [
+			{
+				extend: 'excelHtml5',
+				className : 'mb-2',
+			},
+			{
+				extend: 'pdfHtml5',
+				className : 'mb-2',
+			},
+			],
+			"ajax": {
+				'url': table_url,
+			},
+			"columns": [
+			{
+				"title" : "No",
+				"width" : "15px",
+				"data": null,
+				"class": "text-center",
+				render: (data, type, row, meta) => {
+					return meta.row + meta.settings._iDisplayStart + 1;
+				}
+			},
+			{ 
+				"title" : "Lokasi",
+				"data": "nama_kecamatan",
+			},
+			{ 
+				"title" : "Pengaduan",
+				"data": "Pengaduan",
+				"class": "text-center",
+			},
+			{ 
+				"title" : "Kesehatan",
+				"data": "Kesehatan",
+				"class": "text-center",
+			},
+			{ 
+				"title" : "Bantuan Hukum",
+				"data": "Bantuan_Hukum",
+				"class": "text-center",
+			},
+			{ 
+				"title" : "Penegakan Hukum",
+				"data": "Penegakan_Hukum",
+				"class": "text-center",
+			},
+			{ 
+				"title" : "Rehabilitasi Sosial",
+				"data": "Rehabilitasi_Sosial",
+				"class": "text-center",
+			},
+			{ 
+				"title" : "Reintegrasi Sosial",
+				"data": "Reintegrasi_Sosial",
+				"class": "text-center",
+			},
+			{ 
+				"title" : "Pemulangan",
+				"data": "Pemulangan",
+				"class": "text-center",
+			},
+			{ 
+				"title" : "Pendampingan Tokoh Agama",
+				"data": "Pendampingan_Tokoh_Agama",
+				"class": "text-center",
+			},
+			{ 
+				"title" : "Total",
+				"data": "Total",
+				"class": "text-center",
+			},
+			]
+		});
+
+		$("form#form-filter").submit(function(e) {
+			e.preventDefault();
+			var formData = new FormData(this);    
+			var url = $(this).attr('action');
+			$.ajax({
+				url : url,
+				type: 'POST',
+				data: formData,
+				success: function (data) {
+					var json = $.parseJSON(data);
+					reload_table(json.data);
+				},
+				cache: false,
+				contentType: false,
+				processData: false
+			});
+		});
+
+		$('#laporan-layanan-submit').click();
+		$( "#laporan-layanan-submit" ).click(function() {
+			draw_chart($(this).val());
+		});
 
 		$('#datepicker').datepicker({
 			todayHighlight:'TRUE',
 			autoclose: true,
 		});
 
-		$('.start').change(function(){
-			draw_chart($(this).val());
-		})
-		$('.start').trigger('change');
-		$('.end').change(function(){
-			draw_chart($(this).val());
-		})
-		$('.end').trigger('change');
 	});  
 
-	
+	var reload_table = (data) => {
+		table.clear();
+		table.rows.add(data);
+		table.draw();
+	} 	
 
 	var draw_chart = () => {
 		var start = $('.start').val();
 		var end = $('.end').val();
 
 		$.ajax({
-			url: base_cname+"/get_report_layanan",
+			url: base_cname+"/get_report_bar_layanan",
 			type: 'POST',
 			data: {start:start,end:end},
 			success: function (data) {
@@ -85,7 +212,7 @@
 				var optionBar = {
 					title: {
 						display: true,
-						text: ['Grafik Layanan Pada Tanggal', start + ' - ' + end ],
+						text: ['Grafik Kekerasan Berdasarkan Lokasi Pada Tanggal', start + ' - ' + end ],
 						fontSize: 14,
 						lineHeight: 2,
 					},
@@ -99,6 +226,7 @@
 						}],
 						yAxes: [{
 							ticks: {
+								beginAtZero: true,
 								stepSize: 1
 							},
 						}]

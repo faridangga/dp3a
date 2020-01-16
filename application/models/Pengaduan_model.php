@@ -113,11 +113,11 @@ class Pengaduan_model extends CI_Model {
 		}
 
 		$backgroundColor = [
-			'rgb(255, 193, 7)',
-			'rgba(40, 167, 69)',
-			'rgb(255, 99, 132)',
-			'rgba(108, 117, 125)',
-			'rgb(253, 126, 20)',
+			'rgb(255, 193, 7, 0.2)',
+			'rgba(40, 167, 69, 0.2)',
+			'rgb(255, 99, 132, 0.2)',
+			'rgba(108, 117, 125, 0.2)',
+			'rgb(253, 126, 20, 0.2)',
 		];
 
 		$borderColor = [

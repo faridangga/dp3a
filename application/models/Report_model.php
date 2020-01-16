@@ -14,22 +14,59 @@ class Report_model extends CI_Model {
 
 	public function get_report_layanan($start = null, $end = null)
 	{
-		$this->db->select('concat(monthname(waktu_lapor)," ",year(waktu_lapor)) as date,
-			SUM(CASE WHEN layanan = "1" THEN 1 ELSE 0 END) "Pengaduan",
-			SUM(CASE WHEN layanan = "2" THEN 1 ELSE 0 END) "Kesehatan",
-			SUM(CASE WHEN layanan = "3" THEN 1 ELSE 0 END) "Bantuan Hukum",
-			SUM(CASE WHEN layanan = "4" THEN 1 ELSE 0 END) "Penegakan Hukum",
-			SUM(CASE WHEN layanan = "5" THEN 1 ELSE 0 END) "Rehabilitasi Sosial",
-			SUM(CASE WHEN layanan = "6" THEN 1 ELSE 0 END) "Reintegrasi Sosial",
-			SUM(CASE WHEN layanan = "7" THEN 1 ELSE 0 END) "Pemulangan",
-			SUM(CASE WHEN layanan = "8" THEN 1 ELSE 0 END) "Pendampingan Tokoh Agama"');
+		$this->db->select('pengaduan.*, kecamatan.nama_kecamatan,
+			SUM(CASE WHEN nama_layanan ="Pengaduan" THEN 1 ELSE 0 END) Pengaduan
+			, SUM(CASE WHEN nama_layanan ="Kesehatan" THEN 1 ELSE 0 END) Kesehatan
+			, SUM(CASE WHEN nama_layanan ="Bantuan_Hukum" THEN 1 ELSE 0 END) Bantuan_Hukum
+			, SUM(CASE WHEN nama_layanan ="Penegakan_Hukum" THEN 1 ELSE 0 END) Penegakan_Hukum
+			, SUM(CASE WHEN nama_layanan ="Rehabilitasi_Sosial" THEN 1 ELSE 0 END) Rehabilitasi_Sosial
+			, SUM(CASE WHEN nama_layanan ="Reintegrasi_Sosial" THEN 1 ELSE 0 END) Reintegrasi_Sosial
+			, SUM(CASE WHEN nama_layanan ="Pemulangan" THEN 1 ELSE 0 END) Pemulangan
+			, SUM(CASE WHEN nama_layanan ="Pendampingan_Tokoh_Agama" THEN 1 ELSE 0 END) Pendampingan_Tokoh_Agama
+			, SUM(CASE WHEN nama_layanan ="Pengaduan" THEN 1 ELSE 0 END)
+			+ SUM(CASE WHEN nama_layanan ="Kesehatan" THEN 1 ELSE 0 END)
+			+ SUM(CASE WHEN nama_layanan ="Bantuan_Hukum" THEN 1 ELSE 0 END)
+			+ SUM(CASE WHEN nama_layanan ="Penegakan_Hukum" THEN 1 ELSE 0 END)
+			+ SUM(CASE WHEN nama_layanan ="Rehabilitasi_Sosial" THEN 1 ELSE 0 END)
+			+ SUM(CASE WHEN nama_layanan ="Reintegrasi_Sosial" THEN 1 ELSE 0 END) 
+			+ SUM(CASE WHEN nama_layanan ="Pemulangan" THEN 1 ELSE 0 END)
+			+ SUM(CASE WHEN nama_layanan ="Pendampingan_Tokoh_Agama" THEN 1 ELSE 0 END) Total');
+		// $this->db->select('pengaduan.*, kecamatan.nama_kecamatan');
 		$this->db->from('pengaduan');
+		$this->db->join('layanan', 'pengaduan.layanan = layanan.id_layanan','left');
+		$this->db->join('kecamatan', 'pengaduan.kecamatan = kecamatan.id_kecamatan', 'left');
+
+		$this->db->where('pengaduan.status !=', 5);
+		$this->db->group_by('kecamatan.nama_kecamatan');
+		$this->db->order_by('kecamatan.nama_kecamatan','asc');
+		if ($start != null && $end != null) {
+			$this->db->where('waktu_lapor BETWEEN "'. date('Y-m-d', strtotime($start)). '" and "'. date('Y-m-d', strtotime($end)).'"');
+		}
+
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	public function get_report_bar_layanan($start = null, $end = null)
+	{
+		$this->db->select('concat(kecamatan.nama_kecamatan) as date,
+			SUM(CASE WHEN nama_layanan ="Pengaduan" THEN 1 ELSE 0 END)
+			+ SUM(CASE WHEN nama_layanan ="Kesehatan" THEN 1 ELSE 0 END)
+			+ SUM(CASE WHEN nama_layanan ="Bantuan_Hukum" THEN 1 ELSE 0 END)
+			+ SUM(CASE WHEN nama_layanan ="Penegakan_Hukum" THEN 1 ELSE 0 END)
+			+ SUM(CASE WHEN nama_layanan ="Rehabilitasi_Sosial" THEN 1 ELSE 0 END)
+			+ SUM(CASE WHEN nama_layanan ="Reintegrasi_Sosial" THEN 1 ELSE 0 END) 
+			+ SUM(CASE WHEN nama_layanan ="Pemulangan" THEN 1 ELSE 0 END)
+			+ SUM(CASE WHEN nama_layanan ="Pendampingan_Tokoh_Agama" THEN 1 ELSE 0 END) Jumlah');
+		$this->db->from('pengaduan');
+		$this->db->join('layanan', 'pengaduan.layanan = layanan.id_layanan','left');
+		$this->db->join('kecamatan', 'pengaduan.kecamatan = kecamatan.id_kecamatan', 'left');
+
 		if ($start != null && $end != null) {
 			$this->db->where('waktu_lapor BETWEEN "'. date('Y-m-d', strtotime($start)). '" and "'. date('Y-m-d', strtotime($end)).'"');
 		}
 		
-		$this->db->group_by('year(waktu_lapor),month(waktu_lapor)');
-
+		$this->db->group_by('kecamatan');
 		$result = $this->db->get()->result_array();
 
 		$labels = [];
@@ -57,24 +94,10 @@ class Report_model extends CI_Model {
 
 		$backgroundColor = [
 			'rgb(255, 99, 132, 0.2)',
-			'rgba(255, 159, 64, 0.2)',
-			'rgba(75, 192, 192, 0.2)',
-			'rgb(54, 162, 235, 0.2)',
-			'rgb(153, 102, 255, 0.2)',
-			'rgb(174, 1, 126, 0.2)',
-			'rgb(127, 59, 8, 0.2)',
-			'rgb(37, 37, 37, 0.2)',
 		];
 
 		$borderColor = [
 			'rgb(255, 99, 132)',
-			'rgba(255, 159, 64)',
-			'rgba(75, 192, 192)',
-			'rgb(54, 162, 235)',
-			'rgb(153, 102, 255)',
-			'rgb(174, 1, 126)',
-			'rgb(127, 59, 8)',
-			'rgb(37, 37, 37)',
 		];
 
 		$ret = [

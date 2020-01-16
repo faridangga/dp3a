@@ -53,13 +53,6 @@
             </p>
           </a>
         </li>
-        <li class="nav-item">
-          <a href="<?php echo base_url('Admin/Kategori_Post') ?>" class="nav-link">
-            <p>
-              Kategori Post
-            </p>
-          </a>
-        </li>
       </ul>
     </li>
     <li class="nav-item">
