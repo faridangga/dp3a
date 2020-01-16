@@ -212,7 +212,7 @@
 				var optionBar = {
 					title: {
 						display: true,
-						text: ['Grafik Kekerasan Berdasarkan Lokasi Pada Tanggal', start + ' - ' + end ],
+						text: ['Grafik Layanan Berdasarkan Lokasi Pada Tanggal', start + ' - ' + end ],
 						fontSize: 14,
 						lineHeight: 2,
 					},
