@@ -2,58 +2,74 @@
   <div class="row">
     <div class="col-md-12">
       <div class="card">
-        <div class="card-header">
-          <h3 class="card-title"><?php echo $title ?></h3>
-
-        </div>
         <div class="card-body">
           <?php echo form_open($cname.'/insert',['id'=>'form-data-kekerasan']); ?>
           <input type="hidden" class="form-control" name="id_laporan" placeholder="">
-          <div class="form-group">
-            <label>Bulan</label>
-            <input type="text" class="form-control" name="bulan" placeholder="">
-          </div>
-          <div class="form-group">
-            <label>Tahun</label>
-            <input type="text" class="form-control" name="tahun" placeholder="">
-          </div>
-          <div class="form-group">
-            <label>Usia 19-24</label>
-            <input type="text" class="form-control" name="usia_1" placeholder="">
-          </div>
-          <div class="form-group">
-            <label>Usia 25-44</label>
-            <input type="text" class="form-control" name="usia_2" placeholder="">
-          </div>
-          <div class="form-group">
-            <label>Usia 45+</label>
-            <input type="text" class="form-control" name="usia_3" placeholder="">
-          </div>
-          <div class="form-group">
-            <label>Fisik</label>
-            <input type="text" class="form-control" name="fsk" placeholder="">
-          </div>
-          <div class="form-group">
-            <label>Psikologi</label>
-            <input type="text" class="form-control" name="psi" placeholder="">
-          </div>
-          <div class="form-group">
-            <label>Seksual</label>
-            <input type="text" class="form-control" name="seks" placeholder="">
-          </div>
-          <div class="form-group">
-            <label>Eksploitasi</label>
-            <input type="text" class="form-control" name="eks" placeholder="">
-          </div>
-          <div class="form-group">
-            <label>Penelantaran</label>
-            <input type="text" class="form-control" name="penelantaran" placeholder="">
-          </div>
-          <div class="form-group">
-            <label>Lain-lain</label>
-            <input type="text" class="form-control" name="lain" placeholder="">
-          </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>Bulan</label>
+                <select class="form-control" name="bulan">
+                  <option value="1">Januari</option>
+                  <option value="2">Februari</option>
+                  <option value="3">Maret</option>
+                  <option value="4">April</option>
+                  <option value="5">Mei</option>
+                  <option value="6">Juni</option>
+                  <option value="7">July</option>
+                  <option value="8">Agustus</option>
+                  <option value="9">September</option>
+                  <option value="10">Oktober</option>
+                  <option value="11">November</option>
+                  <option value="12">Desember</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Tahun</label>
+                <input type="number" name="tahun" class="form-control" value="<?php echo date('Y') ?>">
+              </div>
+              <div class="form-group">
+                <label>Usia 19-24</label>
+                <input type="number" class="form-control" name="usia_1" placeholder="">
+              </div>
+              <div class="form-group">
+                <label>Usia 25-44</label>
+                <input type="number" class="form-control" name="usia_2" placeholder="">
+              </div>
+              <div class="form-group">
+                <label>Usia 45+</label>
+                <input type="number" class="form-control" name="usia_3" placeholder="">
+              </div>
+              <div class="form-group">
+                <label>Fisik</label>
+                <input type="number" class="form-control" name="fsk" placeholder="">
+              </div>
+            </div>
+            <div class="col-6">
 
+              <div class="form-group">
+                <label>Psikologi</label>
+                <input type="number" class="form-control" name="psi" placeholder="">
+              </div>
+              <div class="form-group">
+                <label>Seksual</label>
+                <input type="number" class="form-control" name="seks" placeholder="">
+              </div>
+              <div class="form-group">
+                <label>Eksploitasi</label>
+                <input type="number" class="form-control" name="eks" placeholder="">
+              </div>
+              <div class="form-group">
+                <label>Penelantaran</label>
+                <input type="number" class="form-control" name="penelantaran" placeholder="">
+              </div>
+              <div class="form-group">
+                <label>Lain-lain</label>
+                <input type="number" class="form-control" name="lain" placeholder="">
+              </div>
+            </div>
+
+          </div>
           <button type="submit" class="btn btn-primary">Submit</button>
           <button type="reset" class="btn btn-secondary" onclick="form_reset();">Reset</button>
           <?php echo form_close(); ?>
@@ -123,47 +139,96 @@
       },
       { 
         "title" : "Bulan",
-        "data": "bulan" 
+        "class": "text-center",
+        data : (data, type, row, meta) => {
+          ret = "";
+          if(data.bulan == '1'){
+            ret += '<span class="">Januari</span>';
+          }else 
+          if(data.bulan == '2'){
+            ret += '<span class="">Februari</span>';
+          }else 
+          if(data.bulan == '3'){
+            ret += '<span class="">Maret</span>';
+          }else
+          if(data.bulan == '4'){
+            ret += '<span class="">April</span>';
+          }else
+          if(data.bulan == '5'){
+            ret += '<span class="">Mei</span>';
+          }else
+          if(data.bulan == '6'){
+            ret += '<span class="">Juni</span>';
+          }else
+          if(data.bulan == '7'){
+            ret += '<span class="">Juli</span>';
+          }else
+          if(data.bulan == '8'){
+            ret += '<span class="">Agustus</span>';
+          }else
+          if(data.bulan == '9'){
+            ret += '<span class="">September</span>';
+          }else
+          if(data.bulan == '10'){
+            ret += '<span class="">Oktober</span>';
+          }else
+          if(data.bulan == '11'){
+            ret += '<span class="">November</span>';
+          }else{
+            ret += '<span class="">Desember</span>';
+          }
+          return ret;
+        }
       },
       { 
         "title" : "Tahun",
-        "data": "tahun" 
+        "data": "tahun",
+        "class": "text-center",
       },
       { 
         "title" : "Usia 19-24",
-        "data": "usia_1" 
+        "data": "usia_1",
+        "class": "text-center", 
       },
       { 
         "title" : "Usia 25-44",
-        "data": "usia_2" 
+        "data": "usia_2",
+        "class": "text-center", 
       },
       { 
         "title" : "Usia 45+",
-        "data": "usia_3" 
+        "data": "usia_3",
+        "class": "text-center", 
       },
       { 
         "title" : "Fisik",
-        "data": "fsk" 
+        "data": "fsk",
+        "class": "text-center", 
       },
       { 
         "title" : "Psikologi",
-        "data": "psi" 
+        "data": "psi",
+        "class": "text-center", 
       },
       { 
         "title" : "Seksual",
-        "data": "seks" 
+        "data": "seks",
+        "class": "text-center", 
       },
       { 
         "title" : "Eksploitasi",
-        "data": "eks" 
+        "data": "eks",
+        "class": "text-center", 
       },
       { 
         "title" : "Penelantaran",
-        "data": "penelantaran" 
+        "data": "penelantaran",
+        "class": "text-center", 
       },
       { 
         "title" : "Lain-lain",
-        "data": "lain" 
+        "data": "lain",
+        "class": "text-center", 
       },
       {
         "title": "Actions",
@@ -191,71 +256,81 @@
         data: form.serialize(),
         dataType : "JSON",
         success: function (data) {
-          // let json = $.parseJSON(data);
-          swal(data.title,data.text,data.icon);
-          form_reset();
+          if(data.code == '2'){
+            $('.is-invalid').removeClass('is-invalid');
+            $('.invalid-feedback').remove();
+            Object.keys(data.field).forEach(function(key) {
+              $('#form-data-kekerasan').find('[name="'+key+'"]').parent().find('input,select').addClass('is-invalid');
+              $('#form-data-kekerasan').find('[name="'+key+'"]').parent().append('<div class="invalid-feedback">'+data.field[key]+'</div>');
+            })
+          }else{
+            form_reset();
+            swal(data.title,data.text,data.icon);
+          }
         }
       });
     });
   });
 
 
-  var fill_form = (id_laporan) => {
-    $.ajax({
-      url: url_fill_form,
-      type: 'POST',
-      data: {
-        'id_laporan' : id_laporan
-      },
-      success: function (data) {
-        var json = $.parseJSON(data);
-        let form = $('#form-data-kekerasan');
-        form.find('[name="id_laporan"]').val(json.id_laporan);
-        form.find('[name="bulan"]').val(json.bulan);
-        form.find('[name="tahun"]').val(json.tahun);
-        form.find('[name="usia_1"]').val(json.usia_1);
-        form.find('[name="usia_2"]').val(json.usia_2);
-        form.find('[name="usia_3"]').val(json.usia_3);
-        form.find('[name="fsk"]').val(json.fsk);
-        form.find('[name="psi"]').val(json.psi);
-        form.find('[name="seks"]').val(json.seks);
-        form.find('[name="eks"]').val(json.eks);
-        form.find('[name="penelantaran"]').val(json.penelantaran);
-        form.find('[name="lain"]').val(json.lain);
-        scroll_smooth('body',500);
-      },
-    });
-  }
+var fill_form = (id_laporan) => {
+  $.ajax({
+    url: url_fill_form,
+    type: 'POST',
+    data: {
+      'id_laporan' : id_laporan
+    },
+    success: function (data) {
+      var json = $.parseJSON(data);
+      let form = $('#form-data-kekerasan');
+      form.find('[name="id_laporan"]').val(json.id_laporan);
+      form.find('[name="bulan"]').val(json.bulan);
+      form.find('[name="tahun"]').val(json.tahun);
+      form.find('[name="usia_1"]').val(json.usia_1);
+      form.find('[name="usia_2"]').val(json.usia_2);
+      form.find('[name="usia_3"]').val(json.usia_3);
+      form.find('[name="fsk"]').val(json.fsk);
+      form.find('[name="psi"]').val(json.psi);
+      form.find('[name="seks"]').val(json.seks);
+      form.find('[name="eks"]').val(json.eks);
+      form.find('[name="penelantaran"]').val(json.penelantaran);
+      form.find('[name="lain"]').val(json.lain);
+      scroll_smooth('body',500);
+    },
+  });
+}
 
-  var delete_kategori = (obj) => {
-    swal({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      buttons: true,
-      dangerMode: true,
-    }).then((willDelete) => {
-      if(willDelete){
-        $.ajax({
-          url : base_cname+"/delete_kategori",
-          type : 'POST',
-          data : {
-            id_laporan : $(obj).data('id'),
-          },
-          dataType : "JSON",
-          success : (data) => {
-            swal(data.title,data.text,data.icon);
-            form_reset();
-          }
-        });
-      }
-    });
-  }
+var delete_kategori = (obj) => {
+  swal({
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    buttons: true,
+    dangerMode: true,
+  }).then((willDelete) => {
+    if(willDelete){
+      $.ajax({
+        url : base_cname+"/delete_kategori",
+        type : 'POST',
+        data : {
+          id_laporan : $(obj).data('id'),
+        },
+        dataType : "JSON",
+        success : (data) => {
+          swal(data.title,data.text,data.icon);
+          form_reset();
+        }
+      });
+    }
+  });
+}
 
 
-  var form_reset = () => {
-    table.ajax.reload(null,false);
-    $('form#form-data-kekerasan').find('input,select').val('');
-  }
+var form_reset = () => {
+  table.ajax.reload(null,false);
+  $('form#form-data-kekerasan').find('input,select').val('');
+  $('.is-invalid').removeClass('is-invalid');
+  $('.invalid-feedback').remove();
+}
 
 </script>

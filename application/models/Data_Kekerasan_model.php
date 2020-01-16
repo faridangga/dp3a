@@ -9,6 +9,7 @@ class Data_Kekerasan_model extends CI_Model {
 	{
 		$this->db->select('*');
 		$this->db->from($this->table);
+		$this->db->order_by('tahun','desc');
 		$this->db->order_by('bulan','asc');
 		$query = $this->db->get();
 		return $query->result();
