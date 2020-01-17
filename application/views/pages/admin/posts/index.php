@@ -52,9 +52,8 @@
           <label class="col-sm-2 col-md-2 col-form-label">Status</label>
           <div class="col-sm-10 col-md-10">
             <select class="form-control" name="status">
-              <option value="0" selected readonly>Pilih</option>
               <option value="1">Aktif</option>
-              <option value="0">Tidak Aktif</option>
+              <option value="0" selected>Tidak Aktif</option>
             </select>
           </div>
         </div>
@@ -62,9 +61,8 @@
           <label class="col-sm-2 col-md-2 col-form-label">Slider</label>
           <div class="col-sm-10 col-md-10">
             <select class="form-control" id="status" name="is_slider">
-              <option value="0" selected readonly>Pilih</option>
               <option value="1">Aktif</option>
-              <option value="0">Tidak Aktif</option>
+              <option value="0" selected>Tidak Aktif</option>
             </select>
           </div>
         </div>
