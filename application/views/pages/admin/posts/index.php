@@ -33,6 +33,7 @@
           <label class="col-sm-2 col-md-2 col-form-label">Image Url</label>
           <div class="col-sm-10 col-md-10">
             <input type="file" id="input-file-now" class="dropify" name="image_url"/>
+            <p class="text-danger">*Wajib diisi</p>
           </div>
         </div>
         <div class="form-group row">
@@ -48,21 +49,10 @@
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-2 col-md-2 col-form-label">user_id</label>
-          <div class="col-sm-10 col-md-10">
-            <select name="user_id" id="" class="form-control">
-              <option value="" selected disabled>Choose</option>
-              <?php foreach ($data['select_admins'] as $key => $value): ?>
-                <option value="<?php echo $value->id_admin ?>"><?php echo $value->nama ?></option>
-              <?php endforeach ?>
-            </select>
-          </div>
-        </div>
-        <div class="form-group row">
           <label class="col-sm-2 col-md-2 col-form-label">Status</label>
           <div class="col-sm-10 col-md-10">
             <select class="form-control" name="status">
-              <option value="" selected disabled>Choose</option>
+              <option value="0" selected readonly>Pilih</option>
               <option value="1">Aktif</option>
               <option value="0">Tidak Aktif</option>
             </select>
@@ -72,7 +62,7 @@
           <label class="col-sm-2 col-md-2 col-form-label">Slider</label>
           <div class="col-sm-10 col-md-10">
             <select class="form-control" id="status" name="is_slider">
-              <option value="" selected disabled>Choose</option>
+              <option value="0" selected readonly>Pilih</option>
               <option value="1">Aktif</option>
               <option value="0">Tidak Aktif</option>
             </select>

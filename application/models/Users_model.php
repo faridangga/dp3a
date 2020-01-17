@@ -55,16 +55,6 @@ class Users_model extends CI_Model {
 		return $delete;
 	}
 
-	// public function reset_pass($id, $)
-	// {
-	// 	$this->db->select('tanggal_lahir');
-	// 	// $this->db->from('users');
-	// 	$this->db->where('id_user',$id);
-	// 	$data = array('password' => );
-	// 	$delete = $this->db->update($this->table,$data);
-	// 	return $delete;
-	// }
-
 	public function update_status($id)
 	{
 		$status = 0;
@@ -91,7 +81,6 @@ class Users_model extends CI_Model {
 		foreach ($query as $key => $value) {	
 			$jumlah++;
 		}
-		// echo json_encode($status);
 		return $jumlah;
 
 	}

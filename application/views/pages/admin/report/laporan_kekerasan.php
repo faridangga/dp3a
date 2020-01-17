@@ -56,7 +56,6 @@
                   <th></th>
                   <th></th>
                   <th></th>
-                  <th></th>
 
                 </tr>
               </thead>
@@ -102,8 +101,47 @@
         }
       },
       { 
-        "title" : "Lokasi",
-        "data": "nama_kecamatan",
+        "title" : "Bulan",
+        "class": "text-center",
+        data : (data, type, row, meta) => {
+          ret = "";
+          if(data.bulan == '1'){
+            ret += '<span class="">Januari</span>';
+          }else 
+          if(data.bulan == '2'){
+            ret += '<span class="">Februari</span>';
+          }else 
+          if(data.bulan == '3'){
+            ret += '<span class="">Maret</span>';
+          }else
+          if(data.bulan == '4'){
+            ret += '<span class="">April</span>';
+          }else
+          if(data.bulan == '5'){
+            ret += '<span class="">Mei</span>';
+          }else
+          if(data.bulan == '6'){
+            ret += '<span class="">Juni</span>';
+          }else
+          if(data.bulan == '7'){
+            ret += '<span class="">Juli</span>';
+          }else
+          if(data.bulan == '8'){
+            ret += '<span class="">Agustus</span>';
+          }else
+          if(data.bulan == '9'){
+            ret += '<span class="">September</span>';
+          }else
+          if(data.bulan == '10'){
+            ret += '<span class="">Oktober</span>';
+          }else
+          if(data.bulan == '11'){
+            ret += '<span class="">November</span>';
+          }else{
+            ret += '<span class="">Desember</span>';
+          }
+          return ret;
+        }
       },
       { 
         "title" : "Fisik",
@@ -140,11 +178,6 @@
         "data": "Lainnya",
         "class": "text-center",
       },
-      { 
-        "title" : "Total",
-        "data": "Total",
-        "class": "text-center",
-      },
       ]
     });
 
@@ -168,7 +201,7 @@
     });
 
     $('#laporan-kekerasan-submit').click();
-     $('#btn-all-year').on('click',function(){
+    $('#btn-all-year').on('click',function(){
       if(!$(this).parent().parent().find('#laporan-kekerasan-year').attr('disabled')){
         $(this).parent().parent().find('#laporan-kekerasan-year').attr('disabled',true);
       }else{

@@ -95,8 +95,6 @@ class Golongan extends CI_Controller {
 				'icon' => 'warning'
 			];
 		}
-
-
 		echo json_encode($ret);
 	}
 
