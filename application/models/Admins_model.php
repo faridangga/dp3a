@@ -26,6 +26,15 @@ class Admins_model extends CI_Model {
 		return $query->row(0);
 	}
 
+	public function get_data_by_id2($id)
+	{
+		$this->db->select('*');
+		$this->db->from($this->table);
+		$this->db->where('id_admin',$id);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
 	public function insert($data)
 	{
 		$insert = $this->db->insert($this->table,$data);
@@ -34,7 +43,7 @@ class Admins_model extends CI_Model {
 
 	public function update($id, $data)
 	{
-        $this->db->where('id_admin', $id);
+		$this->db->where('id_admin', $id);
 		$update = $this->db->update($this->table,$data);
 		return $update;
 	}

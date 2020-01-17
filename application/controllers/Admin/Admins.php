@@ -46,7 +46,6 @@ class Admins extends CI_Controller {
 	{
 		$this->form_validation->set_rules('nama','Nama','trim|required');
 		$this->form_validation->set_rules('nomor_identitas','Nomor Identitas','trim|required');
-		$this->form_validation->set_rules('password','Password','trim|required');
 		$this->form_validation->set_rules('no_telp','No Telp','trim|required');
 		$this->form_validation->set_rules('jabatan','Jabatan','trim|required');
 		$this->form_validation->set_rules('golongan','Golongan','trim|required');
@@ -57,6 +56,7 @@ class Admins extends CI_Controller {
 
 		if ($this->form_validation->run() == TRUE) {
 			$id = $this->input->post('id_admin');
+			
 			$data = [
 				'nama' => $this->input->post('nama'),
 				'nomor_identitas' => $this->input->post('nomor_identitas'),
@@ -66,7 +66,7 @@ class Admins extends CI_Controller {
 				'golongan' => $this->input->post('golongan'),
 				'level_user' => $this->input->post('level_user'),
 				'is_active' => $this->input->post('is_active'),
-			];
+			];			
 
 			if ($id == "") {
 				$insert = $this->Admins_model->insert($data);
@@ -84,6 +84,37 @@ class Admins extends CI_Controller {
 					];
 				}   
 			}else {
+				$data_pass = $this->Admins_model->get_data_by_id2($id);
+
+				foreach ($data_pass as $key => $value) {
+					$pass = $value->password;
+				}
+
+				if ($this->input->post('password') == "") {
+					$data = [
+						'nama' => $this->input->post('nama'),
+						'nomor_identitas' => $this->input->post('nomor_identitas'),
+						'password' => $pass,
+						'no_telp' => $this->input->post('no_telp'),
+						'jabatan' => $this->input->post('jabatan'),
+						'golongan' => $this->input->post('golongan'),
+						'level_user' => $this->input->post('level_user'),
+						'is_active' => $this->input->post('is_active'),
+					];
+
+				} else {
+					$data = [
+						'nama' => $this->input->post('nama'),
+						'nomor_identitas' => $this->input->post('nomor_identitas'),
+						'password' => md5($this->input->post('password')),
+						'no_telp' => $this->input->post('no_telp'),
+						'jabatan' => $this->input->post('jabatan'),
+						'golongan' => $this->input->post('golongan'),
+						'level_user' => $this->input->post('level_user'),
+						'is_active' => $this->input->post('is_active'),
+					];
+				}
+
 				$update = $this->Admins_model->update($id, $data);
 				if($update){
 					$ret = [
