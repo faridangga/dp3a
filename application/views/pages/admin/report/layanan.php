@@ -71,6 +71,8 @@
 <script>
 	var base_cname = "<?php echo base_url($cname) ?>";
 	$(document).ready(function(){
+		var start_date = $('.start').val();
+		var end_date = $('.end').val();
 		var table_url = $('#table-data').data('url');
 		table = $('#table-data').DataTable({
 			responsive : true,
@@ -79,10 +81,18 @@
 			{
 				extend: 'excelHtml5',
 				className : 'mb-2',
+				title : 'Report Layanan Pada Tanggal ' + '\n' + start_date + ' - ' + end_date,
 			},
 			{
 				extend: 'pdfHtml5',
+                orientation: 'landscape',
 				className : 'mb-2',
+				title: 'Report Layanan Pada Tanggal ' + '\n' + start_date + ' - ' + end_date,
+				customize: function(doc) {
+					doc.styles.title = {
+						alignment: 'center'
+					}
+				}
 			},
 			],
 			"ajax": {

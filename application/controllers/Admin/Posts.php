@@ -79,40 +79,13 @@ class Posts extends CI_Controller {
 
 			if ($id == "") {
 				$insert = $this->Posts_model->insert($data);
-				if($insert){
-					$ret = [
-						'title' => "Insert",
-						'text' => "Insert success",
-						'icon' => "success",
-					];
-				}else{
-					$ret = [
-						'title' => "Insert",
-						'text' => "Insert failed",
-						'icon' => "warning",
-					];
-				}   
+				
 			}else {
 				$update = $this->Posts_model->update($id, $data);
-				if($update){
-					$ret = [
-						'title' => "Update",
-						'text' => "Update success",
-						'icon' => "success",
-					];
-				}else{
-					$ret = [
-						'title' => "Update",
-						'text' => "Update failed",
-						'icon' => "warning",
-					];
-				}
+				echo json_encode($data);
 			}
 		}
-
-		// echo json_encode($ret);
 		redirect($this->cname);
-
 	}
 
 	public function delete_posts()

@@ -29,15 +29,15 @@
                 <input type="number" name="tahun" class="form-control" value="<?php echo date('Y') ?>">
               </div>
               <div class="form-group">
-                <label>Usia 19-24</label>
+                <label>Usia 0-18</label>
                 <input type="number" class="form-control" name="usia_1" placeholder="">
               </div>
               <div class="form-group">
-                <label>Usia 25-44</label>
+                <label>Usia 19-24</label>
                 <input type="number" class="form-control" name="usia_2" placeholder="">
               </div>
               <div class="form-group">
-                <label>Usia 45+</label>
+                <label>Usia 25+</label>
                 <input type="number" class="form-control" name="usia_3" placeholder="">
               </div>
               <div class="form-group">
@@ -186,17 +186,17 @@
         "class": "text-center",
       },
       { 
-        "title" : "Usia 19-24",
+        "title" : "Usia 0-18",
         "data": "usia_1",
         "class": "text-center", 
       },
       { 
-        "title" : "Usia 25-44",
+        "title" : "Usia 19-24",
         "data": "usia_2",
         "class": "text-center", 
       },
       { 
-        "title" : "Usia 45+",
+        "title" : "Usia 25+",
         "data": "usia_3",
         "class": "text-center", 
       },

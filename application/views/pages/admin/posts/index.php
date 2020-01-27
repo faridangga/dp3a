@@ -78,18 +78,16 @@
     <div class="card">
       <div class="card-body">
         <div class="table-responsive">
-          <table id="table-data" class="display nowrap table table-hover table-striped table-bordered table-responsive border-collapse" cellspacing="0" width="100%" role="grid" aria-describedby="example23_info"  data-url="<?php echo base_url($cname.'/get_data') ?>">
+          <table id="table-data" class="table table-hover table-striped table-bordered table-responsive border-collapse" cellspacing="0" width="100%" role="grid" aria-describedby="example23_info"  data-url="<?php echo base_url($cname.'/get_data') ?>">
             <thead>
               <tr>
                 <th></th>
                 <th></th>
-                <th></th>
+                <th class="text-center"></th>
                 <th></th>
                 <th></th>
 
-                <th></th>
-                <th></th>
-                <th></th>
+                <th class="text-center"></th>
                 <th></th>
                 <th></th>
 
@@ -121,7 +119,7 @@
       "columns": [
       {
         "title" : "No",
-        "width" : "200px",
+        "width" : "1px",
         "data": null,
         "class": "text-center",
         render: (data, type, row, meta) => {
@@ -135,6 +133,7 @@
       {
         "title" : "Content",
         "data": "content",
+        "width" : "300px",
       },
       {
         "title" : "Category",
@@ -158,26 +157,28 @@
       {
         "title" : "Post Type",
         "data": "post_type",
-      },
-      {
-        "title" : "Image Url",
-        "data" : "image_url",
         "class" : "text-center",
-        "render": function (data) {
-          return '<img src="<?php echo base_url() ?>'+ data + '" style="height:150px; width:150px"/>';
-        }
+        "width" : "150px",
       },
-      {
-        "title" : "Video Embed Code",
-        "data": "video_embed_code",
-      },
+      // {
+      //   "title" : "Image Url",
+      //   "data" : "image_url",
+      //   "class" : "text-center",
+      //   "render": function (data) {
+      //     return '<img src="<?php echo base_url() ?>'+ data + '" style="height:150px; width:150px"/>';
+      //   }
+      // },
+      // {
+      //   "title" : "Video Embed Code",
+      //   "data": "video_embed_code",
+      // },
       {
         "title" : "User",
         "data": "nama",
       },
       { 
         "title" : "Status",
-        "class" : "text-center",
+        "width" : "1px",
         data : (data, type, row, meta) => {
           ret = "";
           if(data.status == '1'){
@@ -252,6 +253,7 @@
         form.find('[name="id"]').val(json.id);
         form.find('[name="title"]').val(json.title);
         form.find('.note-editable').html(json.content);
+        form.find('[name="content"]').val(json.content);
         form.find('[name="category_id"]').val(json.category_id);
         form.find('[name="hit"]').val(json.hit);
         form.find('[name="post_type"]').val(json.post_type);

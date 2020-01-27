@@ -32,7 +32,13 @@ class Pengaduan_model extends CI_Model {
 			, SUM(CASE WHEN nama_kategori ="Trafficking" THEN 1 ELSE 0 END) Trafficking
 			, SUM(CASE WHEN nama_kategori ="Penelantaran" THEN 1 ELSE 0 END) Penelantaran
 			, SUM(CASE WHEN nama_kategori ="Lainnya" THEN 1 ELSE 0 END) Lainnya
-			, SUM(CASE WHEN nama_kategori ="Fisik" THEN 1 ELSE 0 END)');
+			, SUM(CASE WHEN nama_kategori ="Fisik" THEN 1 ELSE 0 END)
+			+ SUM(CASE WHEN nama_kategori ="Psikis" THEN 1  ELSE 0 END)
+			+ SUM(CASE WHEN nama_kategori ="Seksual" THEN 1 ELSE 0 END)
+			+ SUM(CASE WHEN nama_kategori ="Eksploitasi" THEN 1 ELSE 0 END)
+			+ SUM(CASE WHEN nama_kategori ="Trafficking" THEN 1 ELSE 0 END)
+			+ SUM(CASE WHEN nama_kategori ="Penelantaran" THEN 1 ELSE 0 END) 
+			+ SUM(CASE WHEN nama_kategori ="Lainnya" THEN 1 ELSE 0 END) Total');
 		$this->db->from($this->table);
 		$this->db->join('kategori_laporan', 'pengaduan.id_kategori = kategori_laporan.id_kategori','left');
 		$this->db->join('kecamatan', 'pengaduan.kecamatan = kecamatan.id_kecamatan', 'left');

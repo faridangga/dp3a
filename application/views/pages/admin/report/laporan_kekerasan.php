@@ -7,19 +7,19 @@
             <?php echo form_open($cname.'/get_data_report',['id' => 'form-filter']) ?>
             <div class="form-group row mb-1 filter-input">
               <label for="" class="control-label col-form-label col-md-2">Year</label>
-              <div class="col-md-9">
+              <div class="col-md-5">
                 <div class="input-group">
-                  <input type="number" name="year" class="form-control" value="<?php echo date('Y') ?>" id="laporan-kekerasan-year">
-                  <div class="input-group-append">
+                  <input type="number" name="year" id="year" class="form-control" value="<?php echo date('Y') ?>" id="laporan-kekerasan-year">
+<!--                   <div class="input-group-append">
                     <button type="button" class="btn btn-primary" id="btn-all-year">All Year</button>
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </div>
             <div class="form-group row mb-1 filter-input">
               <label for="" class="control-label col-form-label col-md-2">Lokasi</label>
-              <div class="col-md-9">
-                <select name="nama_kecamatan" id="" class="form-control">
+              <div class="col-md-5">
+                <select name="nama_kecamatan" id="lokasi" class="form-control">
                   <option value="" selected disabled>Choose</option>
                   <option value="0" selected>All</option>
                   <?php foreach ($data['select_lokasi'] as $key => $value): ?>
@@ -56,6 +56,7 @@
                   <th></th>
                   <th></th>
                   <th></th>
+                  <th></th>
 
                 </tr>
               </thead>
@@ -73,6 +74,11 @@
   var base_cname = "<?php echo base_url($cname) ?>";
   var table = "";
   $(document).ready(function() {
+    var year = $('#year').val();
+    var lokasi = $('#lokasi').val();
+    if(lokasi == 0) {
+      lokasi = "Semua Lokasi"
+    }
     var table_url = $('#table-data').data('url');
     table = $('#table-data').DataTable({
       orderCellsTop : true,
@@ -81,10 +87,18 @@
       {
         extend: 'excelHtml5',
         className : 'mb-2',
+        title : 'Rekap Jumlah Kekerasan Berdasarkan Lokasi Pada ' + '\n' + lokasi + ' Tahun ' + year,
       },
       {
         extend: 'pdfHtml5',
         className : 'mb-2',
+        title: 'Rekap Jumlah Kekerasan Berdasarkan Lokasi Pada ' + '\n' + lokasi + ' Tahun ' + year,
+        customize: function(doc) {
+          doc.styles.title = {
+            alignment: 'center',
+            fontSize: '15',
+          }
+        }
       },
       ],
       "ajax": {
@@ -178,6 +192,11 @@
         "data": "Lainnya",
         "class": "text-center",
       },
+      { 
+        "title" : "Total",
+        "data": "Total",
+        "class": "text-center",
+      },
       ]
     });
 
@@ -201,20 +220,20 @@
     });
 
     $('#laporan-kekerasan-submit').click();
-    $('#btn-all-year').on('click',function(){
-      if(!$(this).parent().parent().find('#laporan-kekerasan-year').attr('disabled')){
-        $(this).parent().parent().find('#laporan-kekerasan-year').attr('disabled',true);
-      }else{
-        $(this).parent().parent().find('#laporan-kekerasan-year').attr('disabled',false)
-      }
-    })
+    // $('#btn-all-year').on('click',function(){
+    //   if(!$(this).parent().parent().find('#laporan-kekerasan-year').attr('disabled')){
+    //     $(this).parent().parent().find('#laporan-kekerasan-year').attr('disabled',true);
+    //   }else{
+    //     $(this).parent().parent().find('#laporan-kekerasan-year').attr('disabled',false)
+    //   }
+    // })
     
   });
 
-  var reload_table = (data) => {
-    table.clear();
-    table.rows.add(data);
-    table.draw();
-  } 
+var reload_table = (data) => {
+  table.clear();
+  table.rows.add(data);
+  table.draw();
+} 
 
 </script>
