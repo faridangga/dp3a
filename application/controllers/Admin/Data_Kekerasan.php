@@ -14,7 +14,7 @@ class Data_Kekerasan extends CI_Controller {
 	public function index()
 	{
 		$data = [
-			'title' => "Kategori Laporan",
+			'title' => "Data Kekerasan",
 			'cname' => $this->cname,
 			'pages' => "admin/data_kekerasan/index",
 			'count_pengaduan' => $this->Pengaduan_model->count_pengaduan(),
