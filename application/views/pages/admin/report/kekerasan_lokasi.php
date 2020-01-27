@@ -48,7 +48,7 @@
 		<div class="col-lg-12 col-12">
 			<div class="card card-default">
 				<div class="card-header">
-					<h3 class="card-title">Grafik Layanan</h3>
+					<h3 class="card-title">Grafik Kekerasan</h3>
 
 					<div class="card-tools">
 						<button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
@@ -69,6 +69,7 @@
 </div>
 <script>
 	var base_cname = "<?php echo base_url($cname) ?>";
+
 	$(document).ready(function(){
 		var table_url = $('#table-data').data('url');
 		table = $('#table-data').DataTable({
@@ -82,6 +83,12 @@
 			{
 				extend: 'pdfHtml5',
 				className : 'mb-2',
+				title: 'Kekerasan Berdasarkan Lokasi Pada Tanggal' + '\n' + 'start' + ' - ' + 'end',
+				customize: function(doc) {
+					doc.styles.title = {
+						alignment: 'center'
+					}
+				}
 			},
 			],
 			"ajax": {

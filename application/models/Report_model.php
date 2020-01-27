@@ -17,20 +17,20 @@ class Report_model extends CI_Model {
 		$this->db->select('pengaduan.*, kecamatan.nama_kecamatan,
 			SUM(CASE WHEN nama_layanan ="Pengaduan" THEN 1 ELSE 0 END) Pengaduan
 			, SUM(CASE WHEN nama_layanan ="Kesehatan" THEN 1 ELSE 0 END) Kesehatan
-			, SUM(CASE WHEN nama_layanan ="Bantuan_Hukum" THEN 1 ELSE 0 END) Bantuan_Hukum
-			, SUM(CASE WHEN nama_layanan ="Penegakan_Hukum" THEN 1 ELSE 0 END) Penegakan_Hukum
-			, SUM(CASE WHEN nama_layanan ="Rehabilitasi_Sosial" THEN 1 ELSE 0 END) Rehabilitasi_Sosial
-			, SUM(CASE WHEN nama_layanan ="Reintegrasi_Sosial" THEN 1 ELSE 0 END) Reintegrasi_Sosial
+			, SUM(CASE WHEN nama_layanan ="Bantuan Hukum" THEN 1 ELSE 0 END) Bantuan_Hukum
+			, SUM(CASE WHEN nama_layanan ="Penegakan Hukum" THEN 1 ELSE 0 END) Penegakan_Hukum
+			, SUM(CASE WHEN nama_layanan ="Rehabilitasi Sosial" THEN 1 ELSE 0 END) Rehabilitasi_Sosial
+			, SUM(CASE WHEN nama_layanan ="Reintegrasi Sosial" THEN 1 ELSE 0 END) Reintegrasi_Sosial
 			, SUM(CASE WHEN nama_layanan ="Pemulangan" THEN 1 ELSE 0 END) Pemulangan
-			, SUM(CASE WHEN nama_layanan ="Pendampingan_Tokoh_Agama" THEN 1 ELSE 0 END) Pendampingan_Tokoh_Agama
+			, SUM(CASE WHEN nama_layanan ="Pendampingan Tokoh Agama" THEN 1 ELSE 0 END) Pendampingan_Tokoh_Agama
 			, SUM(CASE WHEN nama_layanan ="Pengaduan" THEN 1 ELSE 0 END)
 			+ SUM(CASE WHEN nama_layanan ="Kesehatan" THEN 1 ELSE 0 END)
-			+ SUM(CASE WHEN nama_layanan ="Bantuan_Hukum" THEN 1 ELSE 0 END)
-			+ SUM(CASE WHEN nama_layanan ="Penegakan_Hukum" THEN 1 ELSE 0 END)
-			+ SUM(CASE WHEN nama_layanan ="Rehabilitasi_Sosial" THEN 1 ELSE 0 END)
-			+ SUM(CASE WHEN nama_layanan ="Reintegrasi_Sosial" THEN 1 ELSE 0 END) 
+			+ SUM(CASE WHEN nama_layanan ="Bantuan Hukum" THEN 1 ELSE 0 END)
+			+ SUM(CASE WHEN nama_layanan ="Penegakan Hukum" THEN 1 ELSE 0 END)
+			+ SUM(CASE WHEN nama_layanan ="Rehabilitasi Sosial" THEN 1 ELSE 0 END)
+			+ SUM(CASE WHEN nama_layanan ="Reintegrasi Sosial" THEN 1 ELSE 0 END) 
 			+ SUM(CASE WHEN nama_layanan ="Pemulangan" THEN 1 ELSE 0 END)
-			+ SUM(CASE WHEN nama_layanan ="Pendampingan_Tokoh_Agama" THEN 1 ELSE 0 END) Total');
+			+ SUM(CASE WHEN nama_layanan ="Pendampingan Tokoh Agama" THEN 1 ELSE 0 END) Total');
 		// $this->db->select('pengaduan.*, kecamatan.nama_kecamatan');
 		$this->db->from('pengaduan');
 		$this->db->join('layanan', 'pengaduan.layanan = layanan.id_layanan','left');
@@ -52,12 +52,12 @@ class Report_model extends CI_Model {
 		$this->db->select('concat(kecamatan.nama_kecamatan) as date,
 			SUM(CASE WHEN nama_layanan ="Pengaduan" THEN 1 ELSE 0 END)
 			+ SUM(CASE WHEN nama_layanan ="Kesehatan" THEN 1 ELSE 0 END)
-			+ SUM(CASE WHEN nama_layanan ="Bantuan_Hukum" THEN 1 ELSE 0 END)
-			+ SUM(CASE WHEN nama_layanan ="Penegakan_Hukum" THEN 1 ELSE 0 END)
-			+ SUM(CASE WHEN nama_layanan ="Rehabilitasi_Sosial" THEN 1 ELSE 0 END)
-			+ SUM(CASE WHEN nama_layanan ="Reintegrasi_Sosial" THEN 1 ELSE 0 END) 
+			+ SUM(CASE WHEN nama_layanan ="Bantuan Hukum" THEN 1 ELSE 0 END)
+			+ SUM(CASE WHEN nama_layanan ="Penegakan Hukum" THEN 1 ELSE 0 END)
+			+ SUM(CASE WHEN nama_layanan ="Rehabilitasi Sosial" THEN 1 ELSE 0 END)
+			+ SUM(CASE WHEN nama_layanan ="Reintegrasi Sosial" THEN 1 ELSE 0 END) 
 			+ SUM(CASE WHEN nama_layanan ="Pemulangan" THEN 1 ELSE 0 END)
-			+ SUM(CASE WHEN nama_layanan ="Pendampingan_Tokoh_Agama" THEN 1 ELSE 0 END) Jumlah');
+			+ SUM(CASE WHEN nama_layanan ="Pendampingan Tokoh Agama" THEN 1 ELSE 0 END) Jumlah');
 		$this->db->from('pengaduan');
 		$this->db->join('layanan', 'pengaduan.layanan = layanan.id_layanan','left');
 		$this->db->join('kecamatan', 'pengaduan.kecamatan = kecamatan.id_kecamatan', 'left');
