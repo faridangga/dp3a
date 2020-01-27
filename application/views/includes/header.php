@@ -12,14 +12,15 @@
   <li class="nav-item dropdown">
     <a class="nav-link" data-toggle="dropdown" href="#">
       <i class="far fa-bell"></i>
-      <span class="badge badge-warning navbar-badge"><?php echo $count_pengaduan ?></span>
+      <span class="badge badge-warning navbar-badge" id="badge_notif_pengaduan"><?php echo $count_pengaduan ?></span>
     </a>
     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
       <span class="dropdown-header">Notifications</span>
       <div class="dropdown-divider"></div>
       <a href="<?php echo base_url('Admin/Pengaduan') ?>" class="dropdown-item">
         <i class="fas fa-envelope mr-2"></i>
-        <?php echo $count_pengaduan ?> New Pengaduan
+        <?php echo $count_pengaduan ?> 
+        <p id="notif_pengaduan"></p>New Pengaduan
       </a>
     </div>
   </li>

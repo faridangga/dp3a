@@ -29,6 +29,8 @@
 <!-- Custom JS-->
 <script src="<?php echo base_url('assets/js/custom.js') ?>"></script>
 <script>
+
+  var notif = "<?php echo base_url('Admin/Notif/notif_pengaduan') ?>"
     // Enable pusher logging - don't include this in production
     Pusher.logToConsole = true;
 
@@ -51,6 +53,18 @@
         position: 'topLeft',
         icon: 'fas fa-envelope fa-lg',
       })
+      $.ajax({
+        type: "GET",
+        url: notif,
+        dataType: 'json',
+        success: function(data){
+          $('#notif_pengaduan').html(data);
+          $('#badge_notif_pengaduan').html(data);
+          // alert(data);
+        }
+      });
     });
+
+
 
   </script>
