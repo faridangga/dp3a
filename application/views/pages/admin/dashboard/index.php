@@ -94,92 +94,13 @@
       
     </div>
 
-    <div class="col-md-12">
-      <div class="card">
-        <div class="card-body">
-          <div class="table-responsive">
-            <table id="table-data" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%" role="grid" aria-describedby="example23_info" style="width: 100%;" data-url="<?php echo base_url('Dashboard/get_table_pengaduan') ?>">
-              <thead>
-                <tr>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                </tr>
-              </thead>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-
   </div>
 
   
 </div>
 <script>
-  var table = "";
   var base_cname = "<?php echo base_url($cname) ?>";
   $(document).ready(function(){
-    var table_url = $('#table-data').data('url');
-    table = $('#table-data').DataTable({
-      orderCellsTop : true,
-      responsive : true,
-      dom: "<'row'<'col-6'l><'col-6'f>>rtip'",
-      scrollY: true,
-      scrollX: true,
-      "ajax": {
-        'url': table_url,
-      },
-      "columns": [
-      {
-        "title" : "No",
-        "width" : "15px",
-        "data": null,
-        "class": "text-center",
-        render: (data, type, row, meta) => {
-          return meta.row + meta.settings._iDisplayStart + 1;
-        }
-      },
-      { 
-        "title" : "Nama Kategori",
-        data : (data, type, row, meta) => {
-          ret = "";
-          if(data.id_kategori == '1'){
-            ret += 'Fisik';
-          }else 
-          if(data.id_kategori == '2'){
-            ret += 'Psikis';
-          }else 
-          if(data.id_kategori == '3'){
-            ret += 'Seksual';
-          }else 
-          if(data.id_kategori == '4'){
-            ret += 'Eksploitasi';
-          }else 
-          if(data.id_kategori == '5'){
-            ret += 'Trafficking';
-          }else 
-          if(data.id_kategori == '6'){
-            ret += 'Penelantaran';
-          }else{
-            ret += 'Lainnya';
-          }
-          return ret;
-        } 
-      },
-      { 
-        "title" : "Sudah Direspon",
-        "class": "text-center",
-        "data": "jumlah_direspon" 
-      },
-      { 
-        "title" : "Belum Direspon",
-        "class": "text-center",
-        "data": "jumlah_blm_direspon" 
-      },
-      ]
-    });
 
     $('#select-kategori').change(function(){
       draw_chart($(this).val());

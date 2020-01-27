@@ -21,6 +21,16 @@ class Dashboard_model extends CI_Model {
 		return $query->result();
 	}
 
+	public function get_table_pengaduan()
+	{
+		$this->db->select('id_kategori,
+			SUM(CASE WHEN status ="1" THEN 1 ELSE 0 END) jumlah_direspon
+			, SUM(CASE WHEN status ="0" THEN 1 ELSE 0 END) jumlah_blm_direspon');
+		$this->db->from('pengaduan');
+		$this->db->group_by('id_kategori');
+		$query = $this->db->get();
+		return $query->result();
+	}
 }
 
 /* End of file Dashboard_model.php */

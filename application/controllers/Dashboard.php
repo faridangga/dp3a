@@ -42,6 +42,11 @@ class Dashboard extends CI_Controller {
 		echo json_encode($data);
 	}
 
+	public function get_table_pengaduan()
+	{
+		$data['data'] = $this->Dashboard_model->get_table_pengaduan();
+		echo json_encode($data);
+	}
 }
 
 /* End of file Dashboard.php */
