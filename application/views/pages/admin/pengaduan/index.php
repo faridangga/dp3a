@@ -46,21 +46,32 @@
               <fieldset class="border p-2">
                 <legend  class="w-auto">Data Korban</legend>
                 <div class="form-group">
-                  <label>Nama Pelapor</label>
-                  <input type="text" class="form-control" name="id_user" placeholder="" readonly>
+                  <label>Nama</label>
+                  <input type="text" class="form-control" name="nama" placeholder="" readonly>
                 </div>
                 <div class="form-group">
                   <label>Jenis Kelamin</label>
-
                   <input type="text" class="form-control" name="jenis_kelamin" placeholder="" readonly>
+                </div>
+                <div class="form-group">
+                  <label>Usia</label>
+                  <input type="text" class="form-control" name="usia" placeholder="" readonly>
+                </div>
+                <div class="form-group">
+                  <label>Kecamatan</label>
+                  <input type="text" class="form-control" name="kecamatan" placeholder="" readonly>
+                </div>
+                <div class="form-group">
+                  <label>Desa</label>
+                  <input type="text" class="form-control" name="desa" placeholder="" readonly>
+                </div>
+                <div class="form-group">
+                  <label>Dusun</label>
+                  <input type="text" class="form-control" name="dusun" placeholder="" readonly>
                 </div>
                 <div class="form-group">
                   <label>No telp</label>
                   <input type="text" class="form-control" name="nomor_telp" placeholder="" readonly>
-                </div>
-                <div class="form-group">
-                  <label>Alamat</label>
-                  <textarea class="form-control" name="alamat" rows="2" readonly></textarea>
                 </div>
               </fieldset>
             </div>
@@ -72,7 +83,7 @@
                   <input type="text" class="form-control" name="id_kategori" placeholder="" readonly>
                 </div>
                 <div class="form-group">
-                  <label>Laporan</label>
+                  <label>Kronologi</label>
                   <textarea class="form-control" name="isi_laporan" rows="2" readonly></textarea>
                 </div>
                 <div class="form-group">
@@ -154,7 +165,7 @@
       },
       { 
         "title" : "Nama user",
-        "data": "nama" 
+        "data": "nama_kecamatan" 
       },
       { 
         "title" : "Kategori",
@@ -213,6 +224,7 @@
         }
       }
       ]
+
     });
 
     $('form#form-pengaduan').submit(function(e){
@@ -260,7 +272,6 @@
       }
     });
   }
-
   var edit_pengaduan = (id_pengaduan) => {
     $.ajax({
       url : url_edit_pengaduan+"/"+id_pengaduan,
@@ -271,8 +282,12 @@
        $('[name="id_pengaduan"]').val(data.id_pengaduan);
        $('[name="id_user"]').val(data.nama);
        // $('[name="jenis_kelamin"]').val(data.jenis_kelamin);
+       $('[name="nama"]').val(data.nama);
+       $('[name="usia"]').val(data.usia);
+       $('[name="kecamatan"]').val(data.nama_kecamatan);
+       $('[name="desa"]').val(data.desa);
+       $('[name="dusun"]').val(data.dusun);
        $('[name="nomor_telp"]').val(data.nomor_telp);
-       $('[name="alamat"]').val(data.alamat);
        $('[name="id_kategori"]').val(data.nama_kategori);
        $('[name="isi_laporan"]').val(data.isi_laporan);
        $('[name="waktu_lapor"]').val(data.waktu_lapor);

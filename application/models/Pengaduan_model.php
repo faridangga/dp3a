@@ -7,13 +7,13 @@ class Pengaduan_model extends CI_Model {
 
 	public function get_data()
 	{
-		$this->db->select('pengaduan.*, YEAR(waktu_lapor) as tahun, MONTH(waktu_lapor) as bulan, users.nama, users.nomor_telp, users.alamat, kategori_laporan.nama_kategori, status_pengaduan.id_status, layanan.nama_layanan, kecamatan.nama_kecamatan');
+		$this->db->select('pengaduan.*, YEAR(waktu_lapor) as tahun, MONTH(waktu_lapor) as bulan, users.nama, users.nomor_telp, users.alamat, kategori_laporan.nama_kategori, status_pengaduan.id_status, kecamatan.nama_kecamatan as nama_kecamatan, layanan.nama_layanan');
 		$this->db->from($this->table);
 		$this->db->join('users', 'pengaduan.id_user = users.id_user','left');
 		$this->db->join('kategori_laporan', 'pengaduan.id_kategori = kategori_laporan.id_kategori','left');
 		$this->db->join('status_pengaduan', 'pengaduan.status = status_pengaduan.id_status','left');
 		$this->db->join('layanan', 'pengaduan.layanan = layanan.id_layanan','left');
-		$this->db->join('kecamatan', 'pengaduan.kecamatan = kecamatan.id_kecamatan', 'left');
+		$this->db->join('kecamatan', 'pengaduan.kecamatan = kecamatan.id_kecamatan','left');
 		$this->db->where('pengaduan.status !=', 5);
 		// $this->db->group_by('bulan, nama_kategori, kecamatan');
 		$this->db->order_by('waktu_lapor','desc');
@@ -141,10 +141,11 @@ class Pengaduan_model extends CI_Model {
 
 	public function get_data_by_id($id)
 	{
-		$this->db->select('pengaduan.*, users.nama, users.nama, users.nomor_telp, users.alamat, kategori_laporan.nama_kategori, status_pengaduan.id_status');
+		$this->db->select('pengaduan.*, users.nama, users.nomor_telp, users.alamat, kategori_laporan.nama_kategori, status_pengaduan.id_status, kecamatan.nama_kecamatan as nama_kecamatan');
 		$this->db->from($this->table);
 		$this->db->join('users', 'pengaduan.id_user = users.id_user','left');
 		$this->db->join('kategori_laporan', 'pengaduan.id_kategori = kategori_laporan.id_kategori','left');
+		$this->db->join('kecamatan', 'pengaduan.kecamatan = kecamatan.id_kecamatan','left');
 		$this->db->join('status_pengaduan', 'pengaduan.status = status_pengaduan.id_status','left');
 		$this->db->where('pengaduan.status !=', 5);
 		$this->db->where('id_pengaduan',$id);

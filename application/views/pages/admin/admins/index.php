@@ -99,6 +99,7 @@
   var url_fill_form = '<?php echo base_url($cname.'/get_data_by_id') ?>';
   var url_insert_admin = '<?php echo base_url($cname.'/insert') ?>';
   var base_cname = "<?php echo base_url($cname) ?>";
+  var notif = "<?php echo base_url('Admin/Notif/notif_pengaduan') ?>"
   var table = "";
   $(document).ready(function() {
     var table_url = $('#table-data').data('url');

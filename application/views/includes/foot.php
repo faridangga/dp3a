@@ -48,7 +48,7 @@
       // alert(JSON.stringify(data)); 
       $(document).Toasts('create', {
         class: 'bg-warning',
-        body: 'Ada Data Pengaduan Masuk, silahkkan dilihat',
+        body: 'Ada Data Pengaduan Masuk, silahkkan <a href="<?php echo base_url('Admin/Pengaduan') ?>"> dilihat </a>',
         title: 'PENGADUAN',
         position: 'topLeft',
         icon: 'fas fa-envelope fa-lg',
@@ -58,7 +58,9 @@
         url: notif,
         dataType: 'json',
         success: function(data){
+          $('#notif_pengaduan').html("");
           $('#notif_pengaduan').html(data);
+          $('#badge_notif_pengaduan').html("");
           $('#badge_notif_pengaduan').html(data);
           // alert(data);
         }

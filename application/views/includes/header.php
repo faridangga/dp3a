@@ -18,9 +18,14 @@
       <span class="dropdown-header">Notifications</span>
       <div class="dropdown-divider"></div>
       <a href="<?php echo base_url('Admin/Pengaduan') ?>" class="dropdown-item">
-        <i class="fas fa-envelope mr-2"></i>
-        <?php echo $count_pengaduan ?> 
-        <p id="notif_pengaduan"></p>New Pengaduan
+        <div class="row">
+          <div class="col-md-6">
+            <i class="fas fa-envelope mr-2"></i><?php echo $count_pengaduan ?><p id="notif_pengaduan"></p>
+          </div>
+          <div class="col-md-6">
+            New Pengaduan
+          </div>
+        </div>
       </a>
     </div>
   </li>
