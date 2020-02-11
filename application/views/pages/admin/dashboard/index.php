@@ -46,6 +46,7 @@
     </div>
     <!-- ./col -->
     <div class="col-lg-4 col-sm-4">
+      <?php echo form_open('Dashboard/get_table_pengaduan',['id' => 'form-filter']) ?>
       <div class="form-group row">
         <label class="col-sm-2 col-md-2 col-form-label">Kategori</label>
         <div class="col-sm-10 col-md-10">
@@ -63,7 +64,6 @@
         <label class="col-sm-2 col-md-2 col-form-label">Tahun</label>
         <div class="col-sm-10 col-md-10">
           <select name="select_tahun" class="form-control select2" id="select-tahun" style="width: 100%;">
-            <!-- <option value="<?php echo date('Y') ?>" selected disabled><?php echo date('Y') ?></option> -->
             <option value="0" selected>Semua Tahun</option>
             <?php foreach ($data['tahun'] as $key => $value): ?>
               <option value="<?php echo $value->tahun; ?>"><?php echo $value->tahun;?></option>
@@ -72,9 +72,12 @@
         </div>
       </div>
     </div>
+
     <div class="col-lg-4 col-sm-4">
-      <!-- <button class="btn btn-info" onclick="draw_chart()">Submit</button> -->
+      <button type="submit" class="btn btn-primary filter-input" id="dashboard-submit">Submit</button>
     </div>
+    <?php echo form_close(); ?>
+
     <div class="col-lg-12 col-12">
       <div class="card card-default">
         <div class="card-header">
@@ -115,80 +118,151 @@
 
   </div>
 
-  
 </div>
 <script>
   var table = "";
   var base_cname = "<?php echo base_url($cname) ?>";
   $(document).ready(function(){
-    var table_url = $('#table-data').data('url');
-    table = $('#table-data').DataTable({
-      orderCellsTop : true,
-      responsive : true,
-      dom: "<'row'<'col-6'l><'col-6'f>>rtip'",
-      scrollY: true,
-      scrollX: true,
-      "ajax": {
-        'url': table_url,
-      },
-      "columns": [
-      {
-        "title" : "No",
-        "width" : "15px",
-        "data": null,
-        "class": "text-center",
-        render: (data, type, row, meta) => {
-          return meta.row + meta.settings._iDisplayStart + 1;
+   var kategori = document.getElementById("select-kategori");
+   var id_kategori = kategori.options[kategori.selectedIndex].value;
+   if(id_kategori == 0){
+    id_kategori = "Semua";
+   }else if(id_kategori == 1){
+    id_kategori = "Fisik";
+   }else if(id_kategori == 2){
+    id_kategori = "Psikis";
+   }else if(id_kategori == 3){
+    id_kategori = "Seksual";
+   }else if(id_kategori == 4){
+    id_kategori = "Eksploitasi";
+   }else if(id_kategori == 5){
+    id_kategori = "Trafficking";
+   }else if(id_kategori == 6){
+    id_kategori = "Penelantaran";
+   }else if(id_kategori == 7){
+    id_kategori = "Lainnya";
+   }
+   var tahun = document.getElementById("select-tahun");
+   var waktu_lapor = tahun.options[tahun.selectedIndex].value;
+   if(waktu_lapor == 0){
+    waktu_lapor = "Semua Tahun";
+   }
+  var table_url = $('#table-data').data('url');
+  table = $('#table-data').DataTable({
+    orderCellsTop : true,
+    responsive : true,
+    dom: "'B<'row'<'col-6'l><'col-6'f>>rtip'",
+    scrollY: true,
+    scrollX: true,
+    buttons: [
+    {
+      extend: 'excelHtml5',
+      className : 'mb-2',
+      title : 'Report Pengaduan Kategori ' + id_kategori + ' Pada Tahun ' + '\n' + waktu_lapor,
+    },
+    {
+      extend: 'pdfHtml5',
+      orientation: 'landscape',
+      className : 'mb-2',
+      title: 'Report Pengaduan Kategori ' + id_kategori + ' Pada Tahun ' + '\n' + waktu_lapor,
+      customize: function(doc) {
+        doc.styles.title = {
+          alignment: 'center'
         }
-      },
-      { 
-        "title" : "Nama Kategori",
-        data : (data, type, row, meta) => {
-          ret = "";
-          if(data.id_kategori == '1'){
-            ret += 'Fisik';
-          }else 
-          if(data.id_kategori == '2'){
-            ret += 'Psikis';
-          }else 
-          if(data.id_kategori == '3'){
-            ret += 'Seksual';
-          }else 
-          if(data.id_kategori == '4'){
-            ret += 'Eksploitasi';
-          }else 
-          if(data.id_kategori == '5'){
-            ret += 'Trafficking';
-          }else 
-          if(data.id_kategori == '6'){
-            ret += 'Penelantaran';
-          }else{
-            ret += 'Lainnya';
-          }
-          return ret;
-        } 
-      },
-      { 
-        "title" : "Sudah Direspon",
-        "class": "text-center",
-        "data": "jumlah_direspon" 
-      },
-      { 
-        "title" : "Belum Direspon",
-        "class": "text-center",
-        "data": "jumlah_blm_direspon" 
-      },
-      ]
-    });
+      }
+    },
+    ],
+    "ajax": {
+      'url': table_url,
+    },
+    "columns": [
+    {
+      "title" : "No",
+      "width" : "15px",
+      "data": null,
+      "class": "text-center",
+      render: (data, type, row, meta) => {
+        return meta.row + meta.settings._iDisplayStart + 1;
+      }
+    },
+    { 
+      "title" : "Nama Kategori",
+      data : (data, type, row, meta) => {
+        ret = "";
+        if(data.id_kategori == '1'){
+          ret += 'Fisik';
+        }else 
+        if(data.id_kategori == '2'){
+          ret += 'Psikis';
+        }else 
+        if(data.id_kategori == '3'){
+          ret += 'Seksual';
+        }else 
+        if(data.id_kategori == '4'){
+          ret += 'Eksploitasi';
+        }else 
+        if(data.id_kategori == '5'){
+          ret += 'Trafficking';
+        }else 
+        if(data.id_kategori == '6'){
+          ret += 'Penelantaran';
+        }else{
+          ret += 'Lainnya';
+        }
+        return ret;
+      } 
+    },
+    { 
+      "title" : "Sudah Teratasi",
+      "class": "text-center",
+      "data": "jumlah_direspon" 
+    },
+    { 
+      "title" : "Belum Direspon",
+      "class": "text-center",
+      "data": "jumlah_blm_direspon" 
+    },
+    ]
+  });
 
-    $('#select-kategori').change(function(){
-      draw_chart($(this).val());
-    })
-    $('#select-kategori').trigger('change');
-    $('#select-tahun').change(function(){
-      draw_chart($(this).val());
-    })
-    $('#select-tahun').trigger('change');
+  $("form#form-filter").submit(function(e) {
+    e.preventDefault();
+    var formData = new FormData(this);
+    var url = $(this).attr('action');
+    $.ajax({
+      url : url,
+      type: 'POST',
+      data: formData,
+      success: function (data) {
+        alert(url)
+        var json = $.parseJSON(data);
+        reload_table(json.data);
+      },
+      cache: false,
+      contentType: false,
+      processData: false
+    });
+  });
+
+  $('#dashboard-submit').click();
+  $( "#dashboard-submit" ).click(function() {
+    draw_chart($(this).val());
+  });
+
+  var reload_table = (data) => {
+    table.clear();
+    table.rows.add(data);
+    table.draw();
+  } 
+
+    // $('#select-kategori').change(function(){
+    //   draw_chart($(this).val());
+    // })
+    // $('#select-kategori').trigger('change');
+    // $('#select-tahun').change(function(){
+    //   draw_chart($(this).val());
+    // })
+    // $('#select-tahun').trigger('change');
   });
 
   var draw_chart = () => {
@@ -228,10 +302,7 @@
       type: 'POST',
       data: {id_kategori:id_kategori,waktu_lapor:waktu_lapor},
       success: function (data) {
-
-
         var json = $.parseJSON(data);
-
         var ctx = document.getElementById('bar_pengaduan').getContext('2d');
 
         var datasets = [];

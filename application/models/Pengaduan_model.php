@@ -80,6 +80,7 @@ class Pengaduan_model extends CI_Model {
 			SUM(CASE WHEN status = "3" THEN 1 ELSE 0 END) "Tidak Bisa Dihubungi",
 			SUM(CASE WHEN status = "4" THEN 1 ELSE 0 END) "Sedang Diproses"');
 		$this->db->from('pengaduan');
+		$this->db->where('pengaduan.status !=', 5);
 		if($id_kategori != null){
 			$this->db->where('id_kategori',$id_kategori);
 		}

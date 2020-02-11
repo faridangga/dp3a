@@ -23,18 +23,9 @@
 			<div class="card">
 				<div class="card-body">
 					<div class="table-responsive">
-						<table id="table-data" class="display nowrap table table-hover table-striped table-bordered table-responsive border-collapse" cellspacing="0" width="100%" role="grid" aria-describedby="example23_info" style="width: 100%;" data-url="<?php echo base_url('Admin/Report/get_report_layanan') ?>">
+						<table id="table-data" class="table table-hover table-striped table-bordered border-collapse" cellspacing="0" width="100%" role="grid" aria-describedby="example23_info" style="width: 100%;" data-url="<?php echo base_url('Admin/Report/get_report_layanan') ?>">
 							<thead>
 								<tr>
-									<th></th>
-									<th></th>
-									<th></th>
-									<th></th>
-									<th></th>
-
-									<th></th>
-									<th></th>
-									<th></th>
 									<th></th>
 									<th></th>
 									<th></th>
@@ -69,6 +60,7 @@
 
 </div>
 <script>
+	var table = "";
 	var base_cname = "<?php echo base_url($cname) ?>";
 	$(document).ready(function(){
 		var start_date = $('.start').val();
@@ -85,7 +77,7 @@
 			},
 			{
 				extend: 'pdfHtml5',
-                orientation: 'landscape',
+				orientation: 'landscape',
 				className : 'mb-2',
 				title: 'Report Layanan Pada Tanggal ' + '\n' + start_date + ' - ' + end_date,
 				customize: function(doc) {
@@ -109,48 +101,8 @@
 				}
 			},
 			{ 
-				"title" : "Lokasi",
-				"data": "nama_kecamatan",
-			},
-			{ 
-				"title" : "Pengaduan",
-				"data": "Pengaduan",
-				"class": "text-center",
-			},
-			{ 
-				"title" : "Kesehatan",
-				"data": "Kesehatan",
-				"class": "text-center",
-			},
-			{ 
-				"title" : "Bantuan Hukum",
-				"data": "Bantuan_Hukum",
-				"class": "text-center",
-			},
-			{ 
-				"title" : "Penegakan Hukum",
-				"data": "Penegakan_Hukum",
-				"class": "text-center",
-			},
-			{ 
-				"title" : "Rehabilitasi Sosial",
-				"data": "Rehabilitasi_Sosial",
-				"class": "text-center",
-			},
-			{ 
-				"title" : "Reintegrasi Sosial",
-				"data": "Reintegrasi_Sosial",
-				"class": "text-center",
-			},
-			{ 
-				"title" : "Pemulangan",
-				"data": "Pemulangan",
-				"class": "text-center",
-			},
-			{ 
-				"title" : "Pendampingan Tokoh Agama",
-				"data": "Pendampingan_Tokoh_Agama",
-				"class": "text-center",
+				"title" : "Layanan",
+				"data": "nama_layanan1",
 			},
 			{ 
 				"title" : "Total",
@@ -222,7 +174,7 @@
 				var optionBar = {
 					title: {
 						display: true,
-						text: ['Grafik Layanan Berdasarkan Lokasi Pada Tanggal', start + ' - ' + end ],
+						text: ['Grafik Layanan Berdasarkan Layanan Pada Tanggal', start + ' - ' + end ],
 						fontSize: 14,
 						lineHeight: 2,
 					},

@@ -68,8 +68,8 @@
 
 </div>
 <script>
+  var table = "";
 	var base_cname = "<?php echo base_url($cname) ?>";
-
 	$(document).ready(function(){
 		var start_date = $('.start').val();
 		var end_date = $('.end').val();
@@ -156,16 +156,11 @@
 
 		$("form#form-filter").submit(function(e) {
 			e.preventDefault();
-			// var start = $('.start').val();
-			// var end = $('.end').val();
 			var formData = new FormData(this);    
 			var url = $(this).attr('action');
-			// alert(url)
 			$.ajax({
-				// url: 'Admin/Pengaduan/get_report_bar_layanan_lokasi',
 				url : url,
 				type: 'POST',
-				// data: {start:start,end:end},
 				data: formData,
 				success: function (data) {
 					var json = $.parseJSON(data);

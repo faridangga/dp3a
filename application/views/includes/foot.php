@@ -7,12 +7,12 @@
 <!-- Datatables -->
 <script src="<?php echo base_url('assets/plugins/datatables/jquery.dataTables.min.js') ?>"></script>
 <script src="<?php echo base_url('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') ?>"></script>
-<script src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.bootstrap4.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
+<script src="<?php echo base_url('assets/plugins/datatables/export/dataTables.buttons.min.js') ?>"></script>
+<script src="<?php echo base_url('assets/plugins/datatables/export/buttons.bootstrap4.min.js') ?>"></script>
+<script src="<?php echo base_url('assets/plugins/datatables/export/jszip.min.js') ?>"></script>
+<script src="<?php echo base_url('assets/plugins/datatables/export/pdfmake.min.js') ?>"></script>
+<script src="<?php echo base_url('assets/plugins/datatables/export/vfs_fonts.js') ?>"></script>
+<script src="<?php echo base_url('assets/plugins/datatables/export/buttons.html5.min.js') ?>"></script>
 
 <!-- Select2 -->
 <script src="<?php echo base_url('assets/plugins/select2/js/select2.full.min.js') ?>"></script>
@@ -23,9 +23,9 @@
 <!-- chartjs -->
 <!-- <script src="https://www.chartjs.org/dist/2.9.3/Chart.min.js"></script> -->
 <!-- dropify -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"></script>
+<script src="<?php echo base_url('assets/plugins/dropify/dropify.min.js') ?>"></script>
 <!-- datepicker -->
-<script src="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
+<script src="<?php echo base_url('assets/plugins/datepicker/bootstrap-datepicker.min.js') ?>"></script>
 <!-- Custom JS-->
 <script src="<?php echo base_url('assets/js/custom.js') ?>"></script>
 <script>

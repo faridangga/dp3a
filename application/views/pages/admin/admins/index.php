@@ -9,56 +9,63 @@
         <div class="card-body">
           <?php echo form_open($cname.'/insert',['id'=>'form-admin']); ?>
           <input type="hidden" class="form-control" name="id_admin" placeholder="">
-          <div class="form-group">
-            <label>Nama admin</label>
-            <input type="text" class="form-control" name="nama" placeholder="Nama">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Nama admin</label>
+                <input type="text" class="form-control" name="nama" placeholder="Nama">
+              </div>
+              <div class="form-group">
+                <label>Nomor Identitas</label>
+                <input type="text" class="form-control" name="nomor_identitas" placeholder="Nomor Identitas">
+              </div>
+              <div class="form-group">
+                <label>Password</label>
+                <input type="password" class="form-control" name="password" placeholder="Password">
+              </div>
+              <div class="form-group">
+                <label>No telp</label>
+                <input type="number" class="form-control" name="no_telp" placeholder="No Telp">
+              </div>
+            </div>
+             <div class="col-md-6">
+            <div class="form-group">
+              <label>Jabatan</label>
+              <select name="jabatan" id="" class="form-control">
+                <option value="" selected disabled>Pilih</option>
+                <?php foreach ($data['select_jabatan'] as $key => $value): ?>
+                  <option value="<?php echo $value->id_jabatan ?>"><?php echo $value->nama_jabatan ?></option>
+                <?php endforeach ?>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Golongan</label>
+              <select name="golongan" id="" class="form-control">
+                <option value="" selected disabled>Pilih</option>
+                <?php foreach ($data['select_golongan'] as $key => $value): ?>
+                  <option value="<?php echo $value->id_golongan ?>"><?php echo $value->nama_golongan ?></option>
+                <?php endforeach ?>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Level User</label>
+              <select class="form-control" name="level_user">
+                <option value="" selected disabled>Pilih</option>
+                <option value="1">Admin</option>
+                <option value="2">Kepala Bidang</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Is Active</label>
+              <select class="form-control" name="is_active">
+                <option value="" selected disabled>Pilih</option>
+                <option value="1">Aktif</option>
+                <option value="0">Tidak Aktif</option>
+              </select>
+            </div>
           </div>
-          <div class="form-group">
-            <label>Nomor Identitas</label>
-            <input type="text" class="form-control" name="nomor_identitas" placeholder="Nomor Identitas">
           </div>
-          <div class="form-group">
-            <label>Password</label>
-            <input type="password" class="form-control" name="password" placeholder="Password">
-          </div>
-          <div class="form-group">
-            <label>No telp</label>
-            <input type="text" class="form-control" name="no_telp" placeholder="no_telp">
-          </div>
-          <div class="form-group">
-            <label>Jabatan</label>
-            <select name="jabatan" id="" class="form-control">
-              <option value="" selected disabled>Choose</option>
-              <?php foreach ($data['select_jabatan'] as $key => $value): ?>
-                <option value="<?php echo $value->id_jabatan ?>"><?php echo $value->nama_jabatan ?></option>
-              <?php endforeach ?>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Golongan</label>
-            <select name="golongan" id="" class="form-control">
-              <option value="" selected disabled>Choose</option>
-              <?php foreach ($data['select_golongan'] as $key => $value): ?>
-                <option value="<?php echo $value->id_golongan ?>"><?php echo $value->nama_golongan ?></option>
-              <?php endforeach ?>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Level User</label>
-            <select class="form-control" name="level_user">
-              <option value="" selected disabled>Choose</option>
-              <option value="1">Admin</option>
-              <option value="2">Kepala Bidang</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Is Active</label>
-            <select class="form-control" name="is_active">
-              <option value="" selected disabled>Choose</option>
-              <option value="1">Aktif</option>
-              <option value="0">Tidak Aktif</option>
-            </select>
-          </div>
+
 
           <button type="submit" class="btn btn-primary">Submit</button>
           <button type="reset" class="btn btn-secondary" onclick="form_reset();">Reset</button>

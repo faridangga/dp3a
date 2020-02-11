@@ -77,7 +77,7 @@
     var year = $('#year').val();
     var lokasi = $('#lokasi').val();
     if(lokasi == 0) {
-      lokasi = "Semua Lokasi"
+      lokasi = "Semua Lokasi";
     }
     var table_url = $('#table-data').data('url');
     table = $('#table-data').DataTable({
@@ -204,7 +204,6 @@
       e.preventDefault();
       var formData = new FormData(this);    
       var url = $(this).attr('action');
-
       $.ajax({
         url: url,
         type: 'POST',

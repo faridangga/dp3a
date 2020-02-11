@@ -14,16 +14,8 @@ class Report_model extends CI_Model {
 
 	public function get_report_layanan($start = null, $end = null)
 	{
-		$this->db->select('pengaduan.*, kecamatan.nama_kecamatan,
-			SUM(CASE WHEN nama_layanan ="Pengaduan" THEN 1 ELSE 0 END) Pengaduan
-			, SUM(CASE WHEN nama_layanan ="Kesehatan" THEN 1 ELSE 0 END) Kesehatan
-			, SUM(CASE WHEN nama_layanan ="Bantuan Hukum" THEN 1 ELSE 0 END) Bantuan_Hukum
-			, SUM(CASE WHEN nama_layanan ="Penegakan Hukum" THEN 1 ELSE 0 END) Penegakan_Hukum
-			, SUM(CASE WHEN nama_layanan ="Rehabilitasi Sosial" THEN 1 ELSE 0 END) Rehabilitasi_Sosial
-			, SUM(CASE WHEN nama_layanan ="Reintegrasi Sosial" THEN 1 ELSE 0 END) Reintegrasi_Sosial
-			, SUM(CASE WHEN nama_layanan ="Pemulangan" THEN 1 ELSE 0 END) Pemulangan
-			, SUM(CASE WHEN nama_layanan ="Pendampingan Tokoh Agama" THEN 1 ELSE 0 END) Pendampingan_Tokoh_Agama
-			, SUM(CASE WHEN nama_layanan ="Pengaduan" THEN 1 ELSE 0 END)
+		$this->db->select('pengaduan.*, layanan.nama_layanan as nama_layanan1,
+			SUM(CASE WHEN nama_layanan ="Pengaduan" THEN 1 ELSE 0 END)
 			+ SUM(CASE WHEN nama_layanan ="Kesehatan" THEN 1 ELSE 0 END)
 			+ SUM(CASE WHEN nama_layanan ="Bantuan Hukum" THEN 1 ELSE 0 END)
 			+ SUM(CASE WHEN nama_layanan ="Penegakan Hukum" THEN 1 ELSE 0 END)
@@ -34,11 +26,11 @@ class Report_model extends CI_Model {
 		// $this->db->select('pengaduan.*, kecamatan.nama_kecamatan');
 		$this->db->from('pengaduan');
 		$this->db->join('layanan', 'pengaduan.layanan = layanan.id_layanan','left');
-		$this->db->join('kecamatan', 'pengaduan.kecamatan = kecamatan.id_kecamatan', 'left');
 
 		$this->db->where('pengaduan.status !=', 5);
-		$this->db->group_by('kecamatan.nama_kecamatan');
-		$this->db->order_by('kecamatan.nama_kecamatan','asc');
+		$this->db->where('pengaduan.layanan !=', 0);
+		$this->db->group_by('layanan');
+		$this->db->order_by('layanan','asc');
 		if ($start != null && $end != null) {
 			$this->db->where('waktu_lapor BETWEEN "'. date('Y-m-d', strtotime($start)). '" and "'. date('Y-m-d', strtotime($end)).'"');
 		}
@@ -49,7 +41,7 @@ class Report_model extends CI_Model {
 
 	public function get_report_bar_layanan($start = null, $end = null)
 	{
-		$this->db->select('concat(kecamatan.nama_kecamatan) as date,
+		$this->db->select('concat(layanan.nama_layanan) as date,
 			SUM(CASE WHEN nama_layanan ="Pengaduan" THEN 1 ELSE 0 END)
 			+ SUM(CASE WHEN nama_layanan ="Kesehatan" THEN 1 ELSE 0 END)
 			+ SUM(CASE WHEN nama_layanan ="Bantuan Hukum" THEN 1 ELSE 0 END)
@@ -62,9 +54,12 @@ class Report_model extends CI_Model {
 		$this->db->join('layanan', 'pengaduan.layanan = layanan.id_layanan','left');
 		$this->db->join('kecamatan', 'pengaduan.kecamatan = kecamatan.id_kecamatan', 'left');
 
+		$this->db->where('pengaduan.status !=', 5);
+		$this->db->where('pengaduan.layanan !=', 0);
 		if ($start != null && $end != null) {
 			$this->db->where('waktu_lapor BETWEEN "'. date('Y-m-d', strtotime($start)). '" and "'. date('Y-m-d', strtotime($end)).'"');
 		}
+		
 		
 		$this->db->group_by('kecamatan');
 		$result = $this->db->get()->result_array();
@@ -148,6 +143,7 @@ class Report_model extends CI_Model {
 		$this->db->select("concat(kecamatan.nama_kecamatan) as date, COUNT(waktu_lapor) Jumlah");
 		$this->db->from('pengaduan');
 		$this->db->join('kecamatan', 'pengaduan.kecamatan = kecamatan.id_kecamatan', 'left');
+		$this->db->where('pengaduan.status !=', 5);
 
 		if ($start != null && $end != null) {
 			$this->db->where('waktu_lapor BETWEEN "'. date('Y-m-d', strtotime($start)). '" and "'. date('Y-m-d', strtotime($end)).'"');

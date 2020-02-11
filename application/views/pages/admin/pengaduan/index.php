@@ -44,11 +44,42 @@
           <div class="row">
             <div class="col-6">
               <fieldset class="border p-2">
-                <legend  class="w-auto">Data Korban</legend>
+                <legend  class="w-auto">Data Pelapor</legend>
                 <div class="form-group">
                   <label>Nama</label>
                   <input type="text" class="form-control" name="nama" placeholder="" readonly>
                 </div>
+                <div class="form-group">
+                  <label>No. Telp</label>
+                  <input type="text" class="form-control" name="nomor_telp" placeholder="" readonly>
+                </div>
+                <div class="form-group">
+                  <label>Alamat</label>
+                  <textarea class="form-control" name="alamat" rows="2" readonly></textarea>
+                </div>
+              </fieldset>           
+            </div>
+            <div class="col-6">
+              <fieldset class="border p-2">
+                <legend  class="w-auto">Data Pengaduan</legend>
+                <div class="form-group">
+                  <label>Kategori</label>
+                  <input type="text" class="form-control" name="id_kategori" placeholder="" readonly>
+                </div>
+                <div class="form-group">
+                  <label>Kronologi</label>
+                  <textarea class="form-control" name="isi_laporan" rows="2" readonly></textarea>
+                </div>
+                <div class="form-group">
+                  <label>Waktu Laporan</label>
+                  <input type="text" class="form-control" name="waktu_lapor" placeholder="" readonly>
+                </div>
+              </fieldset>           
+            </div>
+
+            <div class="col-6">
+              <fieldset class="border p-2">
+                <legend  class="w-auto">Data Korban</legend>
                 <div class="form-group">
                   <label>Jenis Kelamin</label>
                   <input type="text" class="form-control" name="jenis_kelamin" placeholder="" readonly>
@@ -69,30 +100,10 @@
                   <label>Dusun</label>
                   <input type="text" class="form-control" name="dusun" placeholder="" readonly>
                 </div>
-                <div class="form-group">
-                  <label>No telp</label>
-                  <input type="text" class="form-control" name="nomor_telp" placeholder="" readonly>
-                </div>
               </fieldset>
             </div>
-            <div class="col-6">
-              <fieldset class="border p-2">
-                <legend  class="w-auto">Data Pengaduan</legend>
-                <div class="form-group">
-                  <label>Kategori</label>
-                  <input type="text" class="form-control" name="id_kategori" placeholder="" readonly>
-                </div>
-                <div class="form-group">
-                  <label>Kronologi</label>
-                  <textarea class="form-control" name="isi_laporan" rows="2" readonly></textarea>
-                </div>
-                <div class="form-group">
-                  <label>Waktu Laporan</label>
-                  <input type="text" class="form-control" name="waktu_lapor" placeholder="" readonly>
-                </div>
-              </fieldset>           
-            </div>
-            <div class="col-6 mt-2">      
+
+            <div class="col-6 mt-2">
               <div class="form-group">
                 <label>Status</label>
                 <select name="status" id="" class="form-control">
@@ -102,8 +113,6 @@
                   <?php endforeach ?>
                 </select>
               </div>
-            </div>
-            <div class="col-6 mt-2">
               <div class="form-group">
                 <label>Layanan yang diberikan</label>
                 <select name="layanan" id="" class="form-control">
@@ -129,11 +138,7 @@
 </div>
 
 <!-- End Bootstrap modal -->
-<div id="users" style="display: none;">
-  <?php foreach ($data['select_users'] as $key => $value): ?>
-    <option value="<?php echo $value->id_user ?>"><?php echo $value->nama ?></option>
-  <?php endforeach ?>
-</div>
+
 
 <script>
   var url_fill_form = '<?php echo base_url($cname.'/get_data_by_id') ?>';
@@ -165,7 +170,7 @@
       },
       { 
         "title" : "Nama user",
-        "data": "nama_kecamatan" 
+        "data": "nama" 
       },
       { 
         "title" : "Kategori",
@@ -189,6 +194,7 @@
       },
       { 
         "title" : "Status",
+        "class" : "th-sticky-status",
         data : (data, type, row, meta) => {
           ret = "";
           if(data.id_status == '0'){
@@ -213,8 +219,7 @@
       },
       {
         "title": "Actions",
-        "width" : "120px",
-        "visible":true,
+        "width" : "1px",
         "class": "text-center th-sticky-action",
         "data": (data, type, row) => {
           let ret = "";
@@ -280,7 +285,6 @@
       success: function(data)
       {
        $('[name="id_pengaduan"]').val(data.id_pengaduan);
-       $('[name="id_user"]').val(data.nama);
        // $('[name="jenis_kelamin"]').val(data.jenis_kelamin);
        $('[name="nama"]').val(data.nama);
        $('[name="usia"]').val(data.usia);

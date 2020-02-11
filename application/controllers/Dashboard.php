@@ -44,6 +44,8 @@ class Dashboard extends CI_Controller {
 
 	public function get_table_pengaduan()
 	{
+		$id_kategori = ($this->input->post('id_kategori') != '0' ? $this->input->post('id_kategori') : null);
+		$waktu_lapor = ($this->input->post('waktu_lapor') != '0' ? $this->input->post('waktu_lapor') : null);
 		$data['data'] = $this->Dashboard_model->get_table_pengaduan();
 		echo json_encode($data);
 	}
