@@ -23,21 +23,7 @@ class Dashboard_model extends CI_Model {
 		return $query->result();
 	}
 
-	public function get_table_pengaduan()
-	{
-		$this->db->select('id_kategori,
-			SUM(CASE WHEN status ="1" THEN 1 ELSE 0 END) jumlah_direspon
-			, SUM(CASE WHEN status ="0" THEN 1 ELSE 0 END) jumlah_blm_direspon');
-		$this->db->from('pengaduan');
-		$this->db->where('pengaduan.status !=', 5);
-		// $this->db->where('id_kategori =', 1);
-		// $this->db->where('year(waktu_lapor) =', 2020);
-		$this->db->group_by('id_kategori');
-		$query = $this->db->get();
-		return $query->result();
-	}
-
-	public function get_table_pengaduan2($id_kategori, $waktu_lapor)
+	public function get_table_pengaduan($id_kategori, $waktu_lapor)
 	{
 		$this->db->select('id_kategori,
 			SUM(CASE WHEN status ="1" THEN 1 ELSE 0 END) jumlah_direspon
@@ -50,6 +36,8 @@ class Dashboard_model extends CI_Model {
 		$query = $this->db->get();
 		return $query->result();
 	}
+
+	
 }
 
 /* End of file Dashboard_model.php */
