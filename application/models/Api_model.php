@@ -119,6 +119,7 @@ class Api_model extends CI_Model {
 						->from("posts")
 						->join('kategori_post','posts.category_id = kategori_post.id_kategori')
 						->where('kategori_post.id_kategori', $type)
+						->where('posts.status',1)
 						->order_by('created_at','DESC')
 						->limit($count)
 						->get();
