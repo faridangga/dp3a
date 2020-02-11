@@ -19,7 +19,7 @@ body{
    <h3>Jika Anda Lupa Akan Kata Sandi Anda, Maka ikuti petunjuk dibawah ini:</h3>
    <ul><li><b>Hubungi Admin</b>
    <ol>
-   <li>Kirim permintaan ubah password kepada admin DP3A via WhatsApp dengan nomor 081313060661 dengan format: "Lupa(spasi)Password(spasi)(nomor telepon yang telah anda daftarkan sebelumnya)"</li>
+   <li>Kirim permintaan ubah password kepada admin DP3A via WhatsApp dengan nomor <b>081313060661</b> dengan format: "Lupa(spasi)Password(spasi)(nomor telepon yang telah anda daftarkan sebelumnya)"</li>
    <li>contoh: Lupa Password 0812345xxxx</li>
    <li>Admin akan memeriksa apakah nomor tersebut terdaftar di aplikasi, jika Iya maka admin akan mereset password anda dan akan mengirimkan password anda melalui nomor tersebut</li>
    <li>Setelah menerima password, Anda bisa menggunakannya di aplikasi</li>
