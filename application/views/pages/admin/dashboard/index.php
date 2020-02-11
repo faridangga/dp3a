@@ -234,7 +234,6 @@
       type: 'POST',
       data: formData,
       success: function (data) {
-        alert(url)
         var json = $.parseJSON(data);
         reload_table(json.data);
       },
