@@ -23,15 +23,27 @@ class Dashboard_model extends CI_Model {
 		return $query->result();
 	}
 
-	public function get_table_pengaduan($id_kategori, $waktu_lapor)
+	public function get_table_pengaduan($id_kategori, $tahun)
 	{
 		$this->db->select('id_kategori,
 			SUM(CASE WHEN status ="1" THEN 1 ELSE 0 END) jumlah_direspon
 			, SUM(CASE WHEN status ="0" THEN 1 ELSE 0 END) jumlah_blm_direspon');
 		$this->db->from('pengaduan');
 		$this->db->where('pengaduan.status !=', 5);
-		$this->db->where('id_kategori',$id_kategori);
-		$this->db->where('year(waktu_lapor)',$waktu_lapor);
+		// if ($id_kategori != null && $tahun != null) {
+		// 	$this->db->where('id_kategori',$id_kategori);
+		// 	$this->db->where('year(waktu_lapor)',$tahun);
+		// }elseif ($id_kategori != null) {
+		// 	$this->db->where('id_kategori',$id_kategori);
+		// }elseif ($tahun != null) {
+		// 	$this->db->where('year(waktu_lapor)',$tahun);
+		// }
+		if($id_kategori != null){
+			$this->db->where('id_kategori',$id_kategori);
+		}
+		if($tahun != null){
+			$this->db->where('year(waktu_lapor)',$tahun);
+		}
 		$this->db->group_by('id_kategori');
 		$query = $this->db->get();
 		return $query->result();
