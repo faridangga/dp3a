@@ -30,14 +30,6 @@ class Dashboard_model extends CI_Model {
 			, SUM(CASE WHEN status ="0" THEN 1 ELSE 0 END) jumlah_blm_direspon');
 		$this->db->from('pengaduan');
 		$this->db->where('pengaduan.status !=', 5);
-		// if ($id_kategori != null && $tahun != null) {
-		// 	$this->db->where('id_kategori',$id_kategori);
-		// 	$this->db->where('year(waktu_lapor)',$tahun);
-		// }elseif ($id_kategori != null) {
-		// 	$this->db->where('id_kategori',$id_kategori);
-		// }elseif ($tahun != null) {
-		// 	$this->db->where('year(waktu_lapor)',$tahun);
-		// }
 		if($id_kategori != null){
 			$this->db->where('id_kategori',$id_kategori);
 		}
