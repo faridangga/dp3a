@@ -87,6 +87,7 @@ class Api_model extends CI_Model {
 						->join("status_pengaduan","pengaduan.status = status_pengaduan.id_status")
 						->order_by("waktu_lapor","DESC")
 						->where("id_user",$id)
+						->where("pengaduan.status !=",5)
 						->get();
 		return $sql;
 	}
