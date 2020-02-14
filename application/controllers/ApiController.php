@@ -158,6 +158,7 @@ class ApiController extends CI_Controller
 		//$this->pusher("history");
 		$id_user = $this->uri->segment(3);
 		$sql = $this->Api_model->getHistPengaduan($id_user);
+		$datas = array();
 			if($sql->num_rows() > 0){
 				foreach($sql->result() as $history){
 					$datas[] = array(
@@ -178,7 +179,7 @@ class ApiController extends CI_Controller
 			}
 			else
 			{
-				$arr = array('status' => "1",'message' => 'Tidak ada riwayat pengaduan','total' => 0, 'data' => 0);
+				$arr = array('status' => "1",'message' => 'Tidak ada riwayat pengaduan','total' => 0, 'data' => $datas);
 			}
 			echo json_encode($arr);
 	}
