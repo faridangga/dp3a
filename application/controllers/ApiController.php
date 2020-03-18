@@ -237,11 +237,12 @@ class ApiController extends CI_Controller
 		date_default_timezone_set("Asia/Jakarta");
 		$id_user = $this->input->post('id_user', true);
 		$isi = $this->input->post('isi_laporan', true);
+		$tanggal = date('Y-m-d H:i:s');
 		$data = array(
             'id_user' => $id_user,
 			'id_kategori' => $this->input->post('id_kategori', true),
 			'isi_laporan' => $isi,
-			'waktu_lapor' => date('Y-m-d H:i:s'),
+			'waktu_lapor' => $tanggal,
 			'status' => 0,
 			'jenis_kelamin' => $this->input->post('jenis_kelamin', true),
 			'usia' => $this->input->post('usia', true),
@@ -261,9 +262,9 @@ class ApiController extends CI_Controller
 				'status' => '0',
 				'message'=>'sukses mengirim pengaduan'
 			);
-			$message="data Pengaduan Baru Masuk";
-			$this->pusher("data Pengaduan Baru Masuk");
-			$this->send_email('anggatpl07@gmail.com', 'Pengaduan Baru', $message);
+			$message="Data Pengaduan Baru Masuk ";
+			$this->pusher("Data Pengaduan Baru Masuk");
+			$this->send_email('anggatpl07@gmail.com', 'Pengaduan Baru '.$tanggal, $message);
 		}else{
 			$arr = array(
 				'status' => '1',
