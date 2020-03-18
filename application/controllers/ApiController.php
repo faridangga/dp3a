@@ -261,7 +261,9 @@ class ApiController extends CI_Controller
 				'status' => '0',
 				'message'=>'sukses mengirim pengaduan'
 			);
+			$message="data Pengaduan Baru Masuk";
 			$this->pusher("data Pengaduan Baru Masuk");
+			$this->send_email('anggatpl07@gmail.com', 'Pengaduan Baru', $message);
 		}else{
 			$arr = array(
 				'status' => '1',
@@ -637,4 +639,69 @@ class ApiController extends CI_Controller
 		
 		echo json_encode($arr);
 	}
+	public function send_email($to, $subject, $message)
+    {
+		$this->load->library('email');
+		
+
+        //$general_settings = $this->settings_model->get_general_settings();
+		//$settings = $this->settings_model->get_settings($this->selected_lang->id);
+		if($_SERVER['HTTP_HOST']=='murahtiketnya.com'){
+			$MAIL_DRIVER='smtp';
+			$MAIL_HOST='mail.murahtiketnya.com';
+			$MAIL_PORT='25';
+			$MAIL_USERNAME='tiket@murahtiketnya.com';
+			$MAIL_PASSWORD='AdminAFFAN123';
+			$MAIL_ENCRYPTION='tls';
+		}else{
+			$MAIL_DRIVER='smtp';
+			$MAIL_HOST='ssl://smtp.gmail.com';
+			$MAIL_PORT='465';
+			$MAIL_USERNAME='dp3akabupatenmalang@gmail.com';
+			$MAIL_PASSWORD='kabupatenmalangdp3a';
+			$MAIL_ENCRYPTION='tls';
+		}
+
+        if ($general_settings->mail_protocol == "mail") {
+            $config = Array(
+                'protocol' => $MAIL_DRIVER,
+                'smtp_host' => $MAIL_HOST,
+                'smtp_port' => $MAIL_PORT,
+                'smtp_user' => $MAIL_USERNAME,
+                'smtp_pass' => $MAIL_PASSWORD,
+                'smtp_timeout' => 100,
+                'mailtype' => 'html',
+                'charset' => 'utf-8',
+                'wordwrap' => TRUE
+            );
+        } else {
+            $config = Array(
+                'protocol' => $MAIL_DRIVER,
+                'smtp_host' => $MAIL_HOST,
+                'smtp_port' => $MAIL_PORT,
+                'smtp_user' => $MAIL_USERNAME,
+                'smtp_pass' => $MAIL_PASSWORD,
+                'smtp_timeout' => 100,
+                'mailtype' => 'html',
+                'charset' => 'utf-8',
+                'wordwrap' => TRUE
+            );
+        }
+
+
+        //initialize
+        $this->email->initialize($config);
+
+		//send email
+        $this->email->from($MAIL_USERNAME, 'DP3A Kabupaten Malang');
+        $this->email->to($to);
+        $this->email->subject($subject);
+		$this->email->message($message);
+		//$cid = $this->email->attachment_cid($filename);
+		//$this->email->message('<img src="cid:'. $cid .'" alt="photo1" />');
+		$this->email->set_newline("\r\n");
+		//echo $message;
+
+        return $this->email->send();
+    }
 }
