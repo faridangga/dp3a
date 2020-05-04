@@ -98,6 +98,7 @@ $route['api/info/(:any)'] = 'ApiController/info';
 
 //Api Login Parameter Body : email & password | method POST 
 $route['apiapp/login'] = 'ApiApps/postLogin';
+$route['apiapp'] = 'ApiApps/index';
 //Api Regsiter
 $route['apiapp/register'] = 'ApiApps/register';
 //Cek OTP
