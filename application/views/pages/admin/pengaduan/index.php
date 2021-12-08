@@ -55,7 +55,7 @@
                 </div>
                 <div class="form-group">
                   <label>Alamat</label>
-                  <textarea class="form-control" name="alamat" rows="2" readonly></textarea>
+                  <textarea style="margin-top: 0px;margin-bottom: 0px;height: 150px;" class="form-control" name="alamat" rows="2" readonly></textarea>
                 </div>
               </fieldset>           
             </div>
@@ -68,7 +68,7 @@
                 </div>
                 <div class="form-group">
                   <label>Kronologi</label>
-                  <textarea class="form-control" name="isi_laporan" rows="2" readonly></textarea>
+                  <textarea style="margin-top: 0px;margin-bottom: 0px;height: 200px;" class="form-control" name="isi_laporan" rows="2" readonly></textarea>
                 </div>
                 <div class="form-group">
                   <label>Waktu Laporan</label>
@@ -152,7 +152,25 @@
     table = $('#table-data').DataTable({
       orderCellsTop : true,
       responsive : true,
-      dom: "<'row'<'col-6'l><'col-6'f>>rtip'",
+      dom: "'B<'row'<'col-6'l><'col-6'f>>rtip'",
+      buttons: [
+      {
+        extend: 'excelHtml5',
+        className : 'mb-2',
+        title : 'Data Pengaduan',
+      },
+      {
+        extend: 'pdfHtml5',
+        className : 'mb-2',
+        title: 'Data Pengaduan',
+        customize: function(doc) {
+          doc.styles.title = {
+            alignment: 'center',
+            fontSize: '15',
+          }
+        }
+      },
+      ],
       scrollY: true,
       scrollX: true,
       "ajax": {
@@ -177,7 +195,7 @@
         "data": "nama_kategori" 
       },
       { 
-        "title" : "Isi Laporan",
+        "title" : "Kronologi",
         "data": "isi_laporan" 
       },
       { 
