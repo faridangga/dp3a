@@ -328,6 +328,64 @@ class ApiController extends CI_Controller
 		echo json_encode($arr);
 
 	}
+	public function postPengaduan2(){
+		$arr = array();
+		date_default_timezone_set("Asia/Jakarta");
+		$id_user = $this->input->post('id_user', true);
+		$isi = $this->input->post('isi_laporan', true);
+		$tanggal = date('Y-m-d H:i:s');
+		$data = array(
+            'id_user' => $id_user,
+			'id_kategori' => $this->input->post('id_kategori', true),
+			'isi_laporan' => $isi,
+			'waktu_lapor' => $tanggal,
+			'status' => 0,
+			'nik' => $this->input->post('nik', true),
+			'jenis_kelamin' => $this->input->post('jenis_kelamin', true),
+			'usia' => $this->input->post('usia', true),
+			'tempat_lahir' => $this->input->post('tempat_lahir', true),
+			'tanggal_lahir' => $this->input->post('tanggal_lahir', true),
+			'kecamatan' => $this->input->post('kecamatan', true),
+			'desa' => $this->input->post('desa', true),
+			'dusun' => $this->input->post('dusun', true),
+			'nama_pelapor' => $this->input->post('nama_pelapor', true),
+			'jk_pelapor' => $this->input->post('jk_pelapor', true),
+			'telepon_pelapor' => $this->input->post('telepon_pelapor', true),
+			'alamat_pelapor' => $this->input->post('alamat_pelapor', true),
+			'hubungan_pelapor' => $this->input->post('hubungan_pelapor', true),
+			'nama_pelaku' => $this->input->post('nama_pelaku', true),
+			'jk_pelaku' => $this->input->post('jk_pelaku', true),
+			'telepon_pelaku' => $this->input->post('telepon_pelaku', true),
+			'alamat_pelaku' => $this->input->post('alamat_pelaku', true),
+			'hubungan_pelaku' => $this->input->post('hubungan_pelaku', true),
+			'lat' => $this->input->post('lat', true),
+			'long' => $this->input->post('long', true)		
+		);
+		if($id_user!=null && $isi!=null){
+		$pengaduan = $this->Api_model->insPengaduan($data);
+	
+		//print_r($data);
+		//$pengaduan;
+		if($pengaduan!=false){
+			$arr = array(
+				'status' => '0',
+				'message'=>'sukses mengirim pengaduan'
+			);
+		}else{
+			$arr = array(
+				'status' => '1',
+                'message'=>'gagal mengirim pengaduan'
+			);
+		}
+	}else{
+		$arr = array(
+			'status' => '1',
+			'message'=>'gagal mengirim pengaduan'
+		);
+	}	
+		echo json_encode($arr);
+
+	}
 	public function feed()
 	{
 		$arr = array();
