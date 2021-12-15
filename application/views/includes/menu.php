@@ -46,6 +46,20 @@
             </p>
           </a>
         </li>
+        <li class="nav-item">
+          <a href="<?php echo base_url('Admin/Kategori_Laporan') ?>" class="nav-link">
+            <p>
+              Kategori
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="<?php echo base_url('Admin/Layanan') ?>" class="nav-link">
+            <p>
+              Layanan
+            </p>
+          </a>
+        </li>
       </ul>
     </li>
     <li class="nav-item">
@@ -102,12 +116,19 @@
             </p>
           </a>
         </li>
+        <li class="nav-item">
+          <a href="<?php echo base_url('Admin/Report/pengaduan') ?>" class="nav-link">
+            <p>
+              Report Pengaduan
+            </p>
+          </a>
+        </li>
       </ul>
     </li>
   </ul>
   <script>
     var url = window.location;
-    $('[href*="'+url+'"]').addClass('active');
+    $('[href*="' + url + '"]').addClass('active');
   </script>
 
 </nav>

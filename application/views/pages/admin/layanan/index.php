@@ -3,11 +3,11 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-body">
-          <?php echo form_open($cname . '/insert', ['id' => 'form-kategori-laporan']); ?>
-          <input type="hidden" class="form-control" name="id_kategori" placeholder="">
+          <?php echo form_open($cname . '/insert', ['id' => 'form-layanan']); ?>
+          <input type="hidden" class="form-control" name="id_layanan" placeholder="">
           <div class="form-group">
-            <label>Nama Kategori Laporan</label>
-            <input type="text" class="form-control" name="nama_kategori" placeholder="">
+            <label>Nama Layanan</label>
+            <input type="text" class="form-control" name="nama_layanan" placeholder="">
           </div>
           <div class="form-group">
             <label>Status</label>
@@ -73,8 +73,8 @@
           }
         },
         {
-          "title": "Nama kategori",
-          "data": "nama_kategori"
+          "title": "Nama layanan",
+          "data": "nama_layanan"
         },
         {
           "title": "Status",
@@ -98,8 +98,8 @@
           "class": "text-center",
           "data": (data, type, row) => {
             let ret = "";
-            ret += ' <a class="btn btn-info btn-sm text-white" onclick="fill_form(' + data.id_kategori + '); return false;"><i class="fas fa-pencil-alt"></i> Edit</a>';
-            ret += ' <a class="btn btn-danger btn-sm text-white" onclick="delete_kategori(this)" data-id="' + data.id_kategori + '"><i class="fas fa-trash-alt"></i> Delete</a>';
+            ret += ' <a class="btn btn-info btn-sm text-white" onclick="fill_form(' + data.id_layanan + '); return false;"><i class="fas fa-pencil-alt"></i> Edit</a>';
+            ret += ' <a class="btn btn-danger btn-sm text-white" onclick="delete_layanan(this)" data-id="' + data.id_layanan + '"><i class="fas fa-trash-alt"></i> Delete</a>';
 
             return ret;
           }
@@ -107,7 +107,7 @@
       ]
     });
 
-    $('form#form-kategori-laporan').submit(function(e) {
+    $('form#form-layanan').submit(function(e) {
       var form = $(this);
       e.preventDefault();
 
@@ -121,8 +121,8 @@
             $('.is-invalid').removeClass('is-invalid');
             $('.invalid-feedback').remove();
             Object.keys(data.field).forEach(function(key) {
-              $('#form-kategori-laporan').find('[name="' + key + '"]').parent().find('input,select').addClass('is-invalid');
-              $('#form-kategori-laporan').find('[name="' + key + '"]').parent().append('<div class="invalid-feedback">' + data.field[key] + '</div>');
+              $('#form-layanan').find('[name="' + key + '"]').parent().find('input,select').addClass('is-invalid');
+              $('#form-layanan').find('[name="' + key + '"]').parent().append('<div class="invalid-feedback">' + data.field[key] + '</div>');
             })
           } else {
             form_reset();
@@ -134,26 +134,26 @@
   });
 
 
-  var fill_form = (id_kategori) => {
+  var fill_form = (id_layanan) => {
     $.ajax({
       url: url_fill_form,
       type: 'POST',
       data: {
-        'id_kategori': id_kategori
+        'id_layanan': id_layanan
       },
       success: function(data) {
         var json = $.parseJSON(data);
-        let form = $('#form-kategori-laporan');
+        let form = $('#form-layanan');
         form_reset();
-        form.find('[name="id_kategori"]').val(json.id_kategori);
-        form.find('[name="nama_kategori"]').val(json.nama_kategori);
+        form.find('[name="id_layanan"]').val(json.id_layanan);
+        form.find('[name="nama_layanan"]').val(json.nama_layanan);
         form.find('[name="status"]').val(json.status);
         scroll_smooth('body', 500);
       },
     });
   }
 
-  var delete_kategori = (obj) => {
+  var delete_layanan = (obj) => {
     swal({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -163,10 +163,10 @@
     }).then((willDelete) => {
       if (willDelete) {
         $.ajax({
-          url: base_cname + "/delete_kategori",
+          url: base_cname + "/delete_layanan",
           type: 'POST',
           data: {
-            id_kategori: $(obj).data('id'),
+            id_layanan: $(obj).data('id'),
           },
           dataType: "JSON",
           success: (data) => {
@@ -181,7 +181,7 @@
 
   var form_reset = () => {
     table.ajax.reload(null, false);
-    $('form#form-kategori-laporan').find('input,select').val('');
+    $('form#form-layanan').find('input,select').val('');
     $('.is-invalid').removeClass('is-invalid');
     $('.invalid-feedback').remove();
   }

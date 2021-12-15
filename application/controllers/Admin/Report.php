@@ -1,15 +1,32 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Report extends CI_Controller {
+class Report extends CI_Controller
+{
 
 	// var $cname = "Admin/Report";
 
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model(['Pengaduan_model','Report_model']);
+		$this->load->model(['Pengaduan_model', 'Report_model']);
+	}
 
+	public function pengaduan()
+	{
+		$data = [
+			'title' => "Rekap Pengaduan",
+			'cname' => "Admin/Pengaduan",
+			'pages' => "admin/report/pengaduan",
+			'count_pengaduan' => $this->Pengaduan_model->count_pengaduan(),
+			'data' => array(),
+		];
+		$data['data'] = $this->Pengaduan_model->get_data_report();
+		$data['data']['select_lokasi'] = $this->Pengaduan_model->get_lokasi();
+		$this->load->view('layouts/dashboard', $data);
+		if ($this->session->userdata('isLogin') == FALSE) {
+			redirect('login', 'refresh');
+		}
 	}
 
 	public function laporan_kekerasan()
@@ -23,9 +40,9 @@ class Report extends CI_Controller {
 		];
 		$data['data'] = $this->Pengaduan_model->get_data_report();
 		$data['data']['select_lokasi'] = $this->Pengaduan_model->get_lokasi();
-		$this->load->view('layouts/dashboard',$data);
+		$this->load->view('layouts/dashboard', $data);
 		if ($this->session->userdata('isLogin') == FALSE) {
-			redirect('login','refresh');
+			redirect('login', 'refresh');
 		}
 	}
 
@@ -47,9 +64,9 @@ class Report extends CI_Controller {
 			'data' => array(),
 		];
 		// $data['data'] = $this->Pengaduan_model->get_data();
-		$this->load->view('layouts/dashboard',$data);
+		$this->load->view('layouts/dashboard', $data);
 		if ($this->session->userdata('isLogin') == FALSE) {
-			redirect('login','refresh');
+			redirect('login', 'refresh');
 		}
 	}
 
@@ -78,9 +95,9 @@ class Report extends CI_Controller {
 			'count_pengaduan' => $this->Pengaduan_model->count_pengaduan(),
 			'data' => array(),
 		];
-		$this->load->view('layouts/dashboard',$data);
+		$this->load->view('layouts/dashboard', $data);
 		if ($this->session->userdata('isLogin') == FALSE) {
-			redirect('login','refresh');
+			redirect('login', 'refresh');
 		}
 	}
 

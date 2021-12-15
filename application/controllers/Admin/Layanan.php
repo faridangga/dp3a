@@ -1,23 +1,23 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Jabatan extends CI_Controller
+class Layanan extends CI_Controller
 {
 
-	var $cname = "Admin/Jabatan";
+	var $cname = "Admin/Layanan";
 
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->model(['Jabatan_model', 'Pengaduan_model']);
+		$this->load->model(['Layanan_model', 'Pengaduan_model']);
 	}
 
 	public function index()
 	{
 		$data = [
-			'title' => "Jabatan",
+			'title' => "Layanan",
 			'cname' => $this->cname,
-			'pages' => "admin/jabatan/index",
+			'pages' => "admin/layanan/index",
 			'count_pengaduan' => $this->Pengaduan_model->count_pengaduan(),
 			'data' => array(),
 		];
@@ -29,34 +29,34 @@ class Jabatan extends CI_Controller
 
 	public function get_data()
 	{
-		$data['data'] = $this->Jabatan_model->get_data();
+		$data['data'] = $this->Layanan_model->get_data();
 		echo json_encode($data);
 	}
 
 	public function get_data_by_id()
 	{
-		$id = $this->input->post('id_jabatan');
-		$data = $this->Jabatan_model->get_data_by_id($id);
+		$id = $this->input->post('id_layanan');
+		$data = $this->Layanan_model->get_data_by_id($id);
 		echo json_encode($data);
 	}
 
 	public function insert()
 	{
-		$this->form_validation->set_rules('nama_jabatan', 'Nama Jabatan', 'trim|required');
+		$this->form_validation->set_rules('nama_layanan', 'Nama Layanan', 'trim|required');
 		$this->form_validation->set_rules('status', 'Status', 'trim|required');
 		$this->form_validation->set_message('required', "{field} harus diisi");
 		$this->form_validation->set_error_delimiters('', '');
 
 		if ($this->form_validation->run() == TRUE) {
-			$id = $this->input->post('id_jabatan');
+			$id = $this->input->post('id_layanan');
 
 			$data = [
-				'nama_jabatan' => $this->input->post('nama_jabatan'),
+				'nama_layanan' => $this->input->post('nama_layanan'),
 				'status' => $this->input->post('status'),
 			];
 
 			if ($id == "") {
-				$insert = $this->Jabatan_model->insert($data);
+				$insert = $this->Layanan_model->insert($data);
 				if ($insert) {
 					$ret = [
 						'title' => "Insert",
@@ -71,7 +71,7 @@ class Jabatan extends CI_Controller
 					];
 				}
 			} else {
-				$update = $this->Jabatan_model->update($id, $data);
+				$update = $this->Layanan_model->update($id, $data);
 				if ($update) {
 					$ret = [
 						'title' => "Update",
@@ -98,12 +98,12 @@ class Jabatan extends CI_Controller
 		echo json_encode($ret);
 	}
 
-	public function delete_jabatan()
+	public function delete_layanan()
 	{
-		$id = $this->input->post('id_jabatan');
+		$id = $this->input->post('id_layanan');
 
 		if ($id != "") {
-			$delete = $this->Jabatan_model->delete($id);
+			$delete = $this->Layanan_model->delete($id);
 			if ($delete) {
 				$ret = [
 					'text' => "Delete success",
@@ -128,5 +128,5 @@ class Jabatan extends CI_Controller
 	}
 }
 
-/* End of file Jabatan.php */
-/* Location: ./application/controllers/Admin/Jabatan.php */
+/* End of file Layanan.php */
+/* Location: ./application/controllers/Admin/Layanan.php */
