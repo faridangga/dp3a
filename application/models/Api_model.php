@@ -7,6 +7,31 @@ class Api_model extends CI_Model {
 		$this->load->model('Auth_model');
 		$this->load->library('bcrypt');
 	}
+	public function wa_cekUser($nomor){
+	    $this->db->where('nomor_user', $nomor);
+        $query = $this->db->get('m_user');
+        return $query;
+	}
+	public function wa_insertUser($data){
+		if ($this->db->insert('m_user', $data)) {
+            return true;
+        } else {
+            return false;
+        }
+	}
+	public function wa_updateUser($id,$data)
+	{
+		$sql = $this->db->where('nomor_user', $id)
+							->update('m_user',$data);
+		if($sql)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 	public function LoginCheck($nomor,$password)
 	{
 		$this->db->where('nomor_telp', $nomor);

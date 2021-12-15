@@ -11,6 +11,128 @@ class ApiApps extends CI_Controller
 		$this->load->model('Api_model');
 		$this->load->library('bcrypt');
 	}
+	public function index(){
+    	    /**
+     * all data POST sent from https://console.wablas.com
+     * you must create URL what can receive POST data
+     * we will sent data like this: 
+     * id = message ID - string
+     * phone = sender phone - string
+     * message = content of message - text (optional)
+     * pushName = Sender Name like contact name - string (optional)
+     * groupId = Group ID if message from group - string (optional)
+     * groupSubject = Group Name - string (optional)
+     * timestamp = time send message - integer
+     * image = name of the image file when receiving image message (optional)
+     * file = name of the file file when receiving document/video message (optional)
+     * url = URL of image/document/video (optional)
+     */
+     $nomor = $this->input->post('phone', true);
+     $message = $this->input->post('message', true);
+     $nama_pengirim = $this->input->post('pushName', true);
+     $data = $this->wa_cekUser($nomor);
+     $stage = $data['stage'];
+        if($stage == '1') {
+        if($message=='1'){
+            echo "Pilih Barang yang kamu inginkan\n";
+            for($i=0;$i<10;$i++){
+                $no = $i+1;
+                $stok = $no+2;
+                echo "*".$no.". Barang ".$no."* ( Stok:".$stok.")\n";
+            }
+            echo "\n*0. Menu Utama*";
+            $this->wa_updateUser($nomor, 12);
+        }else{
+            echo $this->message($nama_pengirim, $nomor);
+        }
+        }else if($stage == '12') {
+            if($message==0){
+               echo $this->message($nama_pengirim, $nomor);
+            }else if($message>0 && $message<=10){
+                $qty = $message+2;
+                $this->wa_sendMessage($nomor);
+                echo "*Nama:Barang:* ".$message."
+*Stok:* ".$qty."
+*detail*:http://nadirahijab.com/produk/detail/FARZANA%20MOM
+\n*00. Beli* \n*0. Menu Utama*";
+                    $this->wa_updateUser($nomor, 123);
+            }
+        } else if($stage == '123'){
+             if($message==='0'){
+               echo $this->message($nama_pengirim, $nomor);
+            }else if($message==='00'){
+                echo "*Pembelian berhasil, terima kasih Telah berbelanja di Toko Online Kami*\n\n";
+                echo $this->message($nama_pengirim, $nomor);
+            }
+        } 
+        else {
+            echo $this->message($nama_pengirim, $nomor);
+        }
+	}
+	public function message($pengirim, $nomor){
+	    $this->wa_updateUser($nomor, 1);
+	    $message = "Halo ".$pengirim.", Selamat datang di Toko Online Kami.\n\nSilahkan ketik / pilih nomor dibawah ini untuk melanjutkan\n
+*1. Lihat Barang Tersedia*
+*2. Lihat Barang By Kategori*
+*3. Metode Pembayaran*
+*4. Bantuan*";
+return $message;
+	}
+	public function wa_cekUser($nomor){
+	    $sql = $this->Api_model->wa_cekUser($nomor);
+	    if($sql->num_rows() > 0){
+	        $data = array(
+					'nomor' => $sql->row()->nomor_user,
+					'stage' => $sql->row()->stage,
+					'is_active'=>$sql->row()->is_active
+				);
+	    }else{
+	        $data = array(
+					'nomor_user' => $nomor,
+					'stage' => 1,
+					'is_active'=>1
+				);
+	        $this->Api_model->wa_insertUser($data);
+	    }
+	    return $data;
+	}
+	public function wa_updateUser($nomor, $stage){
+	    $data = array('stage'=>$stage);
+	    $sql = $this->Api_model->wa_updateUser($nomor, $data);
+	    return $sql;
+	}
+	public function wa_sendMessage($phone){
+		$curl = curl_init();
+		$token = "mldtsD8CZd88PtnpL9P6vVtx9mTuC7a4jzoRHqEojFgHY1jxV3wY4J1BxIvQ2Qyn";//affan 081211006904
+		//$token = "sD11fUdqrKG1AIMFBaPX05cwdcdPGZMBSmDxzfiH9yzfzOhPENc0m8sKRZiaztbG"; //tri 0895395101130
+
+		curl_setopt($curl, CURLOPT_HTTPHEADER,
+			array(
+				"Authorization: $token",
+			)
+		);
+		$message = 
+"|------|
+|           |
+|Image |
+|           |
+|------|
+";
+		$data = [
+			'phone' => $phone,
+			'message' => $message,
+		];
+
+		curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($data));
+		curl_setopt($curl, CURLOPT_URL, "https://console.wablas.com/api/send-message");
+		curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+		$result = curl_exec($curl);
+		curl_close($curl);
+		return $result;
+	}
 	public function format_tanggal($date){
 		$date = date_create($date);
 		$dates = date_format($date, 'M j, Y');
