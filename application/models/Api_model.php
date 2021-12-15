@@ -116,6 +116,16 @@ class Api_model extends CI_Model {
 						->get();
 		return $sql;
 	}
+	public function getHistLayanan($id){
+		$sql = $this->db->select("hl.id_history, layanan.nama_layanan, hl.tanggal, hl.keterangan")
+						->from("history_layanan as hl")
+						->join("pengaduan","hl.id_pengaduan = pengaduan.id_pengaduan")
+						->join("layanan","hl.id_layanan = layanan.id_layanan")
+						->order_by("hl.tanggal","DESC")
+						->where("hl.id_pengaduan",$id)
+						->get();
+		return $sql;
+	}
 	public function postUpdateProfile($id,$update)
 	{
 		$sql = $this->db->where('id_user',$id)

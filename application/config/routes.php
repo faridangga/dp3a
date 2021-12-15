@@ -84,6 +84,7 @@ $route['api/profile/dinas']= 'ApiController/profilDinas';
 $route['api/pengaduan'] = 'ApiController/postPengaduan';
 $route['api/master/(:any)'] = 'ApiController/masterData';
 $route['api/history/(:any)'] = 'ApiController/history';
+$route['api/history-layanan/(:any)'] = 'ApiController/history_layanan';
 //API Profile Update Access Header Parameter : token & userid | Type Parameter URI (3) editorPick / latest / popular , URI (4) ID POST | Method GET
 $route['api/posts/(:any)/(:num)'] = 'ApiController/feed';
 //API Profile Update Access Header Parameter : token & userid | Type Parameter URI (3) ID POST | Method GET

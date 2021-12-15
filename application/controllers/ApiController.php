@@ -9,12 +9,31 @@ class ApiController extends CI_Controller
 		$this->load->library('form_validation');
 		$this->load->model('Api_model');
 		$this->load->library('bcrypt');
+		date_default_timezone_set('Asia/Jakarta');
 		//$this->load->library('pusher');
 	}
 	public function format_tanggal($date){
-		$date = date_create($date);
-		$dates = date_format($date, 'M j, Y');
-		return $dates;
+		$bulan = array (
+			1 =>   'Januari',
+			'Februari',
+			'Maret',
+			'April',
+			'Mei',
+			'Juni',
+			'Juli',
+			'Agustus',
+			'September',
+			'Oktober',
+			'November',
+			'Desember'
+		);
+		$pecahkan = explode('-', $date);
+		
+		// variabel pecahkan 0 = tanggal
+		// variabel pecahkan 1 = bulan
+		// variabel pecahkan 2 = tahun
+	 
+		return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
 	}
 	public function registrasi()
 	{
@@ -180,6 +199,35 @@ class ApiController extends CI_Controller
 			else
 			{
 				$arr = array('status' => "1",'message' => 'Tidak ada riwayat pengaduan','total' => 0, 'data' => $datas);
+			}
+			echo json_encode($arr);
+	}
+	public function history_layanan()
+	{
+		//$this->pusher("history");
+		$id_user = $this->uri->segment(3);
+		$sql = $this->Api_model->getHistLayanan($id_user);
+		$datas = array();
+			if($sql->num_rows() > 0){
+				foreach($sql->result() as $history){
+					$datas[] = array(
+						'id_history'=>$history->id_history,
+						'layanan'=>$history->nama_layanan,
+						'tanggal'=>$this->format_tanggal($history->tanggal),
+						'keterangan'=>$history->keterangan
+					);
+				}
+				$arr = array(
+						'status' => "0",
+						'message' => "sukses",
+						'push'=>$data,
+						'total' => $sql->num_rows(),
+						'data' => $datas
+				);
+			}
+			else
+			{
+				$arr = array('status' => "1",'message' => 'Tidak ada riwayat layanan','total' => 0, 'data' => $datas);
 			}
 			echo json_encode($arr);
 	}
