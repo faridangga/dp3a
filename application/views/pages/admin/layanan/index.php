@@ -10,7 +10,7 @@
             <input type="text" class="form-control" name="nama_layanan" placeholder="">
           </div>
           <div class="form-group">
-            <label>Status</label>
+            <label>Status cek</label>
             <select class="form-control" name="status">
               <option value="" selected disabled>Choose</option>
               <option value="1">Aktif</option>
