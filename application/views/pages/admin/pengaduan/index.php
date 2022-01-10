@@ -143,139 +143,20 @@ date_default_timezone_set('Asia/Jakarta');
               <div id="dynamic_field">
                 <div class="form-group">
                   <label>Jenis</label>
-                  <select name="layanan" id="" class="form-control">
-                    <option value="" selected disabled>Pilih</option>
+                  <select name="id_layanan1" id="" class="form-control">
+                    <option value="" selected>Pilih</option>
                     <?php foreach ($data['select_layanan'] as $key => $value) : ?>
                       <option value="<?php echo $value->id_layanan ?>"><?php echo $value->nama_layanan ?></option>
                     <?php endforeach ?>
                   </select>
                   <label>Keterangan</label>
-                  <textarea class="form-control"></textarea>
+                  <textarea class="form-control" name="keterangan_history1"></textarea>
                   <label>Waktu</label>
                   <!-- <input type="date" class="form-control" value="<?= date("Y-m-d"); ?>" placeholder="" readonly> -->
                   <input type="text" class="form-control" value="<?= date("Y-m-d H:i:s"); ?>" placeholder="" readonly>
 
                 </div>
               </div>
-            </div>
-            <div class="col-6">
-              <!-- <fieldset class="border p-2">
-                <legend class="w-auto">Data Pelapor</legend>
-                <div class="form-group">
-                  <label>Nama</label>
-                  <input type="text" class="form-control" name="nama" placeholder="" readonly>
-                </div>
-                <div class="form-group">
-                  <label>No. Telp</label>
-                  <input type="text" class="form-control" name="nomor_telp" placeholder="" readonly>
-                </div>
-                <div class="form-group">
-                  <label>Alamat</label>
-                  <textarea style="margin-top: 0px;margin-bottom: 0px;height: 150px;" class="form-control" name="alamat" rows="2" readonly></textarea>
-                </div>
-              </fieldset> -->
-            </div>
-            <div class="col-6">
-              <!-- <fieldset class="border p-2">
-                <legend class="w-auto">Data Akun Pelapor</legend>
-                <div class="form-group">
-                  <label>Nama</label>
-                  <input type="text" class="form-control" name="nama_akun" placeholder="" readonly>
-                </div>
-                <div class="form-group">
-                  <label>No. Telp</label>
-                  <input type="text" class="form-control" name="nomor_telp_akun" placeholder="" readonly>
-                </div>
-                <div class="form-group">
-                  <label>Alamat</label>
-                  <textarea style="margin-top: 0px;margin-bottom: 0px;height: 150px;" class="form-control" name="alamat_akun" rows="2" readonly></textarea>
-                </div>
-              </fieldset> -->
-            </div>
-            <div class="col-6">
-              <!-- <fieldset class="border p-2">
-                <legend class="w-auto">Data Pengaduan</legend>
-                <div class="form-group">
-                  <label>Kategori</label>
-                  <input type="text" class="form-control" name="id_kategori" placeholder="" readonly>
-                </div>
-                <div class="form-group">
-                  <label>Kronologi</label>
-                  <textarea style="margin-top: 0px;margin-bottom: 0px;height: 200px;" class="form-control" name="isi_laporan" rows="2" readonly></textarea>
-                </div>
-                <div class="form-group">
-                  <label>Waktu Laporan</label>
-                  <input type="text" class="form-control" name="waktu_lapor" placeholder="" readonly>
-                </div>
-              </fieldset> -->
-            </div>
-
-            <div class="col-6">
-              <!-- <fieldset class="border p-2">
-                <legend class="w-auto">Data Korban</legend>
-                <div class="form-group">
-                  <label>NIK</label>
-                  <input type="text" class="form-control" name="nik" placeholder="" readonly>
-                </div>
-                <div class="form-group">
-                  <label>Jenis Kelamin</label>
-                  <input type="text" class="form-control" name="jenis_kelamin" placeholder="" readonly>
-                </div>
-                <div class="form-group">
-                  <label>Tanggal Lahir</label>
-                  <input type="date" class="form-control" name="tgllahir" value="1997-03-11" placeholder="" readonly>
-                </div>
-                <div class="form-group">
-                  <label>Usia</label>
-                  <input type="text" class="form-control" name="usia" placeholder="" readonly>
-                </div>
-                <div class="form-group">
-                  <label>Kecamatan</label>
-                  <input type="text" class="form-control" name="kecamatan" placeholder="" readonly>
-                </div>
-                <div class="form-group">
-                  <label>Desa</label>
-                  <input type="text" class="form-control" name="desa" placeholder="" readonly>
-                </div>
-                <div class="form-group">
-                  <label>Dusun</label>
-                  <input type="text" class="form-control" name="dusun" placeholder="" readonly>
-                </div>
-              </fieldset> -->
-            </div>
-
-            <div class="col-6 mt-2">
-              <!-- <div class="form-group">
-                <label>Status</label>
-                <select name="status" id="" class="form-control">
-                  <option value="" selected disabled>Pilih</option>
-                  <?php foreach ($data['select_status_pengaduan'] as $key => $value) : ?>
-                    <option value="<?php echo $value->id_status ?>"><?php echo $value->nama_status ?></option>
-                  <?php endforeach ?>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Layanan yang diberikan</label>
-                <button type="button" name="add" id="add" class="btn btn-success">Tambah Layanan yang diberikan</button>
-              </div>
-              <div id="dynamic_field">
-                <div class="form-group">
-                  <label>Jenis</label>
-                  <select name="layanan" id="" class="form-control">
-                    <option value="" selected disabled>Pilih</option>
-                    <?php foreach ($data['select_layanan'] as $key => $value) : ?>
-                      <option value="<?php echo $value->id_layanan ?>"><?php echo $value->nama_layanan ?></option>
-                    <?php endforeach ?>
-                  </select>
-                  <label>Keterangan</label>
-                  <textarea class="form-control"></textarea>
-                  <label>Waktu</label>
-                  <input type="date" class="form-control" value="<?= date("Y-m-d"); ?>" placeholder="" readonly>
-
-                </div>
-              </div> -->
-
-
             </div>
           </div>
 
@@ -308,7 +189,7 @@ date_default_timezone_set('Asia/Jakarta');
     var i = 1;
     $('#add').click(function() {
       i++;
-      $('#dynamic_field').append('<div class="form-group" id="row' + i + '"><label>Jenis</label><select name="layanan" id="" class="form-control"><option value="" selected disabled>Pilih</option><?php foreach ($data['select_layanan'] as $key => $value) : ?><option value="<?php echo $value->id_layanan ?>"><?php echo $value->nama_layanan ?></option><?php endforeach ?></select><label>Keterangan</label><textarea class="form-control"></textarea><label>Waktu</label><input type="text" class="form-control" value="<?= date("Y-m-d H:i:s"); ?>" placeholder="" readonly><label>Hapus</label></br><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">X</button></div></br>');
+      $('#dynamic_field').append('<div class="form-group" id="row' + i + '"><label>Jenis</label><select name="id_layanan' + i + '" id="" class="form-control"><option value="" selected disabled>Pilih</option><?php foreach ($data['select_layanan'] as $key => $value) : ?><option value="<?php echo $value->id_layanan ?>"><?php echo $value->nama_layanan ?></option><?php endforeach ?></select><label>Keterangan</label><textarea class="form-control" name="keterangan_history' + i + '"></textarea><label>Waktu</label><input type="text" class="form-control" value="<?= date("Y-m-d H:i:s"); ?>" placeholder="" readonly><label>Hapus</label></br><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">X</button></div></br>');
     });
     $(document).on('click', '.btn_remove', function() {
       var button_id = $(this).attr("id");

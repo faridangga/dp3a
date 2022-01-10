@@ -1,15 +1,15 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Pengaduan extends CI_Controller {
+class Pengaduan extends CI_Controller
+{
 
 	var $cname = "Admin/Pengaduan";
 
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model(['Pengaduan_model','Users_model','Kategori_Laporan_model']);
-
+		$this->load->model(['Pengaduan_model', 'Users_model', 'Kategori_Laporan_model']);
 	}
 
 	public function index()
@@ -23,9 +23,9 @@ class Pengaduan extends CI_Controller {
 		];
 		$data['data']['select_layanan'] = $this->Pengaduan_model->get_layanan();
 		$data['data']['select_status_pengaduan'] = $this->Pengaduan_model->get_status_pengaduan();
-		$this->load->view('layouts/dashboard',$data);
+		$this->load->view('layouts/dashboard', $data);
 		if ($this->session->userdata('isLogin') == FALSE) {
-			redirect('login','refresh');
+			redirect('login', 'refresh');
 		}
 	}
 
@@ -39,7 +39,7 @@ class Pengaduan extends CI_Controller {
 	{
 		$kecamatan = ($this->input->post('nama_kecamatan') != '0' ? $this->input->post('nama_kecamatan') : null);
 		$year = $this->input->post('year');
-		$data['data'] = $this->Pengaduan_model->get_data_report($kecamatan,$year);
+		$data['data'] = $this->Pengaduan_model->get_data_report($kecamatan, $year);
 		echo json_encode($data);
 	}
 
@@ -61,28 +61,28 @@ class Pengaduan extends CI_Controller {
 
 		if ($id == "") {
 			$insert = $this->Pengaduan_model->insert($data);
-			if($insert){
+			if ($insert) {
 				$ret = [
 					'title' => "Insert",
 					'text' => "Insert success",
 					'icon' => "success",
 				];
-			}else{
+			} else {
 				$ret = [
 					'title' => "Insert",
 					'text' => "Insert failed",
 					'icon' => "warning",
 				];
-			}   
-		}else {
+			}
+		} else {
 			$update = $this->Pengaduan_model->update($id, $data);
-			if($update){
+			if ($update) {
 				$ret = [
 					'title' => "Update",
 					'text' => "Update success",
 					'icon' => "success",
 				];
-			}else{
+			} else {
 				$ret = [
 					'title' => "Update",
 					'text' => "Update failed",
@@ -95,24 +95,23 @@ class Pengaduan extends CI_Controller {
 
 	public function delete_pengaduan()
 	{
-		$id = $this->input->post('id_pengaduan'); 
+		$id = $this->input->post('id_pengaduan');
 
 		if ($id != "") {
 			$delete = $this->Pengaduan_model->delete($id);
-			if($delete){
+			if ($delete) {
 				$ret = [
 					'title' => "Delete",
 					'text' => "Delete success",
 					'icon' => "success",
 				];
-			}else{
+			} else {
 				$ret = [
 					'title' => "Delete",
 					'text' => "Delete failed",
 					'icon' => "warning",
 				];
 			}
-			
 		} else {
 			$ret = [
 				'title' => "Delete",
@@ -121,7 +120,6 @@ class Pengaduan extends CI_Controller {
 			];
 		}
 		echo json_encode($ret);
-
 	}
 
 	public function edit_pengaduan($id)
@@ -140,13 +138,13 @@ class Pengaduan extends CI_Controller {
 		];
 
 		$update = $this->Pengaduan_model->update($id, $data);
-		if($update){
+		if ($update) {
 			$ret = [
 				'title' => "Update",
 				'text' => "Update success",
 				'icon' => "success",
 			];
-		}else{
+		} else {
 			$ret = [
 				'title' => "Update",
 				'text' => "Update failed",
@@ -161,7 +159,6 @@ class Pengaduan extends CI_Controller {
 		$data['data'] = $this->Pengaduan_model->count_pengaduan();
 		echo json_encode($data);
 	}
-
 }
 
 /* End of file Pengaduan.php */
