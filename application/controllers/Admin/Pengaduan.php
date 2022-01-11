@@ -9,7 +9,7 @@ class Pengaduan extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model(['Pengaduan_model', 'Users_model', 'Kategori_Laporan_model']);
+		$this->load->model(['Pengaduan_model', 'Users_model', 'Kategori_Laporan_model', 'History_layanan_model']);
 	}
 
 	public function index()
@@ -136,6 +136,24 @@ class Pengaduan extends CI_Controller
 			'status' => $this->input->post('status'),
 			'layanan' => $this->input->post('layanan'),
 		];
+
+		$id_pengaduan = $this->input->post('id_pengaduan');
+		$id_layanan = $this->input->post('id_layanan');
+		$keterangan_history = $this->input->post('keterangan_history');
+		$waktu = date("Y-m-d");
+		$datas = array();
+
+		$index = 0; // Set index array awal dengan 0    
+		foreach ($id_layanan as $d) { // Kita buat perulangan berdasarkan nis sampai data terakhir      
+			array_push($datas, array(
+				'id_pengaduan' => $id_pengaduan,
+				'id_layanan' => $d,
+				'tanggal' => $waktu,
+				'keterangan' => $keterangan_history[$index],
+			));
+			$index++;
+		}
+		$sql = $this->History_layanan_model->save_batch($datas);
 
 		$update = $this->Pengaduan_model->update($id, $data);
 		if ($update) {

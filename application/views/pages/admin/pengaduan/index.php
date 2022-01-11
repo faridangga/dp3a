@@ -143,14 +143,14 @@ date_default_timezone_set('Asia/Jakarta');
               <div id="dynamic_field">
                 <div class="form-group">
                   <label>Jenis</label>
-                  <select name="id_layanan1" id="" class="form-control">
+                  <select name="id_layanan[]" id="" class="form-control">
                     <option value="" selected>Pilih</option>
                     <?php foreach ($data['select_layanan'] as $key => $value) : ?>
                       <option value="<?php echo $value->id_layanan ?>"><?php echo $value->nama_layanan ?></option>
                     <?php endforeach ?>
                   </select>
                   <label>Keterangan</label>
-                  <textarea class="form-control" name="keterangan_history1"></textarea>
+                  <textarea class="form-control" name="keterangan_history[]"></textarea>
                   <label>Waktu</label>
                   <!-- <input type="date" class="form-control" value="<?= date("Y-m-d"); ?>" placeholder="" readonly> -->
                   <input type="text" class="form-control" value="<?= date("Y-m-d H:i:s"); ?>" placeholder="" readonly>
@@ -189,7 +189,7 @@ date_default_timezone_set('Asia/Jakarta');
     var i = 1;
     $('#add').click(function() {
       i++;
-      $('#dynamic_field').append('<div class="form-group" id="row' + i + '"><label>Jenis</label><select name="id_layanan' + i + '" id="" class="form-control"><option value="" selected disabled>Pilih</option><?php foreach ($data['select_layanan'] as $key => $value) : ?><option value="<?php echo $value->id_layanan ?>"><?php echo $value->nama_layanan ?></option><?php endforeach ?></select><label>Keterangan</label><textarea class="form-control" name="keterangan_history' + i + '"></textarea><label>Waktu</label><input type="text" class="form-control" value="<?= date("Y-m-d H:i:s"); ?>" placeholder="" readonly><label>Hapus</label></br><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">X</button></div></br>');
+      $('#dynamic_field').append('<div class="form-group" id="row' + i + '"><label>Jenis</label><select name="id_layanan[]" id="" class="form-control"><option value="" selected disabled>Pilih</option><?php foreach ($data['select_layanan'] as $key => $value) : ?><option value="<?php echo $value->id_layanan ?>"><?php echo $value->nama_layanan ?></option><?php endforeach ?></select><label>Keterangan</label><textarea class="form-control" name="keterangan_history[]"></textarea><label>Hapus</label></br><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">X</button></div></br>');
     });
     $(document).on('click', '.btn_remove', function() {
       var button_id = $(this).attr("id");

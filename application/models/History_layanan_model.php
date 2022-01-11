@@ -17,9 +17,9 @@ class History_layanan_model extends CI_Model
         return $query->result();
     }
 
-    public function insert($data)
+    public function save_batch($data)
     {
-        $insert = $this->db->insert($this->table, $data);
+        $insert = $this->db->insert_batch($this->table, $data);
         return $insert;
     }
 
