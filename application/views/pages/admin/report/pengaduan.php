@@ -1,5 +1,41 @@
 <div class="container-fluid">
     <div class="row">
+        <div class="col-md-5 mb-4">
+            <?php echo form_open('Admin/Report/get_report_layanan', ['id' => 'form-filter']) ?>
+            <div class="form-group row mb-1 filter-input">
+                <label for="" class="control-label col-form-label col-md-2 ml-1">Tahun</label>
+                <div class="col-md-7">
+                    <select name="caritahun" id="caritahun" class="form-control">
+                        <?php
+                        for ($i = 2016; $i <= date('Y'); $i++) {
+                            if ($i == date('Y')) {
+                        ?>
+                                <option value="<?= $i ?>" selected><?= $i ?></option>
+                            <?php
+                            } else {
+                            ?>
+                                <option value="<?= $i ?>"><?= $i ?></option>
+                            <?php
+                            }
+                            ?>
+                        <?php
+                        }
+                        ?>
+
+                    </select>
+
+                </div>
+                <div class="col-md-1">
+                    <button type="submit" class="btn btn-primary filter-input" id="laporan-layanan-submit">Submit</button>
+                </div>
+            </div>
+            <?php echo form_close(); ?>
+        </div>
+
+
+
+    </div>
+    <div class="row">
         <?php
         $bulan = array("Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember");
 
@@ -50,39 +86,6 @@
          * -------
          * Here we will create a few charts using ChartJS
          */
-
-
-        //-------------
-        //- DONUT CHART -
-        //-------------
-        // Get context with jQuery - using jQuery's .get() method.
-        // var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
-        // var donutData = {
-        //     labels: [
-        //         'Chrome',
-        //         'IE',
-        //         'FireFox',
-        //         'Safari',
-        //         'Opera',
-        //         'Navigator',
-        //     ],
-        //     datasets: [{
-        //         data: [700, 500, 400, 600, 300, 100],
-        //         backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
-        //     }]
-        // }
-        // var donutOptions = {
-        //     maintainAspectRatio: false,
-        //     responsive: true,
-        // }
-        // //Create pie or douhnut chart
-        // // You can switch between pie and douhnut using the method below.
-        // new Chart(donutChartCanvas, {
-        //     type: 'doughnut',
-        //     data: donutData,
-        //     options: donutOptions
-        // })
-
         //-------------
         //- PIE CHART -
         //-------------

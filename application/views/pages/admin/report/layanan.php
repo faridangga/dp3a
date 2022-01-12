@@ -1,7 +1,7 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-5 mb-4">
-			<?php echo form_open('Admin/Report/get_report_layanan',['id' => 'form-filter']) ?>
+			<?php echo form_open('Admin/Report/get_report_layanan', ['id' => 'form-filter']) ?>
 			<div class="form-group row mb-1 filter-input">
 				<label for="" class="control-label col-form-label col-md-2 ml-1">Tanggal</label>
 				<div class="col-md-7">
@@ -62,65 +62,63 @@
 <script>
 	var table = "";
 	var base_cname = "<?php echo base_url($cname) ?>";
-	$(document).ready(function(){
+	$(document).ready(function() {
 		var start_date = $('.start').val();
 		var end_date = $('.end').val();
 		var table_url = $('#table-data').data('url');
 		table = $('#table-data').DataTable({
-			responsive : true,
+			responsive: true,
 			dom: "'B<'row'<'col-6'l><'col-6'f>>rtip'",
-			buttons: [
-			{
-				extend: 'excelHtml5',
-				className : 'mb-2',
-				title : 'Report Layanan Pada Tanggal ' + '\n' + start_date + ' - ' + end_date,
-			},
-			{
-				extend: 'pdfHtml5',
-				orientation: 'landscape',
-				className : 'mb-2',
-				title: 'Report Layanan Pada Tanggal ' + '\n' + start_date + ' - ' + end_date,
-				customize: function(doc) {
-					doc.styles.title = {
-						alignment: 'center'
+			buttons: [{
+					extend: 'excelHtml5',
+					className: 'mb-2',
+					title: 'Report Layanan Pada Tanggal ' + '\n' + start_date + ' - ' + end_date,
+				},
+				{
+					extend: 'pdfHtml5',
+					orientation: 'landscape',
+					className: 'mb-2',
+					title: 'Report Layanan Pada Tanggal ' + '\n' + start_date + ' - ' + end_date,
+					customize: function(doc) {
+						doc.styles.title = {
+							alignment: 'center'
+						}
 					}
-				}
-			},
+				},
 			],
 			"ajax": {
 				'url': table_url,
 			},
-			"columns": [
-			{
-				"title" : "No",
-				"width" : "15px",
-				"data": null,
-				"class": "text-center",
-				render: (data, type, row, meta) => {
-					return meta.row + meta.settings._iDisplayStart + 1;
-				}
-			},
-			{ 
-				"title" : "Layanan",
-				"data": "nama_layanan1",
-			},
-			{ 
-				"title" : "Total",
-				"data": "Total",
-				"class": "text-center",
-			},
+			"columns": [{
+					"title": "No",
+					"width": "15px",
+					"data": null,
+					"class": "text-center",
+					render: (data, type, row, meta) => {
+						return meta.row + meta.settings._iDisplayStart + 1;
+					}
+				},
+				{
+					"title": "Layanan",
+					"data": "nama_layanan1",
+				},
+				{
+					"title": "Total",
+					"data": "Total",
+					"class": "text-center",
+				},
 			]
 		});
 
 		$("form#form-filter").submit(function(e) {
 			e.preventDefault();
-			var formData = new FormData(this);    
+			var formData = new FormData(this);
 			var url = $(this).attr('action');
 			$.ajax({
-				url : url,
+				url: url,
 				type: 'POST',
 				data: formData,
-				success: function (data) {
+				success: function(data) {
 					var json = $.parseJSON(data);
 					reload_table(json.data);
 				},
@@ -131,32 +129,35 @@
 		});
 
 		$('#laporan-layanan-submit').click();
-		$( "#laporan-layanan-submit" ).click(function() {
+		$("#laporan-layanan-submit").click(function() {
 			draw_chart($(this).val());
 		});
 
 		$('#datepicker').datepicker({
-			todayHighlight:'TRUE',
+			todayHighlight: 'TRUE',
 			autoclose: true,
 		});
 
-	});  
+	});
 
 	var reload_table = (data) => {
 		table.clear();
 		table.rows.add(data);
 		table.draw();
-	} 	
+	}
 
 	var draw_chart = () => {
 		var start = $('.start').val();
 		var end = $('.end').val();
 
 		$.ajax({
-			url: base_cname+"/get_report_bar_layanan",
+			url: base_cname + "/get_report_bar_layanan",
 			type: 'POST',
-			data: {start:start,end:end},
-			success: function (data) {
+			data: {
+				start: start,
+				end: end
+			},
+			success: function(data) {
 				var json = $.parseJSON(data);
 				var ctx = document.getElementById('bar_layanan').getContext('2d');
 
@@ -167,14 +168,14 @@
 						backgroundColor: json.backgroundColor[key],
 						borderColor: json.borderColor[key],
 						data: json.data[key],
-						borderWidth : 1,
+						borderWidth: 1,
 					});
 				})
 
 				var optionBar = {
 					title: {
 						display: true,
-						text: ['Grafik Layanan Berdasarkan Layanan Pada Tanggal', start + ' - ' + end ],
+						text: ['Grafik Layanan Berdasarkan Layanan Pada Tanggal', start + ' - ' + end],
 						fontSize: 14,
 						lineHeight: 2,
 					},
@@ -184,8 +185,7 @@
 					},
 					responsive: true,
 					scales: {
-						xAxes: [{
-						}],
+						xAxes: [{}],
 						yAxes: [{
 							ticks: {
 								beginAtZero: true,
@@ -200,8 +200,8 @@
 					datasets: datasets,
 				};
 
-				if(window.chart1 != undefined){
-					window.chart1.destroy(); 
+				if (window.chart1 != undefined) {
+					window.chart1.destroy();
 				}
 
 				window.chart1 = new Chart(ctx, {
@@ -215,6 +215,4 @@
 			}
 		});
 	}
-
-
 </script>
