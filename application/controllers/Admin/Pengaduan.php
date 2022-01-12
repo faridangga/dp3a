@@ -29,6 +29,12 @@ class Pengaduan extends CI_Controller
 		}
 	}
 
+	public function get_data_history($id_pengaduan)
+	{
+		$data = $this->History_layanan_model->get_data($id_pengaduan);
+		echo json_encode($data);
+	}
+
 	public function get_data()
 	{
 		$data['data'] = $this->Pengaduan_model->get_data();

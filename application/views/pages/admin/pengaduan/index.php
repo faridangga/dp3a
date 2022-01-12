@@ -138,6 +138,18 @@ date_default_timezone_set('Asia/Jakarta');
               </div>
               <div class="form-group">
                 <label>Layanan yang diberikan</label>
+                <table class="table table-striped" id="historylayanan">
+                  <thead>
+                    <tr>
+                      <th>Layanan</th>
+                      <th>Keterangan</th>
+                      <th>Tanggal</th>
+                    </tr>
+                  </thead>
+                  <tbody id="show_historylayanan">
+
+                  </tbody>
+                </table>
                 <button type="button" name="add" id="add" class="btn btn-success">Tambah Layanan yang diberikan</button>
               </div>
               <div id="dynamic_field">
@@ -151,9 +163,6 @@ date_default_timezone_set('Asia/Jakarta');
                   </select>
                   <label>Keterangan</label>
                   <textarea class="form-control" name="keterangan_history[]"></textarea>
-                  <label>Waktu</label>
-                  <!-- <input type="date" class="form-control" value="<?= date("Y-m-d"); ?>" placeholder="" readonly> -->
-                  <input type="text" class="form-control" value="<?= date("Y-m-d H:i:s"); ?>" placeholder="" readonly>
 
                 </div>
               </div>
@@ -180,6 +189,7 @@ date_default_timezone_set('Asia/Jakarta');
   var url_insert_pengaduan = '<?php echo base_url($cname . '/insert') ?>';
   var url_update_pengaduan = '<?php echo base_url($cname . '/update') ?>';
   var url_edit_pengaduan = '<?php echo base_url($cname . '/edit_pengaduan') ?>';
+  var url_history_layanan = '<?php echo base_url($cname . '/get_data_history') ?>';
   var base_cname = "<?php echo base_url($cname) ?>";
   var table = "";
 
@@ -376,7 +386,30 @@ date_default_timezone_set('Asia/Jakarta');
         alert('Error get data from ajax');
       }
     });
+
+    //menampilkan history layanan
+    $.ajax({
+      type: 'ajax',
+      url: url_history_layanan + "/" + id_pengaduan,
+      //url: url_history_layanan,
+      async: false,
+      dataType: 'json',
+      success: function(data) {
+        var html = '';
+        var i;
+        for (i = 0; i < data.length; i++) {
+          html += '<tr>' +
+            '<td>' + data[i].nama_layanan + '</td>' +
+            '<td>' + data[i].keterangan + '</td>' +
+            '<td>' + data[i].tanggal + '</td>' +
+            '</tr>';
+        }
+        $('#show_historylayanan').html(html);
+      }
+
+    });
   }
+
 
   var form_reset = () => {
     table.ajax.reload(null, false);

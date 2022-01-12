@@ -10,7 +10,7 @@ class History_layanan_model extends CI_Model
     {
         $this->db->select('*');
         $this->db->from($this->table);
-        $this->db->join('layanan', 'history_layanan.id_layanan = layanan.id_layanan', 'left');
+        $this->db->join('layanan', 'history_layanan.id_layanan = layanan.id_layanan');
         $this->db->where('history_layanan.id_pengaduan', $id_pengaduan);
         $this->db->order_by('id_history', 'asc');
         $query = $this->db->get();
