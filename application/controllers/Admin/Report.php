@@ -24,6 +24,8 @@ class Report extends CI_Controller
 		$data['data'] = $this->Pengaduan_model->get_data_report();
 		$data['data']['select_lokasi'] = $this->Pengaduan_model->get_lokasi();
 		$this->load->view('layouts/dashboard', $data);
+		//$coba = $this->Pengaduan_model->get_pie_pengaduan(2021, 1);
+		//var_dump($coba);
 		if ($this->session->userdata('isLogin') == FALSE) {
 			redirect('login', 'refresh');
 		}

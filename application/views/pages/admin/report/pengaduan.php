@@ -1,21 +1,37 @@
+<?php
+$this->load->model('Pengaduan_model');
+$get_tahun = $this->input->post('caritahun');
+?>
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-5 mb-4">
-            <?php echo form_open('Admin/Report/get_report_layanan', ['id' => 'form-filter']) ?>
+            <?php echo form_open('Admin/Report/pengaduan') ?>
             <div class="form-group row mb-1 filter-input">
                 <label for="" class="control-label col-form-label col-md-2 ml-1">Tahun</label>
                 <div class="col-md-7">
                     <select name="caritahun" id="caritahun" class="form-control">
                         <?php
                         for ($i = 2016; $i <= date('Y'); $i++) {
-                            if ($i == date('Y')) {
+                            if ($get_tahun != '') {
+                                if ($i == $get_tahun) {
                         ?>
-                                <option value="<?= $i ?>" selected><?= $i ?></option>
-                            <?php
+                                    <option value="<?= $i ?>" selected><?= $i ?></option>
+                                <?php
+                                } else {
+                                ?>
+                                    <option value="<?= $i ?>"><?= $i ?></option>
+                                <?php
+                                }
                             } else {
-                            ?>
-                                <option value="<?= $i ?>"><?= $i ?></option>
+                                if ($i == date('Y')) {
+                                ?>
+                                    <option value="<?= $i ?>" selected><?= $i ?></option>
+                                <?php
+                                } else {
+                                ?>
+                                    <option value="<?= $i ?>"><?= $i ?></option>
                             <?php
+                                }
                             }
                             ?>
                         <?php
@@ -91,7 +107,9 @@
         //-------------
         // Get context with jQuery - using jQuery's .get() method.
         <?php
+
         for ($x = 1; $x <= 12; $x++) {
+            $pie = $this->Pengaduan_model->get_pie_pengaduan($get_tahun, $x);
         ?>
             var pieChartCanvas = $('#pieChart<?= $x; ?>').get(0).getContext('2d')
             var pieData = {
@@ -104,7 +122,19 @@
                     'Lainnya',
                 ],
                 datasets: [{
-                    data: [Math.floor(Math.random() * 20), Math.floor(Math.random() * 20), Math.floor(Math.random() * 20), Math.floor(Math.random() * 20), Math.floor(Math.random() * 20), Math.floor(Math.random() * 20)],
+                    data: [<?php foreach ($pie as $d) : echo ($d->id_kategori == 1) ? $d->jml : '';
+                            endforeach; ?>,
+                        <?php foreach ($pie as $d) : echo ($d->id_kategori == 2) ? $d->jml : '';
+                        endforeach; ?>,
+                        <?php foreach ($pie as $d) : echo ($d->id_kategori == 3) ? $d->jml : '';
+                        endforeach; ?>,
+                        <?php foreach ($pie as $d) : echo ($d->id_kategori == 4) ? $d->jml : '';
+                        endforeach; ?>,
+                        <?php foreach ($pie as $d) : echo ($d->id_kategori == 6) ? $d->jml : '';
+                        endforeach; ?>,
+                        <?php foreach ($pie as $d) : echo ($d->id_kategori == 7) ? $d->jml : '';
+                        endforeach; ?>
+                    ],
                     backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
                 }]
             }

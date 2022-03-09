@@ -74,6 +74,16 @@ class Pengaduan_model extends CI_Model
 		return $result;
 	}
 
+	public function get_pie_pengaduan($tahun = null, $bulan = null)
+	{
+		$this->db->select('month(waktu_lapor), id_kategori, COUNT(id_kategori) as jml, waktu_lapor')
+			->where('month(waktu_lapor)', $bulan)
+			->where('year(waktu_lapor)', $tahun)
+			->group_by('id_kategori');
+		$query = $this->db->get($this->table);
+		return $query->result();
+	}
+
 	public function get_chart_pengaduan($id_kategori = null, $tahun = null)
 	{
 		$this->db->select('concat(monthname(waktu_lapor)," ",year(waktu_lapor)) as date,
